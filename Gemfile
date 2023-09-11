@@ -77,3 +77,5 @@ group :test do
 end
 
 gem "cloudinary"
+gem "bootstrap"
+gem "devise"
