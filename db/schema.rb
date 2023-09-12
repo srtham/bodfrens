@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
-
 
   create_table "exercises", force: :cascade do |t|
     t.string "title"
@@ -96,13 +94,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-
   add_foreign_key "active_exercises", "exercises"
   add_foreign_key "active_exercises", "user_game_data", column: "user_game_data_id"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "user_game_data", "rooms"
   add_foreign_key "user_game_data", "users"
-
 end
