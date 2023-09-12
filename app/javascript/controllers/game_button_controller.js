@@ -2,13 +2,55 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="game-button"
 export default class extends Controller {
-  static targets = ["button"];
+  static targets = ["button", "button2", "button3", "button4", "button5", "bar"];
 
   connect() {
-    console.log("The game button is connected");
+    this.XPvalue = 0
+    console.log("The game button is now connected");
+
   }
 
   markComplete() {
+    this.XPvalue = this.XPvalue + 20;
     this.buttonTarget.innerHTML = "Exercise Completed";
+    this.buttonTarget.disabled = true;
+    console.log(this.XPvalue);
+    this.barTarget.style.width = `${this.XPvalue}%`;
   }
+
+  markCompleteTwo() {
+    this.XPvalue = this.XPvalue + 20
+    this.button2Target.innerHTML = "Exercise Completed";
+    this.button2Target.disabled = true;
+    console.log(this.XPvalue);
+    this.barTarget.style.width = `${this.XPvalue}%`;
+
+  }
+
+  markCompleteThree() {
+    this.XPvalue = this.XPvalue + 20
+    this.button3Target.innerHTML = "Exercise Completed";
+    this.button3Target.disabled = true;
+    console.log(this.XPvalue);
+    this.barTarget.style.width = `${this.XPvalue}%`;
+
+  }
+
+  markCompleteFour() {
+    this.XPvalue = this.XPvalue + 20
+    this.button4Target.innerHTML = "Exercise Completed";
+    this.button4Target.disabled = true;
+    console.log(this.XPvalue);
+    this.barTarget.style.width = `${this.XPvalue}%`;
+
+  }
+
+  markCompleteFive() {
+    this.XPvalue = this.XPvalue + 20
+    this.button5Target.innerHTML = "Exercise Completed";
+    this.button5Target.disabled = true;
+    console.log(this.XPvalue);
+    this.barTarget.style.width = `${this.XPvalue}%`;
+  }
+
 }

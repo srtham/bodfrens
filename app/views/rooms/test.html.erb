@@ -5,59 +5,65 @@
     seconds_until_end_value: 900, # KIV this, for some reason it's not being read in the controller
   }) %>
 
-  <%= button_to "Exercise Name, 20XP", "#",
-   data: {
-    controller: "game-button",
-    game_button_target: "button",
-    action: "click->game-button#markComplete"
-    },
-    style: "margin: 5px ",
-    class: "btn btn-primary"
-  %>
+  <div data-controller="game-button" class="container d-flex justify-content-center align-items-center flex-column">
+    <%= button_to "Exercise Name, 20XP", "#",
+    data: {
+      game_button_target: "button",
+      action: "click->game-button#markComplete"
+      },
+      style: "margin: 5px ",
+      class: "btn btn-primary"
+    %>
 
-  <%= button_to "Exercise Name, 20XP", "#",
-   data: {
-    controller: "game-button",
-    game_button_target: "button",
-    action: "click->game-button#markComplete"
-    },
-    style: "margin: 5px",
-    class: "btn btn-primary"
-  %>
+    <%= button_to "Exercise Name, 20XP", "#",
+    data: {
+      game_button_target: "button2",
+      action: "click->game-button#markCompleteTwo"
+      },
+      style: "margin: 5px",
+      class: "btn btn-primary"
+    %>
 
-  <%= button_to "Exercise Name, 20XP", "#",
-   data: {
-    controller: "game-button",
-    game_button_target: "button",
-    action: "click->game-button#markComplete"
-    },
-    style: "margin: 5px",
-    class: "btn btn-primary"
-  %>
+    <%= button_to "Exercise Name, 20XP", "#",
+    data: {
+      game_button_target: "button3",
+      action: "click->game-button#markCompleteThree"
+      },
+      style: "margin: 5px",
+      class: "btn btn-primary"
+    %>
 
-  <%= button_to "Exercise Name, 20XP", "#",
-   data: {
-    controller: "game-button",
-    game_button_target: "button",
-    action: "click->game-button#markComplete"
-    },
-    style: "margin: 5px",
-    class: "btn btn-primary"
-  %>
+    <%= button_to "Exercise Name, 20XP", "#",
+    data: {
+      game_button_target: "button4",
+      action: "click->game-button#markCompleteFour"
+      },
+      style: "margin: 5px",
+      class: "btn btn-primary"
+    %>
 
-  <%= button_to "Exercise Name, 20XP", "#",
-   data: {
-    controller: "game-button",
-    game_button_target: "button",
-    action: "click->game-button#markComplete"
-    },
-    style: "margin: 5px",
-    class: "btn btn-primary"
-  %>
+    <%= button_to "Exercise Name, 20XP", "#",
+    data: {
+      game_button_target: "button5",
+      action: "click->game-button#markCompleteFive"
+      },
+      style: "margin: 5px",
+      class: "btn btn-primary"
+    %>
+
+    <div class="progress-bar">
+      <div class="progressed-bar" data-game-button-target="bar"></div>
+    </div>
+
+  </div>
+
+
 
 
   <%= button_to "Give Up", "#",
     style: "margin: 5px",
     class: "btn btn-secondary" %>
+
+
 
 </div>

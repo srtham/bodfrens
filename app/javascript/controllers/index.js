@@ -12,3 +12,6 @@ application.register("game-button", GameButtonController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ProgressController from "./progress_controller"
+application.register("progress", ProgressController)
