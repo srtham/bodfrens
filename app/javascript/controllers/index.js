@@ -4,5 +4,11 @@
 
 import { application } from "./application"
 
+import CountdownController from "./countdown_controller"
+application.register("countdown", CountdownController)
+
+import GameButtonController from "./game_button_controller"
+application.register("game-button", GameButtonController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)

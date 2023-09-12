@@ -1,0 +1,63 @@
+<div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
+  <%= content_tag(:h1, "15 : 00", data: {
+    controller: "countdown",
+    countdown_target: "countdown",
+    seconds_until_end_value: 900, # KIV this, for some reason it's not being read in the controller
+  }) %>
+
+  <%= button_to "Exercise Name, 20XP", "#",
+   data: {
+    controller: "game-button",
+    game_button_target: "button",
+    action: "click->game-button#markComplete"
+    },
+    style: "margin: 5px ",
+    class: "btn btn-primary"
+  %>
+
+  <%= button_to "Exercise Name, 20XP", "#",
+   data: {
+    controller: "game-button",
+    game_button_target: "button",
+    action: "click->game-button#markComplete"
+    },
+    style: "margin: 5px",
+    class: "btn btn-primary"
+  %>
+
+  <%= button_to "Exercise Name, 20XP", "#",
+   data: {
+    controller: "game-button",
+    game_button_target: "button",
+    action: "click->game-button#markComplete"
+    },
+    style: "margin: 5px",
+    class: "btn btn-primary"
+  %>
+
+  <%= button_to "Exercise Name, 20XP", "#",
+   data: {
+    controller: "game-button",
+    game_button_target: "button",
+    action: "click->game-button#markComplete"
+    },
+    style: "margin: 5px",
+    class: "btn btn-primary"
+  %>
+
+  <%= button_to "Exercise Name, 20XP", "#",
+   data: {
+    controller: "game-button",
+    game_button_target: "button",
+    action: "click->game-button#markComplete"
+    },
+    style: "margin: 5px",
+    class: "btn btn-primary"
+  %>
+
+
+  <%= button_to "Give Up", "#",
+    style: "margin: 5px",
+    class: "btn btn-secondary" %>
+
+</div>
