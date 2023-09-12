@@ -10,26 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_120328) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+  create_table "active_exercises", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.boolean "complete"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.bigint "user_game_data_id"
+    t.index ["exercise_id"], name: "index_active_exercises_on_exercise_id"
+    t.index ["user_game_data_id"], name: "index_active_exercises_on_user_game_data_id"
   end
-end
-
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_120551) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -59,8 +52,51 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_120551) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "exercises", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "exercise_xp"
+    t.boolean "is_bonus"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.boolean "single_or_multi"
+    t.integer "winner_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_game_data", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.integer "time_taken"
+    t.boolean "finish"
+    t.boolean "bonus_finish"
+    t.bigint "user_id", null: false
+    t.integer "game_xp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_user_game_data_on_room_id"
+    t.index ["user_id"], name: "index_user_game_data_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "active_exercises", "exercises"
+  add_foreign_key "active_exercises", "user_game_data", column: "user_game_data_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  
- 
+  add_foreign_key "user_game_data", "rooms"
+  add_foreign_key "user_game_data", "users"
 end
