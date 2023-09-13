@@ -5,4 +5,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  resources :rooms, only: [:show], path: 'room' do
+    member do
+      get 'lobby', to: 'rooms#lobby', as: 'lobby'
+    end
+  end
 end
