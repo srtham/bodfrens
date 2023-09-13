@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get 'mode-select', to: 'pages#mode-select', as: 'mode_select_pages'
+  get 'mode-select', to: 'pages#mode_select', as: 'mode_select_pages'
   post 'mode-select', to: 'rooms#create', as: 'mode_select_rooms'
   post 'mode-select', to: 'user_game_data#create', as: 'mode_select_user_game_data'
   post 'mode-select', to: 'active_exercises#create', as: 'mode_select_active_exercises'
