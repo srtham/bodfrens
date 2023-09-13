@@ -10,11 +10,14 @@ export default class extends Controller {
 
   }
 
-  markComplete() {
+  markComplete(e) {
+    e.preventDefault()
+    console.log(e.currentTarget.value) // so make this currentTarget, then you don't have to button 2 3 4 5 2038i4
+    e.currentTarget.value = e.currentTarget.value * -1
+    console.log(e.currentTarget.value)
     this.XPvalue = this.XPvalue + 20;
     this.buttonTarget.innerHTML = "Exercise Completed";
     this.buttonTarget.disabled = true;
-    console.log(this.XPvalue);
     this.barTarget.style.width = `${this.XPvalue}%`;
   }
 

@@ -9,8 +9,9 @@
     <%= button_to "Exercise Name, 20XP", "#",
     data: {
       game_button_target: "button",
-      action: "click->game-button#markComplete"
+      action: "click->game-button#markComplete",
       },
+      value: 25,
       style: "margin: 5px ",
       class: "btn btn-primary"
     %>
@@ -18,7 +19,7 @@
     <%= button_to "Exercise Name, 20XP", "#",
     data: {
       game_button_target: "button2",
-      action: "click->game-button#markCompleteTwo"
+      action: "click->game-button#markComplete"
       },
       style: "margin: 5px",
       class: "btn btn-primary"
