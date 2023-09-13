@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'badges/index'
   get 'rooms/create'
   get 'rooms/show'
   get 'user_game_data/create'
