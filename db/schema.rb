@@ -11,6 +11,12 @@
 # It's strongly recommended that you check this file into your version control system.
 
 
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_134304) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+end
+=======
+
 ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
     t.index ["exercise_id"], name: "index_active_exercises_on_exercise_id"
     t.index ["user_game_data_id"], name: "index_active_exercises_on_user_game_data_id"
   end
+
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -54,6 +61,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
   end
 
 
+  create_table "badges", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+  end
+=======
+
   create_table "exercises", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -70,6 +83,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
     t.datetime "updated_at", null: false
   end
 
+
+  create_table "earned_badges", force: :cascade do |t|
+    t.bigint "badge_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_earned_badges_on_badge_id"
+    t.index ["user_id"], name: "index_earned_badges_on_user_id"
+  end
+=======
   create_table "user_game_data", force: :cascade do |t|
     t.bigint "room_id", null: false
     t.integer "time_taken"
@@ -96,6 +119,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "earned_badges", "badges"
+  add_foreign_key "earned_badges", "users"
+=======
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
