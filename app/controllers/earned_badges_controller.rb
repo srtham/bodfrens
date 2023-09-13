@@ -1,0 +1,2 @@
+class EarnedBadgesController < ApplicationController
+end
