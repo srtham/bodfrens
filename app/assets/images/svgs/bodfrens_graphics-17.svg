@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171.17 172.77">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #3b9686;
+        font-family: Montserrat-Bold, Montserrat;
+        font-size: 135.65px;
+        font-weight: 700;
+      }
+
+      .cls-2 {
+        fill: #f4f4f4;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-2" cx="87" cy="86" r="84"/>
+  <text class="cls-1" transform="translate(54 133.09)"><tspan x="0" y="0">?</tspan></text>
+</svg>

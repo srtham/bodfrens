@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 278.5 279.5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        fill: #f4f4f4;
+        font-family: CoolveticaRg-Regular, Coolvetica;
+        font-size: 147.13px;
+      }
+
+      .cls-2 {
+        fill: #9ac1b9;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x=".37" y="1.25" width="278" height="278" rx="25.76" ry="25.76"/>
+  <circle class="cls-2" cx="138.92" cy="144.3" r="93.5"/>
+  <text class="cls-3" transform="translate(103.17 189.36)"><tspan x="0" y="0">?</tspan></text>
+</svg>

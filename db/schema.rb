@@ -10,9 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2023_09_11_120551) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+=======
+=======
+
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_134304) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+end
+=======
+
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_143658) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_exercises", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.boolean "complete"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_game_data_id"
+    t.index ["exercise_id"], name: "index_active_exercises_on_exercise_id"
+    t.index ["user_game_data_id"], name: "index_active_exercises_on_user_game_data_id"
+  end
+
+>>>>>>> 5065bace294cc46bd2e5a5c158f083bb9b03bb10
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -42,6 +67,56 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_120551) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+<<<<<<< HEAD
+=======
+=======
+
+  create_table "badges", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+  end
+=======
+
+  create_table "exercises", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "exercise_xp"
+    t.boolean "is_bonus"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.boolean "single_or_multi"
+    t.integer "winner_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+
+  create_table "earned_badges", force: :cascade do |t|
+    t.bigint "badge_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_earned_badges_on_badge_id"
+    t.index ["user_id"], name: "index_earned_badges_on_user_id"
+  end
+=======
+  create_table "user_game_data", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.integer "time_taken"
+    t.boolean "finish"
+    t.boolean "bonus_finish"
+    t.bigint "user_id", null: false
+    t.integer "game_xp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_user_game_data_on_room_id"
+    t.index ["user_id"], name: "index_user_game_data_on_user_id"
+  end
+
+>>>>>>> 5065bace294cc46bd2e5a5c158f083bb9b03bb10
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -50,10 +125,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_120551) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
+=======
+    t.string "username"
+>>>>>>> 5065bace294cc46bd2e5a5c158f083bb9b03bb10
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+<<<<<<< HEAD
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+=======
+=======
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "earned_badges", "badges"
+  add_foreign_key "earned_badges", "users"
+=======
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_exercises", "exercises"
+  add_foreign_key "active_exercises", "user_game_data", column: "user_game_data_id"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "user_game_data", "rooms"
+  add_foreign_key "user_game_data", "users"
+>>>>>>> 5065bace294cc46bd2e5a5c158f083bb9b03bb10
 end
