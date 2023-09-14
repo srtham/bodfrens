@@ -4,5 +4,4 @@ class PagesController < ApplicationController
 
   def mode_select
   end
-
 end
