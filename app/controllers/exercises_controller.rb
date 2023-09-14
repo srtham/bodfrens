@@ -1,5 +1,6 @@
 class ExercisesController < ApplicationController
   def index
+    @exercises = Exercise.all
   end
 
   def image_url

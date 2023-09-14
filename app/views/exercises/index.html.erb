@@ -1,2 +1,18 @@
 <h1>Exercises#index</h1>
 <p>Find me in app/views/exercises/index.html.erb</p>
+
+<h1>Exercise List</h1>
+
+<ul>
+  <% @exercises.each do |exercise| %>
+    <li>
+      <strong>Title:</strong> <%= exercise.title %><br>
+      <strong>Description:</strong> <%= exercise.description %><br>
+      <strong>Experience Points:</strong> <%= exercise.exercise_xp %><br>
+      <strong>Is Bonus?</strong> <%= exercise.is_bonus ? 'Yes' : 'No' %><br>
+      <strong>Image:</strong> <%= image_tag(asset_path(exercise.image_url)) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back', :back %>
