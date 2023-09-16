@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%= render "shared/navbar" %>
-<%= render "shared/flashes" %>
 <html>
   <head>
     <title>Bodfrens</title>
@@ -13,6 +11,8 @@
   </head>
 
   <body>
+  <%= render "shared/flashes" %>
+  <h5 class="disclaimer">Bodfrens is only available on mobile, find us there! </h5>
     <%= yield %>
   </body>
 </html>

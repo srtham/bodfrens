@@ -1,5 +1,16 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
 
-<h5> test link to exercises index page </h5>
-<%= link_to "Exercises", exercises_path %>
+<div class="bg-container-linear-gradient">
+  <div class="bg-container-repeating-element">
+    <h1>Pages#home</h1>
+    <p>Find me in app/views/pages/home.html.erb</p>
+
+    <%= link_to "View exercises", exercises_path %>
+    <%= link_to "View badges", badges_path %>
+    <%= link_to "Start", mode_select_pages_path %>
+    <%= link_to "Stats", user_path(current_user) if current_user %>
+    <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete} %>
+  </div>
+</div>
+

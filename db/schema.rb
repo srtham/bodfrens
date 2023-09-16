@@ -90,6 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_132437) do
     t.integer "winner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "target"
   end
 
   create_table "user_game_data", force: :cascade do |t|
