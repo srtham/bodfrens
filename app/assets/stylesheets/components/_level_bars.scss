@@ -1,0 +1,15 @@
+.progress-bar {
+  background-color: grey;
+  border-radius: 20px;
+  height: 15px;
+  width: 300px;
+}
+
+.progressed-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 0%;
+  background-image: repeating-linear-gradient(to left, #0546e0, #1172f9, #4892f9);
+}
