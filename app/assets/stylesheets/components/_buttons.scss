@@ -1,0 +1,123 @@
+//Buttons across all pages//
+
+.main-orange-btn { // rounded orange button with gradient
+  display: flex;
+  width: 30%;
+  padding: 7px 22px 7px 13px;
+  justify-content: center;
+  border-radius: 13px;
+  background: linear-gradient(270deg, #EA7F09 -7.5%, #F9BF14 69.64%);
+  box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.13);
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  line-height: normal;
+}
+
+.primary-btn { // darker green button
+  display: flex;
+  width: 40%;
+  padding: 11px 0px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 20px;
+  background: #237C6E;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+}
+
+.secondary-btn { // lighter green button
+  display: flex;
+  width: 30%;
+  padding: 12px 13px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 20px;
+  background: #3B9686;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+}
+
+.select-mode-btn { // select mode buttons
+  display: flex;
+  padding: 22px 22.5px;
+  border-radius: 30px;
+  justify-content: center;
+  align-items: center;
+  background: #F3F3F3;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 80%;
+  height: 10%;
+  color: #3A6E64;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.give-up-btn { // light grey button for user to give up
+  display: flex;
+  width: 30%;
+  height: 35px;
+  padding: 10px 6px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  background: #89908D;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+}
+
+.button { // game room exercise button
+  display: inline-flex;
+  align-items: center;
+  width: 80%;
+  height: 5%;
+  padding: 26px 15px 26px 19px;
+  align-items: center;
+  gap: 22px;
+  flex-shrink: 0;
+  border-radius: 25px;
+  background: #F5F5F5;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button .text { // game room exercise button text
+  color: #3C3C3C;
+  text-align: right;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.button .xp { // game room exercise button xp
+  color: #3A9586;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.icon { // magnifying glass icon
+  width: 41px;
+  height: 43px;
+  flex-shrink: 0;
+  margin-right: 5px;
+}

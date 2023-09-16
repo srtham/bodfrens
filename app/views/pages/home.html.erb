@@ -8,7 +8,7 @@
 
     <%= link_to "View exercises", exercises_path %>
     <%= link_to "View badges", badges_path %>
-    <%= link_to "Start", mode_select_pages_path %>
+    <%= link_to "Start", mode_select_pages_path, class: "main-orange-btn" %>
     <%= link_to "Stats", user_path(current_user) if current_user %>
     <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete} %>
   </div>
@@ -46,4 +46,3 @@
 
 
 </div>
-
