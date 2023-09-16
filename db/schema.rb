@@ -19,9 +19,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_16_053551) do
     t.boolean "complete"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_game_data_id"
+    t.bigint "user_game_datum_id"
     t.index ["exercise_id"], name: "index_active_exercises_on_exercise_id"
-    t.index ["user_game_data_id"], name: "index_active_exercises_on_user_game_data_id"
+    t.index ["user_game_datum_id"], name: "index_active_exercises_on_user_game_datum_id"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -119,7 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_16_053551) do
   end
 
   add_foreign_key "active_exercises", "exercises"
-  add_foreign_key "active_exercises", "user_game_data", column: "user_game_data_id"
+  add_foreign_key "active_exercises", "user_game_data"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "earned_badges", "badges"
