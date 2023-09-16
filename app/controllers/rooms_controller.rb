@@ -7,7 +7,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     @user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
-    @active_exercise = ActiveExercise.find_by(user_game_datum: @user_game_data)
+    @exercises = @user_game_data.exercises
   end
 
   # POST
