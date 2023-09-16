@@ -14,3 +14,36 @@
   </div>
 </div>
 
+<div class="page-container">
+
+  <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
+
+
+    <%= image_tag "pngs/logo.png", width: "90%" %>
+        <p>This is the homepage in home.html.erb</p>
+        <%= button_to "Start", "#" %>
+        <%= link_to "View exercises", exercises_path %>
+        <%= link_to "View badges", badges_path %>
+        <%= link_to "Start", mode_select_pages_path %>
+        <%= link_to "Stats", user_path(current_user) if current_user %>
+        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete} if current_user %>
+
+
+  <!-- The divs above are just for the scrolling animation and bg
+  find them under the _backgrounds.scss in components -->
+
+  <div class="bg-container">
+    <div class="bg-color">
+      <div class="bg-infinite">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- --->
+
+
+
+</div>
+
