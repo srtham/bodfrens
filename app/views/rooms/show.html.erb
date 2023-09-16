@@ -1,25 +1,60 @@
-<div class="page-container">
-<h1>Rooms#show</h1>
-<p>Find me in app/views/rooms/show.html.erb</p>
-
+<div class="page-container" data-controller="game" data-game-end-value="<%=@end_game_xp%>">
   <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
 
-
-    <%= image_tag "pngs/logo.png", width: "90%" %>
-        <h3><strong> GAME INFORMATION </strong></h3>
         <p>Room ID: <%= @room.id %></p>
 
-      <ul>
-          <% @exercises.each do |exercise| %>
-            <div><li>
-              <strong>Title:</strong> <%= exercise.title %><br>
-              <strong>Description:</strong> <%= exercise.description %><br>
-              <strong>XP:</strong> <%= exercise.exercise_xp %><br>
-              <strong>Is Bonus:</strong> <%= exercise.is_bonus %>
-            </li></div>
-          <% end %>
-      </ul>
+
+    <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
+
+
+  <%= content_tag(:h1, "15 : 00", data: {
+    game_target: "timer",
+    # seconds_until_end_value: 900, # KIV this, for some reason it's not being read in the controller
+  }) %>
+
+    <% @active_exercises.each do |exercise| %>
+
+      <div class="container d-flex justify-content-center align-items-center flex-column">
+        <%= button_to "#{exercise.title}, #{exercise.exercise_xp}", "#",
+        data: {
+          game_target: "button",
+          action: "click->game#markComplete",
+          },
+          value: "#{exercise.exercise_xp}",
+          style: "margin: 5px; width:200px; background-color: blue;",
+          class: "btn btn-primary"
+        %>
+    <% end %>
+
+    <div class="progress-bar" style="width:70%">
+      <div class="game-progressed-bar" data-game-target="bar"></div>
+    </div>
+
+    <p data-game-target="xp" ></p>
+
+  </div>
+
+
+<!--
+
+
+--->
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <!-- The divs above are just for the scrolling animation and bg
@@ -32,5 +67,5 @@
     </div>
 
   </div>
-  <%= link_to "Back to Home", root_path %>
-</div>
+
+  <!-----####------>
