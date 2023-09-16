@@ -1,0 +1,33 @@
+.profile-picture-link {
+  display: inline-block; // or "block" based on your layout
+  text-align: center; // Centers the text within the link
+}
+
+.btn-ghost {
+  margin-top: 5px;
+  color: #4A4A4A;
+  border: 1px solid #4A4A4A;
+  padding: 4px 8px; // Reduced padding for a smaller button
+  border-radius: 25px; // Adjusted to maintain a rounded appearance
+  font-weight: bolder;
+  font-size: 12px; // Smaller font size
+  line-height: 25px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  display: inline-block; // To wrap around the text
+  text-align: center; // Centers the text within the button
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+
+.profile-picture {
+  position: relative;
+}
+
+
+.hidden-file-upload {
+  display: none;
+}

@@ -1,5 +1,19 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
+<label for="profile-picture-upload" class="profile-picture-link">
+  <div class="profile-picture">
+    <% if current_user.profile_photo.attached? %>
+      <%= cl_image_tag(current_user.profile_photo.key, :width=>150, :height=>150, id: "edit-profile-pic", class: "profile-pic", style: "border-radius: 50%;") %>
+    <% else %>
+      <%= image_tag "svgs/bodfrens_graphics-01.svg", { width: "150", height: "150", class: "profile-pic", id: "edit-profile-pic", style: "border-radius: 50%;" } %>
+    <% end %>
+  </div>
+    <div class="btn-ghost">
+      <h5 style="margin: 0;">Edit</h5>
+    </div>
+    <input type="file" id="profile-picture-upload" class="hidden-file-upload" />
+</label>
+
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
 
