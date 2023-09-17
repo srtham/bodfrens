@@ -1,7 +1,15 @@
-<div class="page-container">
 
-  <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+<div class="container main">
+  <article class="select">Select Mode</article>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#singleModal">
+    Single Player
+  </button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#multiModal">
+    MultiPlayer
+  </button>
+  <button type="button" class="btn btn-primary" id="cancel-btn">Cancel</button>
 
+<<<<<<< HEAD
 
 
     <%= image_tag "pngs/logo.png", width: "90%" %>
@@ -23,4 +31,69 @@
   </div>
   <!---- ########   -->
 
+=======
+<!--------Single Modal-------->
+  <div class="modal fade" id="singleModal" tabindex="-1" aria-labelledby="singleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+          Start a single player match?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-primary">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+>>>>>>> master
 </div>
+<!--------------------------->
+
+<!--------Multi Modal-------->
+  <div class="modal fade" id="multiModal" tabindex="-1" aria-labelledby="multiModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+          Start a multiplayer match?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-primary">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--------------------------->
+</div>
+
+
+
+
+
+
+
+
+
+<h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
+
+
+
+<!-- The divs above are just for the scrolling animation and bg
+find them under the _backgrounds.scss in components -->
+
+<div class="bg-container">
+  <div class="bg-color">
+    <div class="bg-infinite">
+    </div>
+  </div>
+
+</div>
+
+<!-- ##---->
+
