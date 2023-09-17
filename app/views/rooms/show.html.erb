@@ -7,10 +7,6 @@
 >
   <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
-
-        <p>Room ID: <%= @room.id %></p>
-
-
     <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
 
 
@@ -28,10 +24,12 @@
           action: "click->game#markComplete",
           },
           value: "#{exercise.exercise_xp}",
-          style: "margin: 5px; width:200px; background-color: blue;",
+          style: "margin: 5px; width:200px  ; background-color: blue;",
           class: "btn btn-primary"
         %>
     <% end %>
+
+    <div class="bonus-test" data-game-target="bonus"></div>
 
     <div class="progress-bar" style="width:70%">
       <div class="game-progressed-bar" data-game-target="bar"></div>
@@ -48,30 +46,3 @@
 --->
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- The divs above are just for the scrolling animation and bg
-  find them under the _backgrounds.scss in components -->
-
-  <div class="bg-container">
-    <div class="bg-color">
-      <div class="bg-infinite">
-      </div>
-    </div>
-
-  </div>
-
-  <!-----####------>

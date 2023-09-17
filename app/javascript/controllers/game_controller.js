@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="game"
 export default class extends Controller {
-  static targets = ["button", "bar", "timer", "xp"];
+  static targets = ["button", "bar", "timer", "xp", "bonus"];
 
   static values = {
     secondsUntilEnd: Number,
@@ -53,11 +53,12 @@ export default class extends Controller {
     console.log(`the XP value is = ${this.XPvalue}`)
 
 
-
+    // End Game
     if (this.XPvalue == this.endValue) {
-      this.updateUserGameDatum()
-      console.log("GAME FINISH")
-    }
+      this.updateUserGameDatum();
+      console.log("GAME FINISH");
+      this.insertButtons();
+    };
 
 
   }
@@ -66,6 +67,7 @@ export default class extends Controller {
   countdown() {
 
     if (this.secondsUntilEnd <= 0) {
+      console.log("Time's up!!!")
       clearInterval(this.countdown); // guard clause - this should call the modal
       this.timerTarget.innerHTML = "Time's Up!";
       return
@@ -93,6 +95,11 @@ export default class extends Controller {
       },
       body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
     });
+  }
+
+  insertButtons() {
+    const html = "<button>Start Bonus</button> <button>End Game</button>";
+    this.bonusTarget.insertAdjacentHTML("afterend", html);
   }
 
 }
