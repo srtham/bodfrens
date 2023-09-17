@@ -1,2 +1,24 @@
-<h1>Pages#mode_select</h1>
-<%= link_to "Single Player", '#', class: "select-mode-btn" %>
+<div class="page-container">
+
+  <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
+
+
+    <%= image_tag "pngs/logo.png", width: "90%" %>
+        <h3><strong> SELECT MODE </strong></h3>
+        <%= button_to "SINGLE PLAYER", single_player_path %>
+        <%= button_to "MULTI PLAYER", "#" %>
+
+
+  <!-- The divs above are just for the scrolling animation and bg
+  find them under the _backgrounds.scss in components -->
+
+  <div class="bg-container">
+    <div class="bg-color">
+      <div class="bg-infinite">
+      </div>
+    </div>
+
+  </div>
+  <%= link_to "Back to Home", root_path %>
+</div>

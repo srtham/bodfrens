@@ -1,2 +1,36 @@
+<div class="page-container">
 <h1>Rooms#show</h1>
 <p>Find me in app/views/rooms/show.html.erb</p>
+
+  <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
+
+
+    <%= image_tag "pngs/logo.png", width: "90%" %>
+        <h3><strong> GAME INFORMATION </strong></h3>
+        <p>Room ID: <%= @room.id %></p>
+
+      <ul>
+          <% @exercises.each do |exercise| %>
+            <div><li>
+              <strong>Title:</strong> <%= exercise.title %><br>
+              <strong>Description:</strong> <%= exercise.description %><br>
+              <strong>XP:</strong> <%= exercise.exercise_xp %><br>
+              <strong>Is Bonus:</strong> <%= exercise.is_bonus %>
+            </li></div>
+          <% end %>
+      </ul>
+
+
+  <!-- The divs above are just for the scrolling animation and bg
+  find them under the _backgrounds.scss in components -->
+
+  <div class="bg-container">
+    <div class="bg-color">
+      <div class="bg-infinite">
+      </div>
+    </div>
+
+  </div>
+  <%= link_to "Back to Home", root_path %>
+</div>

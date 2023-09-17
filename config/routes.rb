@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   post 'mode-select', to: 'rooms#create', as: 'mode_select_rooms'
   post 'mode-select', to: 'user_game_data#create', as: 'mode_select_user_game_data'
   post 'mode-select', to: 'active_exercises#create', as: 'mode_select_active_exercises'
+
+  post "single_player", to: "rooms#single_player", as: "single_player"
+
   get 'users/:id', to: 'users#show', as: 'user'
   resources :badges, only: [:index]
   resources :exercises, only: [:index]

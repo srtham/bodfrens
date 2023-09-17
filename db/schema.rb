@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_13_132437) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_16_053551) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,9 +19,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_132437) do
     t.boolean "complete"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_game_data_id"
+    t.bigint "user_game_datum_id"
     t.index ["exercise_id"], name: "index_active_exercises_on_exercise_id"
-    t.index ["user_game_data_id"], name: "index_active_exercises_on_user_game_data_id"
+    t.index ["user_game_datum_id"], name: "index_active_exercises_on_user_game_datum_id"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -79,11 +79,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_132437) do
     t.string "image_url"
   end
 
+  create_table "images", force: :cascade do |t|
+    t.string "photo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rooms", force: :cascade do |t|
-    t.boolean "single_or_multi"
     t.integer "winner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "mode"
   end
 
   create_table "user_game_data", force: :cascade do |t|
@@ -113,7 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_132437) do
   end
 
   add_foreign_key "active_exercises", "exercises"
-  add_foreign_key "active_exercises", "user_game_data", column: "user_game_data_id"
+  add_foreign_key "active_exercises", "user_game_data"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "earned_badges", "badges"

@@ -1,10 +1,116 @@
 // Specific CSS for your home-page
 
 
-.page-container {
+.homepage-container {
   position:relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  // justify-content: center;
+  gap: 10px;
+  height: 100vh;
+}
+
+.homepage-top-bar {
+  width: 100%;
+  height: 200px;
+  padding: 0px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.homepage-top-bar-left {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+}
+
+.user-bar-details {
+  display: flex;
+  flex-direction: column;
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: $dark-green;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+    font-size: 14px;
+    color: $gray;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+  }
+
+}
+
+.homepage-bottom {
+  border-radius: 30px 30px 0px 0px;
+  background: #F3F3F3;
+  box-shadow: 0px -5px 14px 0px rgba(0, 0, 0, 0.13);
+  padding: 40px 30px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  gap: 20px;
   justify-content: center;
+  p {
+    font-size: 11px;
+    color: gray;
+  }
+
+  h1 {
+    color: $gray;
+    font-weight: 500;
+    font-size: 40px;
+  }
+
+  h5 {
+    color: $gray;
+    font-weight: 600;
+  }
+}
+
+.homepage-bottom-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  padding: 30px 25px;
+  height: 103%;
+  border-radius: 20px;
+  background: #BFDCCC;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.13);
+
+
+
+}
+
+.homepage-bottom-left{
+  height: 100%;
+}
+
+.homepage-bottom-top-left {
+  text-decoration: none;
+  padding: 30px 25px;
+  height: 50%;
+  background-color:#BFDCCC;
+  border-radius: 20px;
+  width: 100%;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.13);
+
+}
+
+.homepage-bottom-bottom-left {
+  text-decoration: none;
+  height: 50%;
+  padding: 30px 25px;
+  background-color:#E0E0E0;
+  border-radius: 20px;
+  margin-top: 10px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.13);
 }

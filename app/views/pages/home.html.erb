@@ -1,48 +1,77 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
 
-<div class="bg-container-linear-gradient">
-  <div class="bg-container-repeating-element">
-    <h1>Pages#home</h1>
-    <p>Find me in app/views/pages/home.html.erb</p>
-
-    <%= link_to "View exercises", exercises_path %>
-    <%= link_to "View badges", badges_path %>
-    <%= link_to "Start", mode_select_pages_path, class: "main-orange-btn" %>
-    <%= link_to "Stats", user_path(current_user) if current_user %>
-    <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete} %>
-  </div>
-</div>
-
-<div class="page-container">
+<div class="homepage-container">
 
   <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
+  <section class="homepage-top-bar">
+
+    <div class="homepage-top-bar-left">
+      <%= image_tag("svgs/bodfrens_graphics-01.svg", width: "55px") %>
+      <div class="user-bar-details">
+        <h4>Username, lvl 23</h4>
+        <%= link_to "Settings", edit_user_registration_path  %>
+      </div>
+    </div>
+
+    <%= image_tag("pngs/bodfrens_graphics-17.png" , width: "25px" )%>
+  </section>
+
+  <div class="spacer" style="width: 1px; height: 250px"></div>
+
+  <%= image_tag "pngs/logo.png", width: "85%" %>
+  <%= link_to "Start", mode_select_pages_path, class: "btn btn-primary" %>
+
+  <div class="spacer" style="width: 1px; height: 110px"></div>
+
+  <div class="homepage-bottom">
+
+    <div class="homepage-bottom-left">
+
+      <%= link_to exercises_path, style: "text-decoration:none;"  do %>
+        <div class= "homepage-bottom-top-left">
+          <h5> Exercises</h5>
+          <p> View all </h5>
+        </div>
+      <% end %>
+
+      <%= link_to badges_path, style: "text-decoration:none;" do %>
+        <div class= "homepage-bottom-bottom-left">
+          <h5> Badges</h5>
+          <p> View </h5>
+        </div>
+      <% end %>
+
+    </div>
+
+    <% if current_user %>
+      <%= link_to user_path(current_user), class: "homepage-bottom-right" do %>
+        <div>
+          <h5> Stats</h5>
+          <p> View </h5>
+        </div>
+
+        <div>
+          <h1> 9 </h2>
+          <p> total games played </p>
+        </div>
+      <% end %>
+    <% end %>
 
 
-    <%= image_tag "pngs/logo.png", width: "90%" %>
-        <p>This is the homepage in home.html.erb</p>
-        <%= button_to "Start", "#" %>
-        <%= link_to "View exercises", exercises_path %>
-        <%= link_to "View badges", badges_path %>
-        <%= link_to "Start", mode_select_pages_path %>
-        <%= link_to "Stats", user_path(current_user) if current_user %>
-        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete} if current_user %>
+  </div>
+
 
 
   <!-- The divs above are just for the scrolling animation and bg
   find them under the _backgrounds.scss in components -->
 
-  <div class="bg-container">
-    <div class="bg-color">
-      <div class="bg-infinite">
+    <div class="bg-container">
+      <div class="bg-color">
+        <div class="bg-infinite"></div>
       </div>
     </div>
 
-  </div>
-
   <!-- --->
-
 
 
 </div>
