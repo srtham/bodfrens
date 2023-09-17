@@ -29,7 +29,9 @@
         %>
     <% end %>
 
-    <div class="bonus-test" data-game-target="bonus"></div>
+    <div class="bonus-test" data-game-target="bonus">
+      <button data-action="click->game#startBonus" data-value="start-bonus">Start Bonus</button>
+    </div>
 
     <div class="progress-bar" style="width:70%">
       <div class="game-progressed-bar" data-game-target="bar"></div>
