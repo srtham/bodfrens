@@ -1,1 +1,66 @@
-<h1> DHJFKLASFNKL</h1>
+<div class="stats-page">
+
+  <h1> Stats</h1>
+
+  <section class="content-card"> <!-- find this in the cards component -->
+
+    <div class="card-text">
+      <h4>Your Level</h4>
+      <h4>32</h4>
+    </div>
+
+    <div class="card-text" data-value= "-25" method: :post>
+      <h4>XP left to next level</h4>
+      <h4>340</h4>
+    </div>
+
+    <div class="stats-spacer" style="height: 5px; width: 2px;" ></div>
+
+    <div class="progress-bar">
+      <div class="stats-progressed-bar" data-game-button-target="bar"></div>
+    </div>
+
+    <br>
+
+    <div class="progress-bar">
+      <div class="game-progressed-bar" data-game-button-target="bar"></div>
+    </div>
+
+    <br>
+
+    <div class="progress-bar">
+      <div class="bonus-game-progressed-bar" data-game-button-target="bar"></div>
+    </div>
+  </section>
+
+
+  <%= link_to "Back to Home", root_path %>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- The divs above are just for the scrolling animation and bg
+  find them under the _backgrounds.scss in components -->
+
+  <div class="bg-container">
+    <div class="bg-color">
+      <div class="bg-infinite">
+      </div>
+    </div>
+  </div>
+  <!---- ########   -->

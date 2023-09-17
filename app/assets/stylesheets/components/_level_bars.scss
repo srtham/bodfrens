@@ -1,15 +1,36 @@
 .progress-bar {
   background-color: grey;
   border-radius: 20px;
-  height: 15px;
-  width: 300px;
+  height: 7px;
+  width: 100%;
 }
 
-.progressed-bar {
+.stats-progressed-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 20%;
+  background-image: repeating-linear-gradient(to left, #FFF, #c9c9c9, #c9c9c9);
+  transition: 1s ease 0.3s;
+}
+
+.game-progressed-bar {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 0%;
-  background-image: repeating-linear-gradient(to left, #0546e0, #1172f9, #4892f9);
+  background: linear-gradient(349deg, #F3A310 0.96%, #F7B513 74.05%);
+  transition: 1s ease 0.3s;
+}
+
+.bonus-game-progressed-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 20%;
+  background: linear-gradient(270deg, #459c8e 30%, #23BDA3 70%);
+  transition: 1s ease 0.3s;
 }

@@ -7,7 +7,13 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     @user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
-    @exercises = @user_game_data.exercises
+    @active_exercises = @user_game_data.exercises
+    @end_game_xp = 0
+    @active_exercises.each do |exercise|
+      @end_game_xp += exercise.exercise_xp
+    end
+
+    @user = @user_game_data.user_id
   end
 
   # POST
@@ -15,10 +21,10 @@ class RoomsController < ApplicationController
     # 1. create room
     room = Room.create(mode: "single")
     # 2. create user game data
-    game_data = UserGameDatum.create(user: current_user, room:)
+    game_data = UserGameDatum.create(user: current_user, room: )
     # 3. create active exercise
     Exercise.default.sample(5).each do |exercise|
-      ActiveExercise.create(exercise:, user_game_datum: game_data)
+      exercise = ActiveExercise.create(exercise:, user_game_datum: game_data)
     end
 
     redirect_to room_path(room)
