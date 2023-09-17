@@ -12,6 +12,8 @@ class RoomsController < ApplicationController
     @active_exercises.each do |exercise|
       @end_game_xp += exercise.exercise_xp
     end
+
+    @user = @user_game_data.user_id
   end
 
   # POST
