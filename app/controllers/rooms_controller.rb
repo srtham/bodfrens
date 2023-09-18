@@ -5,6 +5,10 @@ class RoomsController < ApplicationController
   end
 
   def update
+    bonus = params[:bonus]
+    room = Room.find(params[:id])
+    room.bonus = bonus
+    room.save
   end
 
   def show

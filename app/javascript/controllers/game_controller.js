@@ -9,7 +9,8 @@ export default class extends Controller {
     end: Number,
     room: Number,
     user: Number,
-    dataId: Number
+    dataId: Number,
+    secondsLeft: Number
   }
 
   connect() {
@@ -26,7 +27,7 @@ export default class extends Controller {
     // timer settings:
     ///// this.secondsUntilEnd = this.data.get("seconds-until-end-value");
 
-    this.secondsUntilEnd = 900
+    this.secondsUntilEnd = this.secondsLeftValue
     console.log(this.secondsUntilEnd); // to check the data value after each interval
 
     this.countdown = setInterval(this.countdown.bind(this), 1000) // sets the interval for countdown to reload every 1 second

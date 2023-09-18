@@ -1,3 +1,16 @@
+<!-- ruby code to determine game length -->
+<% seconds_till_end = 0 %>
+<% if @room.bonus %>
+  <% seconds_till_end = 600 %>
+<% else %>
+  <% seconds_till_end = 900 %>
+<% end %>
+<!-- -->
+
+
+
+
+
 
 <div class="game-controller-div"
 
@@ -5,7 +18,8 @@
   data-game-room-value="<%=@room.id%>"
   data-game-user-value="<%=@user%>"
   data-game-end-value="<%=@end_game_xp%>"
-  data-game-data-id-value=<%=@user_game_data.id%>>
+  data-game-data-id-value=<%=@user_game_data.id%>
+  data-game-seconds-left-value="<%= seconds_till_end %>">
 
 
 
@@ -18,7 +32,7 @@
 
     <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
       <section class="timer">
-        <%= content_tag(:h1, "15 : 00", data: {
+        <%= content_tag(:h1, "Go!", data: {
           game_target: "timer",
           # seconds_until_end_value: 900
           # KIV this, for some reason it's not being read in the controller
