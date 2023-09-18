@@ -1,21 +1,55 @@
-<h1>Exercises#index</h1>
-<p>Find me in app/views/exercises/index.html.erb</p>
+  <%= link_to "Back to Home", root_path %>
+<div class="page-container">
+  <h3 class="text-white"> Exercise List </h3>
+
+  <div id="exerciseCarousel" class="carousel slide" data-interval="false">
+    <div class="carousel-inner">
+
+      <% @exercises.each_slice(5).each_with_index do |exercise_slice, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <div class="row">
+
+            <% exercise_slice.each do |exercise| %>
+              <div class="main-div">
 
 
-<h1>Exercise List</h1>
-<%= link_to "Back to Home", root_path %>
-
-<ul>
-  <% @exercises.each do |exercise| %>
-    <li>
-      <strong>Title:</strong> <%= exercise.title %><br>
-      <strong>Description:</strong> <%= exercise.description %><br>
-      <strong>Experience Points:</strong> <%= exercise.exercise_xp %><br>
-      <strong>Is Bonus?</strong> <%= exercise.is_bonus ? 'Yes' : 'No' %><br>
-      <strong>Image:</strong> <%= image_tag(asset_path(exercise.image_url)) %>
-    </li>
-  <% end %>
-</ul>
+                    <div class="exercises-small-gif">
+                      <%= image_tag(asset_path(exercise.image_url), class: 'exercises-small-gif') %>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="exercises-title text-white"><%= exercise.title %></h5>
+                        <p class="card-text text-white">
+                          <%= exercise.description %><br>
+                        </p>
+                      </div>
+                    </div>
 
 
-<%= link_to "Back to Home", root_path %>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#exerciseCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#exerciseCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class ="back-home">
+    <%= link_to "Back to Home", root_path %>
+  </div>
+</div>
+  <div class="bg-container">
+    <div class="bg-color">
+      <div class="bg-infinite">
+      </div>
+    </div>
+  </div>
