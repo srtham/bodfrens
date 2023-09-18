@@ -1,25 +1,54 @@
-<h2>Sign up</h2>
+<div class="signup-container">
+  <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+  <section class="signup-top-bar">
+    <%= image_tag("pngs/bodfrens_graphics-17.png" , width: "25px" )%>
+  </section>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+  <div class="signup-content">
+    <%= image_tag "pngs/logo.png", width: "245px", height: "50px", id: "signup-logo" %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs signup">
+        <%= f.input :username,
+                    required: true,
+                    label: "Username",
+                    label_html: { class: "signup-label" },
+                    input_html: { autocomplete: "username", class: "signup-input" } %>
+        <%= f.input :email,
+                    label_html: { class: "signup-label" },
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "email", class: "signup-input" }%>
+        <%= f.input :password,
+                    required: true,
+                    label_html: { class: "signup-label" },
+                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                    input_html: { autocomplete: "new-password", class: "signup-input" } %>
+        <%= f.input :password_confirmation,
+                    label_html: { class: "signup-label" },
+                    required: true,
+                    input_html: { autocomplete: "new-password", class: "signup-input" } %>
+
+        <label class="control-label" for="user_remember_me">
+          <%= f.check_box :remember_me, id: "user_remember_me" %> Remember Me
+        </label>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Sign up" %>
+        </div>
+          <p class="signup-bottom-left">Already have an account? <%= link_to "Sign in", new_user_session_path, class: "signup-bottom-right" %></p>
+      </div>
+    <% end %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+</div>
+<!-- The divs above are just for the scrolling animation and bg
+  find them under the _backgrounds.scss in components -->
+  <div class="bg-container">
+    <div class="bg-color">
+      <div class="bg-infinite">
+      </div>
+    </div>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+<!-- --->
