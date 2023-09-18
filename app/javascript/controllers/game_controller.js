@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="game"
 export default class extends Controller {
-  static targets = ["button", "bar", "timer", "xp", "bonus"];
+  static targets = ["button", "bar", "timer", "xp", "bonus", "mainRoom", "bonusRoom"];
 
   static values = {
     secondsUntilEnd: Number,
@@ -34,7 +34,6 @@ export default class extends Controller {
 
   markComplete(e) {
     e.preventDefault()
-    // so make this currentTarget, then you don't have...
 
     this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
 
@@ -45,22 +44,17 @@ export default class extends Controller {
       e.currentTarget.style = "background-color: blue; margin: 5px; width: 200px ";
     }
 
-    // // Have to edit the bar width to be a percentage
-    // this.barTarget.style.width = `${this.XPvalue}%`;
+    // Increasing the width of the bar
     this.barTarget.style.width = `${(this.XPvalue / this.endValue) * 100}%`
     e.currentTarget.value = e.currentTarget.value * -1
-
     console.log(`the XP value is = ${this.XPvalue}`)
 
-
-    // End Game
+    // End Game with Finish
     if (this.XPvalue == this.endValue) {
-      this.updateUserGameDatum();
+      this.updateUserGameDatumWithFinish();
       console.log("GAME FINISH");
-      this.insertButtons();
+      this.showBonusModal();
     };
-
-
   }
 
 
@@ -82,11 +76,8 @@ export default class extends Controller {
 
   }
 
-
-  updateUserGameDatum() {
-
+  updateUserGameDatumWithFinish() {
   // Update the data to the ruby controller
-
     fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
       method: "PATCH",
       headers: {
@@ -97,9 +88,41 @@ export default class extends Controller {
     });
   }
 
-  insertButtons() {
-    const html = "<button>Start Bonus</button> <button>End Game</button>";
-    this.bonusTarget.insertAdjacentHTML("afterend", html);
+
+  updateUserGameDatumWithQuit(e) {
+    // Update the data to the ruby controller
+      e.preventDefault()
+      fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": "gMgm4LzwgzljqC-LMIsA0P9yBZAVBk1yJy6qo-b57LhXaEXGWmSDQD1LbJ3s0nNaKykat4XUROtrjfCgne9dOw",
+        },
+        body: JSON.stringify({game_xp: this.XPvalue - 100, finish: false, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+      });
+      window.location.href = `/room/${this.roomValue}/game_stats`;
+    }
+
+  showBonusModal() {
+    // Currently it shows buttons but it needs to show modals
+    this.bonusTarget.style= "display: block";
+  }
+
+  updateRoomWithBonus() {
+    // Update the data to the ruby controller
+      fetch(`/room/${this.roomValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": "gMgm4LzwgzljqC-LMIsA0P9yBZAVBk1yJy6qo-b57LhXaEXGWmSDQD1LbJ3s0nNaKykat4XUROtrjfCgne9dOw",
+        },
+        body: JSON.stringify({bonus: true})
+      });
+    }
+
+  startBonus() {
+    this.updateRoomWithBonus();
+    location.reload();
   }
 
 }

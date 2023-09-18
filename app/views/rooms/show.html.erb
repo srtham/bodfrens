@@ -1,50 +1,109 @@
-<div class="page-container"
+
+<div class="game-controller-div"
+
   data-controller="game"
   data-game-room-value="<%=@room.id%>"
   data-game-user-value="<%=@user%>"
   data-game-end-value="<%=@end_game_xp%>"
-  data-game-data-id-value=<%=@user_game_data.id%>
->
-  <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+  data-game-data-id-value=<%=@user_game_data.id%>>
+
+
+
+  <!------------------------------>
+  <!--- MAIN PAGE CODE --->
+  <!------------------------------>
+
+  <div class="main-page-container" data-game-target="mainRoom">
+    <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
     <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
+      <section class="timer">
+        <%= content_tag(:h1, "15 : 00", data: {
+          game_target: "timer",
+          # seconds_until_end_value: 900
+          # KIV this, for some reason it's not being read in the controller
+        }) %>
+      </section>
 
+        <section class="exercises">
+          <% @active_exercises.each do |exercise| %>
+            <div class="container d-flex justify-content-center align-items-center flex-column">
+              <%= button_to "#{exercise.title}, #{exercise.exercise_xp}", "#",
+              data: {
+                game_target: "button",
+                action: "click->game#markComplete",
+                },
+                value: "#{exercise.exercise_xp}",
+                style: "margin: 5px; width:200px  ; background-color: blue;",
+                class: "btn btn-primary"
+              %>
+          <% end %>
+        </section>
 
-  <%= content_tag(:h1, "15 : 00", data: {
-    game_target: "timer",
-    # seconds_until_end_value: 900, # KIV this, for some reason it's not being read in the controller
-  }) %>
+        <!-- These two buttons are just to test the start bonus function and the quit
 
-    <% @active_exercises.each do |exercise| %>
+        THEY WILL NEED TO BE ADDED INTO THE MODALS -->
 
-      <div class="container d-flex justify-content-center align-items-center flex-column">
-        <%= button_to "#{exercise.title}, #{exercise.exercise_xp}", "#",
-        data: {
-          game_target: "button",
-          action: "click->game#markComplete",
-          },
-          value: "#{exercise.exercise_xp}",
-          style: "margin: 5px; width:200px  ; background-color: blue;",
-          class: "btn btn-primary"
-        %>
-    <% end %>
+        <section class="bonus-test" style="display:none;" data-game-target="bonus">
+          <button data-action="click->game#startBonus" value="bonus">Start Bonus</button>
 
-    <div class="bonus-test" data-game-target="bonus">
-      <button data-action="click->game#startBonus" data-value="start-bonus">Start Bonus</button>
-    </div>
+          <%= form_tag(user_game_datum_path, method: :post) do %>
+            <%= hidden_field_tag :quit, true %>
+            <button type="submit">End Game</button>
+          <% end %>
 
-    <div class="progress-bar" style="width:70%">
-      <div class="game-progressed-bar" data-game-target="bar"></div>
-    </div>
+        </section>
 
-    <p data-game-target="xp" ></p>
+        <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
+
+        <!-- ##-->
+
+        <div class="progress-bar" style="width:70%">
+          <div class="game-progressed-bar" data-game-target="bar"></div>
+        </div>
+      </div>
 
   </div>
 
+  <!------------------------------>
+  <!---    BONUS ROOM CODE     --->
+  <!-----------------
 
-<!--
+  <div class="bonus-page-container" style="display:none" data-game-target="bonusRoom">
 
+    <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
---->
+    <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
+
+      <section class="timer">
+        <%= content_tag(:h1, "15 : 00", data: {
+          game_target: "timer",
+          # seconds_until_end_value: 900
+          # KIV this, for some reason it's not being read in the controller
+        }) %>
+      </section>
+
+      <section class="exercises">
+        <% @active_exercises.each do |exercise| %>
+          <div class="container d-flex justify-content-center align-items-center flex-column">
+            <%= button_to "#{exercise.title}, #{exercise.exercise_xp}", "#",
+            data: {
+              game_target: "button",
+              action: "click->game#markComplete",
+              },
+              value: "#{exercise.exercise_xp}",
+              style: "margin: 5px; width:200px; background-color: green;",
+              class: "btn btn-primary"
+            %>
+        <% end %>
+      </section>
+
+      <section class="progress-bar" style="width:70%">
+        <div class="game-progressed-bar" data-game-target="bar"></div>
+      </section>
+    </div>
+
+  </div>
 
 </div>
+--------------->
