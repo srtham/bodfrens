@@ -38,7 +38,7 @@
         <div class="form-actions">
           <%= f.button :submit, "Sign up" %>
         </div>
-          <p class="signup-bottom">Already have an account? <%= render "devise/shared/links" %></p>
+          <p class="signup-bottom-left">Already have an account? <%= link_to "Sign in", new_user_session_path, class: "signup-bottom-right" %></p>
       </div>
     <% end %>
   </div>

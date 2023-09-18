@@ -86,7 +86,7 @@
   margin-right: 5px;
 }
 
-.signup-bottom {
+.signup-bottom-left {
   color: #FFF;
   text-align: center;
   font-family: Montserrat;
@@ -94,4 +94,14 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.signup-bottom-right {
+  color: #3A6E64;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
 }
