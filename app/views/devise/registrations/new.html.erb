@@ -33,7 +33,7 @@
         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
 
         <div class="form-actions">
-          <%= f.button :submit, "Sign up" %>
+          <%= f.button :submit, "Sign up", class: "main-orange-btn signup-button" %>
         </div>
           <p class="signup-bottom-left">Already have an account? <%= link_to "Sign in", new_user_session_path, class: "signup-bottom-right" %></p>
       </div>
