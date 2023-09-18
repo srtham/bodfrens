@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'users/:id', to: 'users#show', as: 'user'
   resources :badges, only: [:index]
   resources :exercises, only: [:index]
-  resources :rooms, only: [:show], path: 'room' do
+  resources :rooms, only: %i[show update], path: 'room' do
     member do
       get 'lobby', to: 'rooms#lobby', as: 'lobby'
       post 'lobby', to: 'rooms#create_from_lobby', as: 'rooms_create_from_lobby'

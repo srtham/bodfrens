@@ -4,6 +4,9 @@ class RoomsController < ApplicationController
     @room.user = current_user
   end
 
+  def update
+  end
+
   def show
     @room = Room.find(params[:id])
     @user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
