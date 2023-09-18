@@ -69,21 +69,19 @@
   line-height: normal;
 }
 
-.control-label {
+.form-check-label {
   color: #FFF;
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
+  vertical-align: top;
 }
 
 #user_remember_me {
   border-radius: 4px;
   width: 11px;
   height: 11px;
-  flex-shrink: 0;
-  margin-right: 5px;
 }
 
 .signup-bottom-left {
@@ -94,6 +92,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  text-decoration: none;
 }
 
 .signup-bottom-right {
@@ -105,3 +104,26 @@
   line-height: normal;
   text-decoration: none;
 }
+
+.main-orange-btn.login-button {
+  width: 83px;
+  height: 30px;
+  padding: 7px 13px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-top: 42px;
+}
+ p.signup-bottom-left {
+  margin: 0;
+  padding-bottom: 10px;
+ }
+
+ .signin-bottom {
+  margin-top: 30px;
+ }
