@@ -7,34 +7,12 @@
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#multiModal">
     MultiPlayer
   </button>
-  <button type="button" class="btn btn-primary" id="cancel-btn">Cancel</button>
+   <%= link_to "Cancel", root_path %>
 
-<<<<<<< HEAD
-
-
-    <%= image_tag "pngs/logo.png", width: "90%" %>
-        <h3><strong> SELECT MODE </strong></h3>
-        <%= button_to "SINGLE PLAYER", single_player_path %>
-        <%= button_to "MULTI PLAYER", "#" %>
-
-
-  <%= link_to "Cancel", root_path %>
-
-  <!-- The divs above are just for the scrolling animation and bg
-  find them under the _backgrounds.scss in components -->
-
-  <div class="bg-container">
-    <div class="bg-color">
-      <div class="bg-infinite">
-      </div>
-    </div>
-  </div>
-  <!---- ########   -->
-
-=======
 <!--------Single Modal-------->
   <div class="modal fade" id="singleModal" tabindex="-1" aria-labelledby="singleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+
       <div class="modal-content">
         <div class="modal-header">
         </div>
@@ -42,13 +20,12 @@
           Start a single player match?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Yes</button>
+           <%= button_to "SINGLE PLAYER", single_player_path %>
           <button type="button" class="btn btn-primary">No</button>
         </div>
       </div>
     </div>
   </div>
->>>>>>> master
 </div>
 <!--------------------------->
 
@@ -96,4 +73,3 @@ find them under the _backgrounds.scss in components -->
 </div>
 
 <!-- ##---->
-

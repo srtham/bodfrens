@@ -1,5 +1,5 @@
 class UserGameDataController < ApplicationController
-
+  # skip_before_action :verify_authenticity_token, only: %i[update]
   def update
     # JSON.parse(request.body.read)
     # Access specific data fields (assuming you sent data like { "field1": "value1", "field2": "value2" })
@@ -11,9 +11,6 @@ class UserGameDataController < ApplicationController
     user_game_datum.finish = finish
     user_game_datum.time_taken = time_taken
     user_game_datum.save
-
-    # this triggers a PATCH request instead of a get request, will need to troubleshoot this...
-    # redirect_to show_game_stats_room_path(user_game_datum.room) if finish == false
   end
 
   def show_game_stats

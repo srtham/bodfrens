@@ -1,35 +1,27 @@
 <!-- ruby code to determine game length -->
 <% seconds_till_end = 0 %>
+
 <% if @room.bonus %>
   <% seconds_till_end = 600 %>
+  <% exercises = @bonus_exercises %>
 <% else %>
   <% seconds_till_end = 900 %>
+  <% exercises = @regular_exercises %>
 <% end %>
 <!-- -->
-
-
-
-
-
 
 <div class="game-controller-div"
 
   data-controller="game"
+  data-game-xp-value="<%=@room.bonus ? @user_game_data.game_xp : 0%>"
   data-game-room-value="<%=@room.id%>"
   data-game-user-value="<%=@user%>"
-  data-game-end-value="<%=@end_game_xp%>"
+  data-game-end-value="<%= @room.bonus ? @bonus_xp + @regular_xp : @regular_xp %>"
   data-game-data-id-value=<%=@user_game_data.id%>
   data-game-seconds-left-value="<%= seconds_till_end %>">
 
-
-
-  <!------------------------------>
-  <!--- MAIN PAGE CODE --->
-  <!------------------------------>
-
   <div class="main-page-container" data-game-target="mainRoom">
     <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
-
     <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
       <section class="timer">
         <%= content_tag(:h1, "Go!", data: {
@@ -40,12 +32,12 @@
       </section>
 
         <section class="exercises">
-          <% @active_exercises.each do |exercise| %>
+          <% exercises.each do |exercise| %>
             <div class="container d-flex justify-content-center align-items-center flex-column">
               <%= button_to "#{exercise.title}, #{exercise.exercise_xp}", "#",
               data: {
-                game_target: "button",
-                action: "click->game#markComplete",
+                game_target: @room.bonus ? "bonusButton" : "button",
+                action: @room.bonus ? "click->game#markBonusComplete" : "click->game#markComplete",
                 },
                 value: "#{exercise.exercise_xp}",
                 style: "margin: 5px; width:200px  ; background-color: blue;",
@@ -61,15 +53,13 @@
         <section class="bonus-test" style="display:none;" data-game-target="bonus">
           <button data-action="click->game#startBonus" value="bonus">Start Bonus</button>
 
-          <%= form_tag(user_game_datum_path, method: :post) do %>
-            <%= hidden_field_tag :quit, true %>
-            <button type="submit">End Game</button>
-          <% end %>
-
         </section>
 
-        <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
-
+        <% if @room.bonus %>
+          <%= link_to "End Game", show_game_complete_room_path %>
+        <% else %>
+          <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
+        <% end %>
         <!-- ##-->
 
         <div class="progress-bar" style="width:70%">
@@ -78,46 +68,3 @@
       </div>
 
   </div>
-
-  <!------------------------------>
-  <!---    BONUS ROOM CODE     --->
-  <!-----------------
-
-  <div class="bonus-page-container" style="display:none" data-game-target="bonusRoom">
-
-    <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
-
-    <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
-
-      <section class="timer">
-        <%= content_tag(:h1, "15 : 00", data: {
-          game_target: "timer",
-          # seconds_until_end_value: 900
-          # KIV this, for some reason it's not being read in the controller
-        }) %>
-      </section>
-
-      <section class="exercises">
-        <% @active_exercises.each do |exercise| %>
-          <div class="container d-flex justify-content-center align-items-center flex-column">
-            <%= button_to "#{exercise.title}, #{exercise.exercise_xp}", "#",
-            data: {
-              game_target: "button",
-              action: "click->game#markComplete",
-              },
-              value: "#{exercise.exercise_xp}",
-              style: "margin: 5px; width:200px; background-color: green;",
-              class: "btn btn-primary"
-            %>
-        <% end %>
-      </section>
-
-      <section class="progress-bar" style="width:70%">
-        <div class="game-progressed-bar" data-game-target="bar"></div>
-      </section>
-    </div>
-
-  </div>
-
-</div>
---------------->
