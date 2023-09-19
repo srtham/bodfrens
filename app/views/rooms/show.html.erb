@@ -80,7 +80,7 @@
               Opt for a bonus round?
             </div>
             <div class="modal-footer">
-              <%= button_to "Yes", single_player_path, data: {action: "click->game#startBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <%= button_to "Yes", "#", data: {action: "click->game#startBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
               <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
             </div>
           </div>
@@ -100,7 +100,7 @@
               Are you sure?
             </div>
             <div class="modal-footer">
-              <%= button_to "Yes", show_game_complete_room_path, data: {action: "click->updateUserGameDatumWithQuit"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <button type="button" data-action="click->game#startBonus" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
               <%= link_to "No", "#", class: "gray-modal-btn", style: "width: 150px; height: 50px;", data: {action: "click->game#startBonus"} %>
             </div>
           </div>
