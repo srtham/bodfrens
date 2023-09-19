@@ -15,6 +15,14 @@ export default class extends Controller {
   }
 
   connect() {
+
+    // set audio files
+    this.startSound = new Audio("/audios/start.mp3")
+    this.buttonSound = new Audio("/audios/clicksound.mp3")
+    this.finishSound = new Audio("/audios/Finish.wav")
+
+    this.startSound.play() // plays the start sound on connect
+
     this.XPvalue = this.xpValue; // XP Value tracks how much the XP user has gathered so far in a game room.
     this.csrfToken = document.querySelector("meta[name='csrf-token']").content
     // bunch of logs to check if the data being sent is correct...
@@ -41,7 +49,7 @@ export default class extends Controller {
 
   markComplete(e) {
     e.preventDefault()
-
+    this.buttonSound.play()
     this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
     console.log(`the XP value is = ${this.XPvalue}`)
 
@@ -62,6 +70,7 @@ export default class extends Controller {
 
     // End Game with Finish
     if (this.XPvalue == this.endValue) {
+      this.finishSound.play()
       this.updateUserGameDatumWithFinish();
       console.log("REGULAR GAME FINISH");
       this.showBonusModal();
@@ -74,6 +83,12 @@ export default class extends Controller {
 
 
   countdown() {
+
+    if (this.XPvalue == this.endValue) {
+      clearInterval(this.countdown);
+      this.timerTarget.innerHTML = "Round End"
+      return
+    }
 
     if (this.secondsUntilEnd <= 0) {
       console.log("Time's up!!!")
@@ -140,7 +155,7 @@ export default class extends Controller {
 
   markBonusComplete(e) {
     e.preventDefault()
-
+    this.buttonSound.play()
     this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
     console.log(`the XP value is = ${this.XPvalue}`)
 
