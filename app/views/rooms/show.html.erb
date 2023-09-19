@@ -24,49 +24,47 @@
   data-game-seconds-left-value="<%= seconds_till_end %>">
 
   <div class="room-page-container">
-    <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+    <div class="spacer" style="height:150px; width 2px;"></div>
 
-    <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
-        <section class="timer">
-          <%= content_tag(:h1, "Go!", data: {
-            game_target: "timer",
-            # seconds_until_end_value: 900
-            # KIV this, for some reason it's not being read in the controller
-          }) %>
-        </section>
-
-        <section class="exercises">
-          <% exercises.each do |exercise| %>
-            <div class="container d-flex justify-content-center align-items-center flex-column">
-              <%= button_to "#{exercise.title}, #{exercise.exercise_xp}", "#",
-              data: {
-                game_target: @room.bonus ? "bonusButton" : "button",
-                action: @room.bonus ? "click->game#markBonusComplete" : "click->game#markComplete",
-                },
-                value: "#{exercise.exercise_xp}",
-                style: "margin: 5px; width:200px  ; background-color: blue;",
-                class: "btn btn-primary"
-              %>
-          <% end %>
-        </section>
-
-        <!-- These two buttons are just to test the start bonus function and the quit
-
-        THEY WILL NEED TO BE ADDED INTO THE MODALS -->
+    <section class="timer">
+      <%= content_tag(:h1, "Go!", data: {
+        game_target: "timer",
+        # seconds_until_end_value: 900
+        # KIV this, for some reason it's not being read in the controller
+      }) %>
+    </section>
 
 
-        <% if @room.bonus %>
-          <%= link_to "End Game", show_game_complete_room_path %>
-        <% else %>
-          <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
-        <% end %>
-        <!-- ##-->
 
-        <div class="progress-bar" style="width:70%">
-          <div class="game-progressed-bar" data-game-target="bar"></div>
-        </div>
+      <% exercises.each do |exercise| %>
+        <button
+          data-game-target="<%= @room.bonus ? 'bonusButton' : 'button' %>"
+          data-action="<%= @room.bonus ? 'click->game#markBonusComplete' : 'click->game#markComplete' %>"
+          value="<%= exercise.exercise_xp %>"
+          class="button animate__animated animate__fadeInDown"
+        >
+          <h3><%="#{exercise.title}"%></h3> <h5><%="#{exercise.exercise_xp}XP"%></h5>
+        </button>
+      <% end %>
 
-      </div>
+
+
+
+    <div class="progress-bar" style="width:55%">
+      <div class="game-progressed-bar" data-game-target="bar"></div>
+    </div>
+
+    <!-- These two buttons are just to test the start bonus function and the quit
+
+    THEY WILL NEED TO BE ADDED INTO THE MODALS -->
+
+
+    <% if @room.bonus %>
+      <%= link_to "End Game", show_game_complete_room_path %>
+    <% else %>
+      <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
+    <% end %>
+    <!-- ##-->
 
 
 
@@ -114,3 +112,27 @@
   </div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
+
+<!-- The divs above are just for the scrolling animation and bg
+find them under the _backgrounds.scss in components -->
+
+<div class="bg-container animate__animated animate__fadeIn">
+  <div class= "bg-color-gray">
+  </div>
+
+</div>
+
+<!-- ##---->

@@ -103,9 +103,11 @@
 
 .button { // game room exercise button
   display: inline-flex;
+  justify-content: space-evenly;
+  border: none;
   align-items: center;
   width: 80%;
-  height: 5%;
+  height: 55px;
   padding: 26px 15px 26px 19px;
   align-items: center;
   gap: 22px;
