@@ -24,7 +24,7 @@
   data-game-seconds-left-value="<%= seconds_till_end %>">
 
   <div class="room-page-container">
-    <div class="spacer" style="height:150px; width 2px;"></div>
+    <div class="spacer" style="height:10%; width 2px;"></div>
 
     <section class="timer">
       <%= content_tag(:h1, "Go!", data: {
@@ -34,23 +34,27 @@
       }) %>
     </section>
 
-
-
+    <section class="game-buttons-container animate__animated animate__fadeInDown">
       <% exercises.each do |exercise| %>
-        <button
-          data-game-target="<%= @room.bonus ? 'bonusButton' : 'button' %>"
-          data-action="<%= @room.bonus ? 'click->game#markBonusComplete' : 'click->game#markComplete' %>"
-          value="<%= exercise.exercise_xp %>"
-          class="button animate__animated animate__fadeInDown"
-        >
-          <h3><%="#{exercise.title}"%></h3> <h5><%="#{exercise.exercise_xp}XP"%></h5>
-        </button>
+        <div>
+          <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal">
+            <%= image_tag("pngs/search_logo.png") %>
+          </button>
+          <button
+            data-game-target="<%= @room.bonus ? 'bonusButton' : 'button' %>"
+            data-action="<%= @room.bonus ? 'click->game#markBonusComplete' : 'click->game#markComplete' %>"
+            value="<%= exercise.exercise_xp %>"
+            class="button"
+          >
+            <span class="spacer" style="width:10%"></span><h3 class="text" style="width: fit-content; text-align: center;"><%="#{exercise.title}"%></h3> <h5 class="xp"><%="#{exercise.exercise_xp}XP"%></h5>
+          </button>
+        </div>
       <% end %>
+    </section>
 
 
 
-
-    <div class="progress-bar" style="width:55%">
+    <div class="progress-bar" style="width:65%">
       <div class="game-progressed-bar" data-game-target="bar"></div>
     </div>
 
@@ -62,7 +66,7 @@
     <% if @room.bonus %>
       <%= link_to "End Game", show_game_complete_room_path %>
     <% else %>
-      <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
+      <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Give Up</a>
     <% end %>
     <!-- ##-->
 
@@ -89,7 +93,7 @@
       </div>
     </section>
 
-   <!--------Bonus Modal-------->
+   <!--------Give Up Modal-------->
     <section class="hidden-modal" id="GiveUpModal" tabindex="-1">
         <div class="modal-dialog">
 
@@ -103,6 +107,24 @@
             <div class="modal-footer">
               <button type="button" data-action="click->game#startBonus" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
               <%= link_to "No", "#", class: "gray-modal-btn", style: "width: 150px; height: 50px;", data: {action: "click->game#startBonus"} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--------ExerciseModal-------->
+    <section class="modal fade" aria-labelledby="exerciseModalLabel" aria-hidden="true" id="exerciseModal" tabindex="-1">
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+              Exercise Name
+            </div>
+            <div class="modal-footer">
+              <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">Close</button>
             </div>
           </div>
         </div>
@@ -130,9 +152,7 @@
 find them under the _backgrounds.scss in components -->
 
 <div class="bg-container animate__animated animate__fadeIn">
-  <div class= "bg-color-gray">
-  </div>
-
+  <div class= <%= @room.bonus ? "bg-color-orange" : "bg-color-gray" %>></div>
 </div>
 
 <!-- ##---->

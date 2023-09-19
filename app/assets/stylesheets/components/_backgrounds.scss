@@ -15,8 +15,14 @@
 
 .bg-color-gray {
   background: linear-gradient(180deg, #F9F9F9 -8.05%, #D2D2D2 64.43%);
-  height: 982.5px;
   width: 3464px;
+  height: 100vh;
+}
+
+.bg-color-orange {
+  background: linear-gradient(349deg, #F3A310 0.96%, #F7B513 74.05%);
+  width: 3464px;
+  height: 100vh;
 }
 
 .bg-infinite {

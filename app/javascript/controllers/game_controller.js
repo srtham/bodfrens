@@ -53,11 +53,19 @@ export default class extends Controller {
     this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
     console.log(`the XP value is = ${this.XPvalue}`)
 
+    const h5Element = e.currentTarget.querySelector("h5")
     // Changing the colors of the buttons depending on their value (negative or positive)
     if (e.currentTarget.value > 0) {
-      e.currentTarget.style = "background-color: orange; margin: 5px; width: 200px";
+      e.currentTarget.classList.remove("button");
+      e.currentTarget.classList.add("button-regular-done");
+
+      h5Element.innerHTML = "XP\ngained"
+
     } else {
-      e.currentTarget.style = "background-color: blue; margin: 5px; width: 200px ";
+      e.currentTarget.classList.remove("button-regular-done");
+      e.currentTarget.classList.add("button")
+
+      h5Element.textContent = `${e.currentTarget.value * -1}XP`
     }
 
     // Increasing the width of the bar
@@ -65,8 +73,14 @@ export default class extends Controller {
     this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
     console.log(this.barWidth)
 
+    //Mark the XP as earned
+
+
+
     // Change the value of the button to negative
     e.currentTarget.value = e.currentTarget.value * -1
+
+
 
     // End Game with Finish
     if (this.XPvalue == this.endValue) {
@@ -161,7 +175,8 @@ export default class extends Controller {
 
     // Changing the colors of the buttons depending on their value (negative or positive)
     if (e.currentTarget.value > 0) {
-      e.currentTarget.style = "background-color: orange; margin: 5px; width: 200px";
+      e.currentTarget.classList.remove = "button";
+      e.currentTarget.classList.add = "main-orange-btn"
     } else {
       e.currentTarget.style = "background-color: blue; margin: 5px; width: 200px ";
     }

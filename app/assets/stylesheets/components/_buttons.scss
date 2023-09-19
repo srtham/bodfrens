@@ -101,45 +101,95 @@
   font-weight: 700;
 }
 
+
+
+.button .text { // game room exercise button text
+  color: #3C3C3C;
+  text-align: right;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+
+.icon { // magnifying glass icon
+  width: 41px;
+  z-index: 1;
+  height: 43px;
+  flex-shrink: 0;
+  position: relative;
+  right: 120px;
+  top: 6px;
+
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
 .button { // game room exercise button
+  position: absolute;
   display: inline-flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   border: none;
   align-items: center;
   width: 80%;
-  height: 55px;
-  padding: 26px 15px 26px 19px;
+  height: 60px;
+  padding: 0px 13px 0px 30px;
   align-items: center;
-  gap: 22px;
+  gap: 0px;
   flex-shrink: 0;
   border-radius: 25px;
   background: #F5F5F5;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
   cursor: pointer;
   text-decoration: none;
+  left: 50%; /* Horizontal centering */
+  transform: translateX(-50%); /* Center the button horizontally */
+
+  .xp {
+    width: 50px;
+    color: #3A9586;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+  }
 }
 
-.button .text { // game room exercise button text
-  color: #3C3C3C;
-  text-align: right;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.button .xp { // game room exercise button xp
-  color: #3A9586;
-  text-align: center;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.icon { // magnifying glass icon
-  width: 41px;
-  height: 43px;
+.button-regular-done { // game room exercise button
+  position: absolute;
+  display: inline-flex;
+  justify-content: space-between;
+  border: none;
+  align-items: center;
+  width: 80%;
+  height: 60px;
+  padding: 0px 13px 0px 30px;
+  align-items: center;
+  gap: 0px;
   flex-shrink: 0;
-  margin-right: 5px;
+  border-radius: 25px;
+  background: #F5F5F5;
+  background: linear-gradient(270deg, #EA7F09 1.83%, #F9BF14 95.87%);
+  cursor: pointer;
+  text-decoration: none;
+  left: 50%; /* Horizontal centering */
+  transform: translateX(-50%); /* Center the button horizontally */
+  .xp {
+    width: 50px;
+    color: #f3f3f3;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+  }
 }
