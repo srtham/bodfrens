@@ -9,7 +9,7 @@ class UserGameDataController < ApplicationController
     user_game_datum = UserGameDatum.find(params[:id])
     user_game_datum.game_xp = game_xp
     user_game_datum.finish = finish
-    user_game_datum.time_taken = time_taken
+    user_game_datum.time_taken += time_taken
     user_game_datum.save
   end
 

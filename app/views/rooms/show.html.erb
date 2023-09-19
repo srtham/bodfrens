@@ -52,16 +52,20 @@
         THEY WILL NEED TO BE ADDED INTO THE MODALS -->
 
 
-        <% if @room.bonus %>
-          <%= link_to "End Game", show_game_complete_room_path %>
-        <% else %>
-          <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
-        <% end %>
+          <% if @room.bonus %>
+            <%= link_to "End Game", show_game_complete_room_path %>
+          <% else %>
+            <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
+          <% end %>
         <!-- ##-->
 
         <div class="progress-bar" style="width:70%">
           <div class="game-progressed-bar" data-game-target="bar"></div>
         </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#giveUpModal">
+          <%= @room.bonus ? "End Game": "Give Up"  %>
+        </button>
 
       </div>
 
@@ -88,20 +92,29 @@
       </div>
     </section>
 
-   <!--------Bonus Modal-------->
-    <section class="hidden-modal" id="GiveUpModal" tabindex="-1">
+   <!--------Give Up/End Game Modal-------->
+    <section class="modal fade" id="giveUpModal" aria-labelledby="giveUpModalLabel"  aria-hidden="true" tabindex="-1">
         <div class="modal-dialog">
 
           <div class="modal-content">
             <div class="modal-header">
             </div>
             <div class="modal-body">
-              Giving up will forfeit 100XP <br>
-              Are you sure?
+
+              <% if @room.bonus %>
+                Are you sure you want to end your bonus round?
+
+              <% else %>
+                Giving up will forfeit 100XP <br>
+                Are you sure?
+              <% end %>
             </div>
             <div class="modal-footer">
-              <%= button_to "Yes", show_game_complete_room_path, data: {action: "click->updateUserGameDatumWithQuit"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
-              <%= link_to "No", "#", class: "gray-modal-btn", style: "width: 150px; height: 50px;", data: {action: "click->game#startBonus"} %>
+              <%= button_to "Yes", show_game_complete_room_path,
+              data: {action: @room.bonus ? "click->game#updateUserGameDatumWithFinish" : "click->game#updateUserGameDatumWithQuit"},
+              class: "main-orange-btn",
+              style: "width: 150px; height: 50px;" %>
+              <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
             </div>
           </div>
         </div>

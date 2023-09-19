@@ -27,7 +27,8 @@ export default class extends Controller {
 
     // timer settings:
     ///// this.secondsUntilEnd = this.data.get("seconds-until-end-value");
-    this.Modal = document.getElementById("bonusPromptModal");
+    this.roomTotalTime = this.secondsUntilEnd
+
 
     this.secondsUntilEnd = this.secondsLeftValue
     console.log(this.secondsUntilEnd); // to check the data value after each interval
@@ -37,6 +38,9 @@ export default class extends Controller {
     //set values for the bar calculations
     this.barEndNumber = this.endValue - this.xpValue
     this.barWidth = 0
+
+    // Modal controls
+    this.Modal = document.getElementById("bonusPromptModal");
   }
 
   markComplete(e) {
@@ -99,7 +103,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         "X-CSRF-Token": this.csrfToken
       },
-      body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+      body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: this.roomTotalTime - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
     });
   }
 
