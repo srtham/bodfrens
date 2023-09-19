@@ -74,3 +74,16 @@
 .modal-header {
   --bs-modal-header-border-color: initial;
 }
+
+.game-modal {
+  display: block;
+  position: absolute;
+  align-items: center;
+  z-index: 1;
+  width: 90%;
+  height: 90%;
+}
+
+.hidden-modal {
+  display: none;
+}

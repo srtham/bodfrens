@@ -27,6 +27,7 @@ export default class extends Controller {
 
     // timer settings:
     ///// this.secondsUntilEnd = this.data.get("seconds-until-end-value");
+    this.Modal = document.getElementById("bonusPromptModal");
 
     this.secondsUntilEnd = this.secondsLeftValue
     console.log(this.secondsUntilEnd); // to check the data value after each interval
@@ -53,12 +54,10 @@ export default class extends Controller {
 
     // Increasing the width of the bar
     this.barWidth += parseInt(e.currentTarget.value,10);
-
-
     this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
-
     console.log(this.barWidth)
 
+    // Change the value of the button to negative
     e.currentTarget.value = e.currentTarget.value * -1
 
     // End Game with Finish
@@ -121,7 +120,9 @@ export default class extends Controller {
 
   showBonusModal() {
     // Currently it shows buttons but it needs to show modals
-    this.bonusTarget.style= "display: block";
+    console.log(this.Modal)
+    this.Modal.classList.remove("hidden-modal");
+    this.Modal.classList.add("game-modal");
   }
 
   changeRoomToBonus() {
@@ -152,12 +153,10 @@ export default class extends Controller {
 
     // Increasing the width of the bar
     this.barWidth += parseInt(e.currentTarget.value,10);
-
-
     this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
-
     console.log(this.barWidth)
 
+    // Change the value of the button to negative
     e.currentTarget.value = e.currentTarget.value * -1
 
     // End Game with Finish

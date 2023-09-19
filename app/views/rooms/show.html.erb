@@ -20,16 +20,17 @@
   data-game-data-id-value=<%=@user_game_data.id%>
   data-game-seconds-left-value="<%= seconds_till_end %>">
 
-  <div class="main-page-container" data-game-target="mainRoom">
+  <div class="room-page-container">
     <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
     <div class="container d-flex justify-content-center align-items-center flex-column mt-5 ">
-      <section class="timer">
-        <%= content_tag(:h1, "Go!", data: {
-          game_target: "timer",
-          # seconds_until_end_value: 900
-          # KIV this, for some reason it's not being read in the controller
-        }) %>
-      </section>
+        <section class="timer">
+          <%= content_tag(:h1, "Go!", data: {
+            game_target: "timer",
+            # seconds_until_end_value: 900
+            # KIV this, for some reason it's not being read in the controller
+          }) %>
+        </section>
 
         <section class="exercises">
           <% exercises.each do |exercise| %>
@@ -50,10 +51,6 @@
 
         THEY WILL NEED TO BE ADDED INTO THE MODALS -->
 
-        <section class="bonus-test" style="display:none;" data-game-target="bonus">
-          <button data-action="click->game#startBonus" value="bonus">Start Bonus</button>
-
-        </section>
 
         <% if @room.bonus %>
           <%= link_to "End Game", show_game_complete_room_path %>
@@ -65,6 +62,52 @@
         <div class="progress-bar" style="width:70%">
           <div class="game-progressed-bar" data-game-target="bar"></div>
         </div>
+
       </div>
 
+
+
+    <!---Modals---->
+    <!--------Bonus Modal-------->
+    <section class="hidden-modal" id="bonusPromptModal" tabindex="-1">
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+              Congratulations! You finished your workout. <br>
+              Opt for a bonus round?
+            </div>
+            <div class="modal-footer">
+              <%= button_to "Yes", single_player_path, data: {action: "click->game#startBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <!--------Bonus Modal-------->
+    <section class="hidden-modal" id="GiveUpModal" tabindex="-1">
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+              Giving up will forfeit 100XP <br>
+              Are you sure?
+            </div>
+            <div class="modal-footer">
+              <%= button_to "Yes", show_game_complete_room_path, data: {action: "click->updateUserGameDatumWithQuit"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <%= link_to "No", "#", class: "gray-modal-btn", style: "width: 150px; height: 50px;", data: {action: "click->game#startBonus"} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
+
+</div>

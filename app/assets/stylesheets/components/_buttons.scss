@@ -2,14 +2,32 @@
 
 .main-orange-btn { // rounded orange button with gradient
   display: flex;
-  width: 30%;
-  padding: 7px 22px 7px 13px;
+  padding: 7px 22px;
   justify-content: center;
+  align-items: center;
   border-radius: 13px;
+  margin: 4px;
   background: linear-gradient(270deg, #EA7F09 -7.5%, #F9BF14 69.64%);
   box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.13);
   font-weight: 700;
   color: white;
+  border: none;
+  text-decoration: none;
+  font-size: 20px;
+  line-height: normal;
+}
+
+.gray-modal-btn { // gray button for modal prompt
+  display: flex;
+  margin: 4px;
+  padding: 7px 22px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 13px;
+  background: linear-gradient(270deg, #CCC -7.5%, #E0E0E0 69.64%);
+  box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.13);
+  font-weight: 700;
+  color: #5A5A5A;
   text-decoration: none;
   font-size: 20px;
   line-height: normal;

@@ -20,8 +20,8 @@
           Start a single player match?
         </div>
         <div class="modal-footer">
-           <%= button_to "SINGLE PLAYER", single_player_path %>
-          <button type="button" class="btn btn-primary">No</button>
+           <%= button_to "Yes", single_player_path, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+          <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
         </div>
       </div>
     </div>
@@ -36,11 +36,12 @@
         <div class="modal-header">
         </div>
         <div class="modal-body">
-          Start a multiplayer match?
+          Multiplayer is not yet available.
+          <!--Start a multiplayer match?-->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Yes</button>
-          <button type="button" class="btn btn-primary">No</button>
+          <!--<button type="button" class="btn btn-primary">Yes</button>-->
+          <button data-bs-dismiss="modal" type="button" aria-label="Close" class="main-orange-btn">Cancel</button>
         </div>
       </div>
     </div>
