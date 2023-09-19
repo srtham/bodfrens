@@ -5,13 +5,13 @@ export default class extends Controller {
   static targets = ["button", "bar", "timer", "xp", "bonus", "mainRoom", "bonusRoom", "bonusButton"];
 
   static values = {
-    secondsUntilEnd: Number,
     end: Number,
     room: Number,
     user: Number,
     dataId: Number,
     secondsLeft: Number,
-    xp: Number
+    xp: Number,
+    bonus: Boolean
   }
 
   connect() {
@@ -27,7 +27,7 @@ export default class extends Controller {
 
     // timer settings:
     ///// this.secondsUntilEnd = this.data.get("seconds-until-end-value");
-    this.roomTotalTime = this.secondsUntilEnd
+    this.roomTotalTime = this.secondsLeftValue
 
 
     this.secondsUntilEnd = this.secondsLeftValue
@@ -43,6 +43,7 @@ export default class extends Controller {
     this.Modal = document.getElementById("bonusPromptModal");
   }
 
+  // There is another markComplete function below with the bonuses to target bonus buttons only.
   markComplete(e) {
     e.preventDefault()
 
@@ -105,12 +106,17 @@ export default class extends Controller {
       },
       body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: this.roomTotalTime - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
     });
+    if (this.bonusValue === true) {
+      window.location.href = `/room/${this.roomValue}/game_complete`;
+    }
   }
 
 
   updateUserGameDatumWithQuit(e) {
     // Update the data to the ruby controller
+
       e.preventDefault()
+
       fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
         method: "PATCH",
         headers: {
@@ -128,18 +134,6 @@ export default class extends Controller {
     this.Modal.classList.remove("hidden-modal");
     this.Modal.classList.add("game-modal");
   }
-
-  changeRoomToBonus() {
-    // Update the data to the ruby controller
-      fetch(`/room/${this.roomValue}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": this.csrfToken
-        },
-        body: JSON.stringify({bonus: true})
-      });
-    }
 
 
   markBonusComplete(e) {
@@ -171,10 +165,24 @@ export default class extends Controller {
     };
   }
 
+  changeRoomToBonus() {
+    // Update the data to the ruby controller
+      fetch(`/room/${this.roomValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({bonus: true})
+      });
+    }
 
   startBonus() {
     this.changeRoomToBonus();
     location.reload();
   }
+
+
+
 
 }

@@ -18,7 +18,8 @@
   data-game-user-value="<%=@user%>"
   data-game-end-value="<%= @room.bonus ? @bonus_xp + @regular_xp : @regular_xp %>"
   data-game-data-id-value=<%=@user_game_data.id%>
-  data-game-seconds-left-value="<%= seconds_till_end %>">
+  data-game-seconds-left-value="<%= seconds_till_end %>"
+  data-game-bonus-value="<%= @room.bonus %>">
 
   <div class="room-page-container">
     <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
@@ -49,15 +50,15 @@
 
         <!-- These two buttons are just to test the start bonus function and the quit
 
-        THEY WILL NEED TO BE ADDED INTO THE MODALS -->
+        THEY WILL NEED TO BE ADDED INTO THE MODALS
 
 
-          <% if @room.bonus %>
+          <%# <% if @room.bonus %> %>
             <%= link_to "End Game", show_game_complete_room_path %>
-          <% else %>
+          <%# <% else %> %>
             <a href="/room/<%=@room.id%>/game_stats" data-action="click->game#updateUserGameDatumWithQuit">Quit</a>
-          <% end %>
-        <!-- ##-->
+          <%# <% end %> %>
+        ##-->
 
         <div class="progress-bar" style="width:70%">
           <div class="game-progressed-bar" data-game-target="bar"></div>
@@ -84,7 +85,7 @@
               Opt for a bonus round?
             </div>
             <div class="modal-footer">
-              <%= button_to "Yes", single_player_path, data: {action: "click->game#startBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <button data-action="click->game#startBonus" data-value="start-bonus" class= "main-orange-btn" style= "width: 150px; height: 50px;">Yes</button>
               <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
             </div>
           </div>
@@ -99,8 +100,8 @@
           <div class="modal-content">
             <div class="modal-header">
             </div>
-            <div class="modal-body">
 
+            <div class="modal-body">
               <% if @room.bonus %>
                 Are you sure you want to end your bonus round?
 
@@ -109,8 +110,9 @@
                 Are you sure?
               <% end %>
             </div>
+
             <div class="modal-footer">
-              <%= button_to "Yes", show_game_complete_room_path,
+              <%= button_to "Yes", "#",
               data: {action: @room.bonus ? "click->game#updateUserGameDatumWithFinish" : "click->game#updateUserGameDatumWithQuit"},
               class: "main-orange-btn",
               style: "width: 150px; height: 50px;" %>
