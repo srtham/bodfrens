@@ -132,38 +132,7 @@
 }
 
 .button { // game room exercise button
-  display: inline-flex;
-  justify-content: space-between;
-  border: none;
-  align-items: center;
-  width: 80%;
-  height: 60px;
-  padding: 0px 13px 0px 30px;
-  align-items: center;
-  gap: 0px;
-  flex-shrink: 0;
-  border-radius: 25px;
-  background: #F5F5F5;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
-  cursor: pointer;
-  text-decoration: none;
-  left: 50%; /* Horizontal centering */
-  transform: translateX(-50%); /* Center the button horizontally */
-
-  .xp {
-    width: 50px;
-    color: #3A9586;
-    text-align: center;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-  }
-}
-
-.white-game-room-button { // white exercise button
+  position: absolute;
   display: inline-flex;
   justify-content: space-between;
   border: none;
@@ -206,97 +175,6 @@
   padding: 0px 13px 0px 30px;
   align-items: center;
   gap: 0px;
-
-}
-.white-game-room-button .text { // white exercise button text
-  color: #3C3C3C;
-  text-align: right;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.white-game-room-button .xp { // white exercise button xp
-  color: #3A9586;
-  text-align: center;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.orange-game-room-button { // orange exercise button
-  display: inline-flex;
-  align-items: center;
-  width: 80%;
-  height: 5%;
-  padding: 26px 15px 26px 19px;
-  align-items: center;
-  gap: 22px;
-  flex-shrink: 0;
-  border-radius: 25px;
-  background: linear-gradient(270deg, #EA7F09 1.83%, #F9BF14 95.87%);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.orange-game-room-button .text { // orange exercise button text
-  color: #3C3C3C;
-  text-align: right;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.orange-game-room-button .xp { // orange exercise button xp
-  color: #FFF;
-  text-align: center;
-  font-size: 8px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.green-bonus-room-button { // green bonus exercise button
-  display: inline-flex;
-  align-items: center;
-  width: 80%;
-  height: 5%;
-  padding: 26px 15px 26px 19px;
-  align-items: center;
-  gap: 22px;
-  flex-shrink: 0;
-  border-radius: 25px;
-  background: linear-gradient(270deg, #43B191 1.83%, #55D1AD 95.87%);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.green-bonus-room-button .text { // green bonus exercise button text
-  color: #3C3C3C;
-  text-align: right;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.green-bonus-room-button .xp { // green bonus exercise button xp
-  color: #FFF;
-  text-align: center;
-  font-size: 8px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.icon { // magnifying glass icon
-  width: 41px;
-  height: 43px;
   flex-shrink: 0;
   border-radius: 25px;
   background: #F5F5F5;
