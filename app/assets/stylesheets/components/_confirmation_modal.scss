@@ -38,6 +38,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  text-decoration: none !important;
 }
 
 .modal-content {
@@ -73,4 +74,28 @@
 
 .modal-header {
   --bs-modal-header-border-color: initial;
+}
+
+#yes-btn {
+  width: 178px;
+  height: 56px;
+  padding: 7px 15px 7px 15px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 24px;
+}
+
+#no-btn {
+  width: 178px;
+  height: 56px;
+  padding: 7px 15px 7px 15px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 24px;
+  color: #5A5A5A;
+  background: linear-gradient(270deg, #CCC -7.5%, #E0E0E0)
 }

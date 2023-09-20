@@ -6,7 +6,7 @@
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#multiModal">
     MultiPlayer
   </button>
-  <button type="button" class="btn btn-primary" id="cancel-btn">Cancel</button>
+  <%= button_to "Cancel", root_path, method: :get, class: "btn btn-primary", id: "cancel-btn" %>
 
 <!--------Single Modal-------->
   <div class="modal fade" id="singleModal" tabindex="-1" aria-labelledby="singleModalLabel" aria-hidden="true">
@@ -18,8 +18,8 @@
           Start a single player match?
         </div>
         <div class="modal-footer">
-           <%= button_to "SINGLE PLAYER", single_player_path %>
-          <button type="button" class="btn btn-primary">No</button>
+          <%= button_to "Yes", single_player_path, class: "main-orange-btn", id: "yes-btn" %>
+          <button type="button" class="main-orange-btn" id="no-btn" data-bs-dismiss="modal">No</button>
         </div>
       </div>
     </div>
@@ -37,8 +37,8 @@
           Start a multiplayer match?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Yes</button>
-          <button type="button" class="btn btn-primary">No</button>
+          <%= button_to "Yes", root_path, class: "main-orange-btn", id: "yes-btn" %>
+          <button type="button" class="main-orange-btn" id="no-btn" data-bs-dismiss="modal">No</button>
         </div>
       </div>
     </div>
