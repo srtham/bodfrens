@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="game"
 export default class extends Controller {
-  static targets = ["button", "bar", "timer", "xp", "bonus", "mainRoom", "bonusRoom", "bonusButton"];
+  static targets = ["button", "bar", "timer", "xp", "bonus", "barExp", "barFinalExp", "bonusButton"];
 
   static values = {
     secondsUntilEnd: Number,
@@ -45,6 +45,9 @@ export default class extends Controller {
     //set values for the bar calculations
     this.barEndNumber = this.endValue - this.xpValue
     this.barWidth = 0
+
+    //set the final EXP printed at the bottom via innerHTML
+    this.barFinalExpTarget.innerHTML = `/${this.barEndNumber} XP EARNED`
   }
 
   markComplete(e) {
@@ -58,13 +61,13 @@ export default class extends Controller {
     if (e.currentTarget.value > 0) {
       e.currentTarget.classList.remove("button");
       e.currentTarget.classList.add("button-regular-done");
-
+      //Mark the XP as earned
       h5Element.innerHTML = "XP\ngained"
 
     } else {
       e.currentTarget.classList.remove("button-regular-done");
       e.currentTarget.classList.add("button")
-
+      //Mark the XP as earned
       h5Element.textContent = `${e.currentTarget.value * -1}XP`
     }
 
@@ -73,14 +76,11 @@ export default class extends Controller {
     this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
     console.log(this.barWidth)
 
-    //Mark the XP as earned
-
-
+    // Update the exp value printed at the bottom
+    this.barExpTarget.innerHTML = `${this.barWidth}`
 
     // Change the value of the button to negative
     e.currentTarget.value = e.currentTarget.value * -1
-
-
 
     // End Game with Finish
     if (this.XPvalue == this.endValue) {
@@ -128,7 +128,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         "X-CSRF-Token": this.csrfToken
       },
-      body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+      body: JSON.stringify({game_xp: this.XPvalue, end_game: false, finish: true, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
     });
   }
 
@@ -142,9 +142,9 @@ export default class extends Controller {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({game_xp: this.XPvalue - 100, finish: false, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+        body: JSON.stringify({game_xp: this.XPvalue - 100, end_game: true, finish: false, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
       });
-      window.location.href = `/room/${this.roomValue}/game_complete`;
+      // window.location.href = `/room/${this.roomValue}/game_complete`;
     }
 
   showBonusModal() {
@@ -174,17 +174,27 @@ export default class extends Controller {
     console.log(`the XP value is = ${this.XPvalue}`)
 
     // Changing the colors of the buttons depending on their value (negative or positive)
+    const h5Element = e.currentTarget.querySelector("h5")
     if (e.currentTarget.value > 0) {
-      e.currentTarget.classList.remove = "button";
-      e.currentTarget.classList.add = "main-orange-btn"
+      e.currentTarget.classList.remove("button");
+      e.currentTarget.classList.add("button-bonus-done");
+      //Mark the XP as earned
+      h5Element.innerHTML = "XP\ngained"
+
     } else {
-      e.currentTarget.style = "background-color: blue; margin: 5px; width: 200px ";
+      e.currentTarget.classList.remove("button-bonus-done");
+      e.currentTarget.classList.add("button")
+      //Mark the XP as earned
+      h5Element.textContent = `${e.currentTarget.value * -1}XP`
     }
 
     // Increasing the width of the bar
     this.barWidth += parseInt(e.currentTarget.value,10);
     this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
     console.log(this.barWidth)
+
+    // Change the value at the XP bottom
+    this.barExpTarget.innerHTML = `${this.barWidth}`
 
     // Change the value of the button to negative
     e.currentTarget.value = e.currentTarget.value * -1

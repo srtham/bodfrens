@@ -12,7 +12,7 @@
   height: 100%;
   width: 20%;
   background-image: repeating-linear-gradient(to left, #FFF, #c9c9c9, #c9c9c9);
-  transition: 1s ease 0.3s;
+  transition: 1s ease 0.1s;
 }
 
 .game-progressed-bar {
@@ -21,8 +21,8 @@
   justify-content: center;
   height: 100%;
   width: 0%;
-  background: linear-gradient(349deg, #F3A310 0.96%, #F7B513 74.05%);
-  transition: 1s ease 0.3s;
+  background: linear-gradient(349deg, #cf8700 0.96%, #F7B513 74.05%);
+  transition: 1s ease 0.1s;
 }
 
 .bonus-game-progressed-bar {
@@ -32,5 +32,5 @@
   height: 100%;
   width: 20%;
   background: linear-gradient(270deg, #459c8e 30%, #23BDA3 70%);
-  transition: 1s ease 0.3s;
+  transition: 1s ease 0.1s;
 }

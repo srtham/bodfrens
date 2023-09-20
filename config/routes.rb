@@ -24,7 +24,9 @@ Rails.application.routes.draw do
       resources :user_game_data, only: [:update]
       resources :active_exercises, only: [:update]
       get 'game_stats', to: 'user_game_data#show_game_stats', as: 'show_game_stats'
+      # get 'game_complete', on: :member, as: 'show_game_complete'
       get 'game_complete', to: 'user_game_data#show', as: 'show_game_complete'
+      # patch 'game_complete', to: 'user_game_data#update_complete', as: 'update_game_complete'
     end
   end
 end

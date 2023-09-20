@@ -29,6 +29,24 @@
     margin: 0;
   }
 
+  .xp-points {
+    color: #414644;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .xp-container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+    gap: 6px;
+  }
+
 }
 
 .game-buttons-container {
