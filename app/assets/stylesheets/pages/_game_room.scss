@@ -1,0 +1,59 @@
+.room-page-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  gap: 25px;
+
+  h1 {
+    color: #515151;
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Montserrat;
+    font-size: 51px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  h3 {
+    color: #3C3C3C;
+    text-align: right;
+    font-family: Montserrat;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+  }
+
+  .xp-points {
+    color: #414644;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .xp-container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+    gap: 6px;
+  }
+
+}
+
+.game-buttons-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  gap: 35px;
+}

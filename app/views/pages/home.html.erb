@@ -13,13 +13,17 @@
       </div>
     </div>
 
-    <%= image_tag("pngs/bodfrens_graphics-17.png" , width: "25px" )%>
+      <a href="#" data-bs-toggle="modal" data-bs-target="#howToplayModal">
+        <%= image_tag("pngs/bodfrens_graphics-17.png", width: "25px") %>
+      </a>
+        <%= render 'shared/how_to_play_modal' %>
+
   </section>
 
   <div class="spacer" style="width: 1px; height: 250px"></div>
 
-  <%= image_tag "pngs/logo.png", width: "85%" %>
-  <%= link_to "Start", mode_select_pages_path, class: "btn btn-primary" %>
+  <%= image_tag "pngs/logo.png", width: "85%", class: "animate__animated animate__fadeInDown"%>
+  <%= link_to "Start", mode_select_pages_path, class: "main-orange-btn animate__animated animate__fadeInDown" %>
 
   <div class="spacer" style="width: 1px; height: 110px"></div>
 
@@ -28,14 +32,14 @@
     <div class="homepage-bottom-left">
 
       <%= link_to exercises_path, style: "text-decoration:none;"  do %>
-        <div class= "homepage-bottom-top-left">
+        <div class= "homepage-bottom-top-left animate__animated animate__fadeIn">
           <h5> Exercises</h5>
           <p> View all </h5>
         </div>
       <% end %>
 
       <%= link_to badges_path, style: "text-decoration:none;" do %>
-        <div class= "homepage-bottom-bottom-left">
+        <div class= "homepage-bottom-bottom-left animate__animated animate__fadeIn">
           <h5> Badges</h5>
           <p> View </h5>
         </div>
@@ -44,7 +48,7 @@
     </div>
 
     <% if current_user %>
-      <%= link_to user_path(current_user), class: "homepage-bottom-right" do %>
+      <%= link_to user_path(current_user), class: "homepage-bottom-right animate__animated animate__fadeIn" do %>
         <div>
           <h5> Stats</h5>
           <p> View </h5>
