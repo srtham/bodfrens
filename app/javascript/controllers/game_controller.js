@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="game"
 export default class extends Controller {
-  static targets = ["button", "bar", "timer", "xp", "bonus", "barExp", "barFinalExp", "bonusButton"];
+  static targets = ["button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton"];
 
   static values = {
     secondsUntilEnd: Number,
@@ -11,7 +11,8 @@ export default class extends Controller {
     user: Number,
     dataId: Number,
     secondsLeft: Number,
-    xp: Number
+    xp: Number,
+    timeTaken: Number
   }
 
   connect() {
@@ -32,7 +33,7 @@ export default class extends Controller {
     console.log(`this is the end value= ${this.endValue}`);
     console.log("The game is now connected");
     console.log(`This is the XP value of the room = ${this.xpValue}` )
-
+    console.log(`This is the time taken from the other room = ${this.timeTakenValue}` )
     // timer settings:
     ///// this.secondsUntilEnd = this.data.get("seconds-until-end-value");
     this.Modal = document.getElementById("bonusPromptModal");
@@ -91,11 +92,6 @@ export default class extends Controller {
     };
   }
 
-  changeBarWidth() {
-
-  }
-
-
   countdown() {
 
     if (this.XPvalue == this.endValue) {
@@ -128,7 +124,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         "X-CSRF-Token": this.csrfToken
       },
-      body: JSON.stringify({game_xp: this.XPvalue, end_game: false, finish: true, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+      body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
     });
   }
 
@@ -142,7 +138,7 @@ export default class extends Controller {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({game_xp: this.XPvalue - 100, end_game: true, finish: false, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+        body: JSON.stringify({game_xp: this.XPvalue - 100, finish: false, time_taken: 900 - this.secondsUntilEnd, bonus_finish: false, user_game_datum_id: this.dataIdValue})
       })
       .then(response => {
         if (response.ok) {
@@ -152,9 +148,6 @@ export default class extends Controller {
           console.error("Failed to update user game data.");
         }
       })
-      .catch(error => {
-        console.error("Error:", error);
-      });
 
     }
 
@@ -212,11 +205,53 @@ export default class extends Controller {
 
     // End Game with Finish
     if (this.XPvalue == this.endValue) {
-      this.updateUserGameDatumWithFinish();
-      console.log("Bonus GAME FINISH");
-      window.location.href = `/room/${this.roomValue}/game_complete`;
-    };
+      this.updateUserGameDatumWithBonusFinish();
+      console.log("BONUS FINISH")
+    }
+
   }
+
+  updateUserGameDatumWithBonusFinish() {
+    // Update the data to the ruby controller
+      fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({game_xp: this.XPvalue, finish: true, bonus_finish: true, time_taken: (600 - this.secondsUntilEnd) + this.timeTakenValue, user_game_datum_id: this.dataIdValue})
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = `/room/${this.roomValue}/game_complete`;
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
+      })
+    };
+
+  updateUserGameDatumWithBonusEnd(e) {
+    // Update the data to the ruby controller
+      console.log("BUTTON CLICKED")
+      e.preventDefault()
+      fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({game_xp: this.XPvalue, finish: true, bonus_finish: false, time_taken: (600 - this.secondsUntilEnd) + this.timeTakenValue, user_game_datum_id: this.dataIdValue})
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = `/room/${this.roomValue}/game_complete`;
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
+      })
+    }
 
 
   startBonus() {

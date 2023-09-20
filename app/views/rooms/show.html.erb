@@ -13,9 +13,20 @@
 <% end %>
 <!-- -->
 
+<!-- ruby code to determine previous time taken -->
+<% time_taken = 0 %>
+
+<% if @user_game_data.time_taken == nil %>
+  <% time_taken = 0 %>
+<% else %>
+  <% time_taken = @user_game_data.time_taken %>
+<% end %>
+<!-- -->
+
 <div class="game-controller-div"
 
   data-controller="game"
+  data-game-time-taken-value="<%=time_taken%>"
   data-game-xp-value="<%=@room.bonus ? @user_game_data.game_xp : 0%>"
   data-game-room-value="<%=@room.id%>"
   data-game-user-value="<%=@user%>"
@@ -53,9 +64,9 @@
     </section>
 
 
-    <div class= "xp-container" style="width:65%">
-      <div class="progress-bar" >
-        <div class="game-progressed-bar" data-game-target="bar"></div>
+    <div class= "xp-container" style="width:65%; ">
+      <div class="progress-bar" style= <%= @room.bonus ? "background-color: #2f2f2f;" : ''%>  >
+        <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-game-target="bar"></div>
       </div>
       <div class="d-flex xp-points">
       <p data-game-target="barExp">0</p><p data-game-target="barFinalExp">/120 XP EARNED</p>
@@ -63,8 +74,7 @@
     </div>
 
     <% if @room.bonus %>
-      <%= link_to "End Game", show_game_complete_room_path %>
-      <button type="button" class=".give-up-btn" data-bs-toggle="modal" data-bs-target="#giveUpModal">End Game</button>
+      <button type="button" class="give-up-btn" data-bs-toggle="modal" data-bs-target="#endGameModal">End Game</button>
     <% else %>
       <button type="button" class="give-up-btn" data-bs-toggle="modal" data-bs-target="#giveUpModal">Give Up</button>
     <% end %>
@@ -98,8 +108,29 @@
             <div class="modal-header">
             </div>
             <div class="modal-body">
-              Giving up will forfeit 100XP <br>
+              Giving up will forfeit your current points and 100XP<br>
               Are you sure?
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-action="click->game#updateUserGameDatumWithQuit" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+              <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!--------Bonus End Game Modal-------->
+
+    <section class="modal fade" id="endGameModal" tabindex="-1" aria-labelledby="endGameLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+              End the bonus round? There won't be a penalty.
             </div>
             <div class="modal-footer">
               <button type="button" data-action="click->game#updateUserGameDatumWithQuit" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
