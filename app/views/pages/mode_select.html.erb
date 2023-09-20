@@ -7,7 +7,7 @@
   <button type="button" class="select-mode-btn animate__animated animate__fadeInDown" data-bs-toggle="modal" data-bs-target="#multiModal">
     MultiPlayer
   </button>
-  <button type="button" class="btn btn-primary" id="cancel-btn">Cancel</button>
+  <%= button_to "Cancel", root_path, method: :get, class: "btn btn-primary", id: "cancel-btn" %>
 
 <!--------Single Modal-------->
   <div class="modal fade" id="singleModal" tabindex="-1" aria-labelledby="singleModalLabel" aria-hidden="true">
