@@ -2,7 +2,10 @@
   <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
   <section class="signup-top-bar">
-    <%= image_tag("pngs/bodfrens_graphics-17.png" , width: "25px" )%>
+    <a href="#" data-bs-toggle="modal" data-bs-target="#howToplayModal">
+      <%= image_tag("pngs/bodfrens_graphics-17.png", width: "25px") %>
+    </a>
+      <%= render 'shared/how_to_play_modal' %>
   </section>
 
   <div class="signup-content">
