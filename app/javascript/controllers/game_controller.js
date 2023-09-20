@@ -143,8 +143,19 @@ export default class extends Controller {
           "X-CSRF-Token": this.csrfToken
         },
         body: JSON.stringify({game_xp: this.XPvalue - 100, end_game: true, finish: false, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = `/room/${this.roomValue}/game_complete`;
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
       });
-      // window.location.href = `/room/${this.roomValue}/game_complete`;
+
     }
 
   showBonusModal() {

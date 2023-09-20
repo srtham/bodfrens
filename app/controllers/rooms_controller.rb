@@ -6,6 +6,20 @@ class RoomsController < ApplicationController
     @room.user = current_user
   end
 
+  def update_room
+    end_game = params[:end_game]
+    game_xp = params[:game_xp]
+    finish = params[:finish]
+    time_taken = params[:time_taken]
+    user_game_datum = UserGameDatum.find(params[:user_game_datum_id])
+    user_game_datum.game_xp = game_xp
+    user_game_datum.finish = finish
+    user_game_datum.time_taken = time_taken
+    user_game_datum.save
+
+    redirect_to show_game_complete_room_path
+  end
+
   def update
     bonus = params[:bonus]
     room = Room.find(params[:id])
