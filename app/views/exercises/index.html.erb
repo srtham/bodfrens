@@ -1,6 +1,5 @@
-  <%= link_to "Back to Home", root_path %>
-<div class="page-container">
-  <h3 class="text-white"> Exercise List </h3>
+<div class="page-container" style="margin-top: 123px;">
+  <h1 class="text-white"> <strong>Exercise </strong></h1>
 
   <div id="exerciseCarousel" class="carousel slide" data-interval="false">
     <div class="carousel-inner">
@@ -43,10 +42,11 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-  <div class ="back-home">
-    <%= link_to "Back to Home", root_path %>
-  </div>
+    <div class="primary-btn">
+      <strong><%= link_to "Back to Home", root_path , style: "color: white; text-decoration: none;"%></strong>
+    </div>
 </div>
+
   <div class="bg-container">
     <div class="bg-color">
       <div class="bg-infinite">
