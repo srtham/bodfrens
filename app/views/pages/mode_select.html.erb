@@ -6,8 +6,7 @@
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#multiModal">
     MultiPlayer
   </button>
-  <button type="button" class="btn btn-primary" id="cancel-btn">Cancel</button>
-
+  <%= button_to "Cancel", root_path, method: :get, class: "btn btn-primary", id: "cancel-btn" %>
 <!--------Single Modal-------->
   <div class="modal fade" id="singleModal" tabindex="-1" aria-labelledby="singleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
