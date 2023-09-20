@@ -13,7 +13,11 @@
       </div>
     </div>
 
-    <%= image_tag("pngs/bodfrens_graphics-17.png" , width: "25px" )%>
+      <a href="#" data-bs-toggle="modal" data-bs-target="#howToplayModal">
+        <%= image_tag("pngs/bodfrens_graphics-17.png", width: "25px") %>
+      </a>
+        <%= render 'shared/how_to_play_modal' %>
+
   </section>
 
   <div class="spacer" style="width: 1px; height: 250px"></div>
