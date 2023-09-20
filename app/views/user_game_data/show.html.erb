@@ -1,2 +1,5 @@
-<h1>UserGameData#show</h1>
-<p>Find me in app/views/user_game_data/show.html.erb</p>
+<% if @user_game_data.finish %>
+  <%= render "user_game_data/complete" %>
+<% else %>
+  <%= render "user_game_data/giveup" %>
+<% end %>

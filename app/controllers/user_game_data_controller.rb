@@ -21,6 +21,11 @@ class UserGameDataController < ApplicationController
     # might need to delete this... I'm still confused about the re-directs.
   end
 
+  def show
+    @game_room_id = Room.find(params[:id])
+    @user_game_data = @game_room_id.user_game_data.first # may get more complicated with more users
+  end
+
   def show_game_stats
   end
 
