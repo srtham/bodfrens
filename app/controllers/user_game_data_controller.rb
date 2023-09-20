@@ -27,6 +27,8 @@ class UserGameDataController < ApplicationController
   end
 
   def show_game_stats
+    @game_room_id = Room.find(params[:id])
+    @user_game_data = @game_room_id.user_game_data.first # may get more complicated with more users
   end
 
 end
