@@ -1,0 +1,144 @@
+.signup-container {
+  max-width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.signup-top-bar {
+  display: flex;
+  padding: 20px 42px 20px 28px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.signup-content {
+  display: flex;
+  padding: 50px 23px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+#signup-logo {
+  margin-bottom: 44px;
+}
+
+#new_user {
+  display: flex;
+  width: 302px;
+  padding: 32px 0px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.signup {
+  height: 35px;
+  align-self: stretch;
+}
+
+.signup-input {
+  width: 302;
+  height: 35px;
+  padding: 9px, 0px, 9px, 0px;
+  border-radius: 25px;
+  background: rgba(224, 224, 224, 0.85);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.13);
+}
+
+.signup-label {
+  color: #3A6E64;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+}
+
+.form-text {
+  width: 186px;
+  height: 14px;
+  color: #FFF;
+  font-family: Montserrat;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.form-check-label {
+  color: #FFF;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  vertical-align: top;
+}
+
+#user_remember_me {
+  border-radius: 4px;
+  width: 11px;
+  height: 11px;
+}
+
+.signup-bottom-left {
+  color: #FFF;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.signup-bottom-right {
+  color: #3A6E64;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.main-orange-btn.login-button {
+  width: 83px;
+  height: 30px;
+  padding: 7px 13px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-top: 42px;
+}
+
+.main-orange-btn.signup-button {
+  width: 90px;
+  height: 30px;
+  padding: 7px 13px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+  display: block;
+  margin: 8px auto;
+}
+ p.signup-bottom-left {
+  margin: 0;
+  padding-bottom: 10px;
+ }
+
+ .signin-bottom {
+  margin-top: 30px;
+ }
