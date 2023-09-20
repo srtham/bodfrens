@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'users/:id', to: 'users#show', as: 'user'
   resources :badges, only: [:index]
   resources :exercises, only: [:index]
-  resources :rooms, only: [:show], path: 'room' do
+  resources :rooms, only: %i[show update], path: 'room' do
     member do
       get 'lobby', to: 'rooms#lobby', as: 'lobby'
       post 'lobby', to: 'rooms#create_from_lobby', as: 'rooms_create_from_lobby'
@@ -24,7 +24,9 @@ Rails.application.routes.draw do
       resources :user_game_data, only: [:update]
       resources :active_exercises, only: [:update]
       get 'game_stats', to: 'user_game_data#show_game_stats', as: 'show_game_stats'
+      # get 'game_complete', on: :member, as: 'show_game_complete'
       get 'game_complete', to: 'user_game_data#show', as: 'show_game_complete'
+      # patch 'game_complete', to: 'user_game_data#update_complete', as: 'update_game_complete'
     end
   end
 end

@@ -1,16 +1,18 @@
+
 <div class="container main">
   <article class="select">Select Mode</article>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#singleModal">
+  <button type="button" class="select-mode-btn animate__animated animate__fadeInDown" data-bs-toggle="modal" data-bs-target="#singleModal">
     Single Player
   </button>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#multiModal">
+  <button type="button" class="select-mode-btn animate__animated animate__fadeInDown" data-bs-toggle="modal" data-bs-target="#multiModal">
     MultiPlayer
   </button>
-  <%= button_to "Cancel", root_path, method: :get, class: "btn btn-primary", id: "cancel-btn" %>
+  <button type="button" class="btn btn-primary" id="cancel-btn">Cancel</button>
 
 <!--------Single Modal-------->
   <div class="modal fade" id="singleModal" tabindex="-1" aria-labelledby="singleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+
       <div class="modal-content">
         <div class="modal-header">
         </div>
@@ -18,8 +20,8 @@
           Start a single player match?
         </div>
         <div class="modal-footer">
-          <%= button_to "Yes", single_player_path, class: "main-orange-btn", id: "yes-btn" %>
-          <button type="button" class="main-orange-btn" id="no-btn" data-bs-dismiss="modal">No</button>
+           <%= button_to "Yes", single_player_path, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+          <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
         </div>
       </div>
     </div>
@@ -34,11 +36,12 @@
         <div class="modal-header">
         </div>
         <div class="modal-body">
-          Start a multiplayer match?
+          Multiplayer is not yet available.
+          <!--Start a multiplayer match?-->
         </div>
         <div class="modal-footer">
-          <%= button_to "Yes", root_path, class: "main-orange-btn", id: "yes-btn" %>
-          <button type="button" class="main-orange-btn" id="no-btn" data-bs-dismiss="modal">No</button>
+          <!--<button type="button" class="btn btn-primary">Yes</button>-->
+          <button data-bs-dismiss="modal" type="button" aria-label="Close" class="main-orange-btn">Cancel</button>
         </div>
       </div>
     </div>
@@ -54,12 +57,15 @@
 
 
 
+<h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
+
 
 
 <!-- The divs above are just for the scrolling animation and bg
 find them under the _backgrounds.scss in components -->
 
-<div class="bg-container">
+<div class="bg-container animate__animated animate__fadeIn">
   <div class="bg-color">
     <div class="bg-infinite">
     </div>
@@ -67,4 +73,4 @@ find them under the _backgrounds.scss in components -->
 
 </div>
 
-<!------>
+<!-- ##---->

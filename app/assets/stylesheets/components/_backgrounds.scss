@@ -13,6 +13,18 @@
   background: linear-gradient(180deg, #5FE5BC 0.32%, #23BDA3 49.32%);
 }
 
+.bg-color-gray {
+  background: linear-gradient(180deg, #F9F9F9 -8.05%, #D2D2D2 64.43%);
+  width: 3464px;
+  height: 100vh;
+}
+
+.bg-color-orange {
+  background: linear-gradient(349deg, #F3A310 0.96%, #F7B513 74.05%);
+  width: 3464px;
+  height: 100vh;
+}
+
 .bg-infinite {
   background: url(bg-01.svg) repeat;
   height: 982.5px;

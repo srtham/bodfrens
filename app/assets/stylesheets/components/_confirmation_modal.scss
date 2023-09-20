@@ -76,6 +76,20 @@
   --bs-modal-header-border-color: initial;
 }
 
+.game-modal {
+  display: block;
+  position: absolute;
+  align-items: center;
+  z-index: 1;
+  padding-top: 10%;
+  width: 90%;
+  height: 110%;
+}
+
+.hidden-modal {
+  display: none;
+}
+
 #yes-btn {
   width: 178px;
   height: 56px;
