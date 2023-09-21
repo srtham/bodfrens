@@ -56,20 +56,22 @@ export default class extends Controller {
     this.buttonSound.play()
     this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
     console.log(`the XP value is = ${this.XPvalue}`)
-
+    console.log(e.currentTarget)
+    //change the icon
     const h5Element = e.currentTarget.querySelector("h5")
     // Changing the colors of the buttons depending on their value (negative or positive)
     if (e.currentTarget.value > 0) {
       e.currentTarget.classList.remove("button");
       e.currentTarget.classList.add("button-regular-done");
-      //Mark the XP as earned
-      h5Element.innerHTML = "XP\ngained"
 
+      //Mark the XP as earned
+      h5Element.innerHTML = "XP\ngained";
     } else {
       e.currentTarget.classList.remove("button-regular-done");
-      e.currentTarget.classList.add("button")
+      e.currentTarget.classList.add("button");
+
       //Mark the XP as earned
-      h5Element.textContent = `${e.currentTarget.value * -1}XP`
+      h5Element.textContent = `${e.currentTarget.value * -1}XP`;
     }
 
     // Increasing the width of the bar
@@ -156,6 +158,7 @@ export default class extends Controller {
     console.log(this.Modal)
     this.Modal.classList.remove("hidden-modal");
     this.Modal.classList.add("game-modal");
+
   }
 
   changeRoomToBonus() {
@@ -233,7 +236,7 @@ export default class extends Controller {
 
   updateUserGameDatumWithBonusEnd(e) {
     // Update the data to the ruby controller
-      console.log("BUTTON CLICKED")
+
       e.preventDefault()
       fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
         method: "PATCH",

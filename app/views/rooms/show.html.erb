@@ -49,7 +49,7 @@
       <% exercises.each do |exercise| %>
         <div>
           <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal">
-            <%= image_tag("pngs/search_logo.png") %>
+            <%= image_tag("svgs/search_logo_gray.svg") %>
           </button>
           <button
             data-game-target="<%= @room.bonus ? 'bonusButton' : 'button' %>"
@@ -74,14 +74,14 @@
     </div>
 
     <% if @room.bonus %>
-      <button type="button" class="give-up-btn" data-bs-toggle="modal" data-bs-target="#endGameModal">End Game</button>
+      <button type="button" class="give-up-btn" data-bs-toggle="modal" data-bs-target="#giveUpModal">End Game</button>
     <% else %>
       <button type="button" class="give-up-btn" data-bs-toggle="modal" data-bs-target="#giveUpModal">Give Up</button>
     <% end %>
 
     <!---Modals---->
     <!--------Bonus Modal-------->
-    <section class="hidden-modal" id="bonusPromptModal" tabindex="-1">
+    <section class="hidden-modal animate__animated animate__fadeInDown" id="bonusPromptModal" tabindex="-1" >
         <div class="modal-dialog">
 
           <div class="modal-content">
@@ -100,7 +100,7 @@
       </div>
     </section>
 
-   <!--------Give Up Modal-------->
+   <!--------Give Up/End Game Modal-------->
     <section class="modal fade" id="giveUpModal" tabindex="-1" aria-labelledby="giveUpModalLabel" aria-hidden="true">
         <div class="modal-dialog">
 
@@ -108,11 +108,18 @@
             <div class="modal-header">
             </div>
             <div class="modal-body">
-              Giving up will forfeit your current points and 100XP<br>
-              Are you sure?
+              <% if @room.bonus? %>
+                End the bonus round? There won't be a penalty.
+              <% else %>
+                Giving up will forfeit your current points and 100XP<br>Are you sure?
+              <% end %>
             </div>
             <div class="modal-footer">
-              <button type="button" data-action="click->game#updateUserGameDatumWithQuit" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+              <% if @room.bonus? %>
+                <button type="button" data-action="click->game#updateUserGameDatumWithBonusEnd" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+              <% else %>
+                <button type="button" data-action="click->game#updateUserGameDatumWithQuit" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+              <% end %>
               <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
             </div>
           </div>
@@ -120,26 +127,6 @@
       </div>
     </section>
 
-
-    <!--------Bonus End Game Modal-------->
-
-    <section class="modal fade" id="endGameModal" tabindex="-1" aria-labelledby="endGameLabel" aria-hidden="true">
-        <div class="modal-dialog">
-
-          <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body">
-              End the bonus round? There won't be a penalty.
-            </div>
-            <div class="modal-footer">
-              <button type="button" data-action="click->game#updateUserGameDatumWithQuit" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
-              <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!--------Exercise Modal-------->
     <section class="modal fade" aria-labelledby="exerciseModalLabel" aria-hidden="true" id="exerciseModal" tabindex="-1">

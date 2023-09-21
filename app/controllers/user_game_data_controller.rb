@@ -14,7 +14,6 @@ class UserGameDataController < ApplicationController
     user_game_datum.save
   end
 
-
   def show_game_stats
   end
 
