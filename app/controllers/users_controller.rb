@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @user_xp_earned = 200
-    # @user.user_game_data.sum(:game_xp)
+    @user_xp_earned = @user.user_game_data.sum(:game_xp)
     @user_level = calculate_level(@user_xp_earned)
     @xp_left_to_next_level = xp_to_next_level(@user_xp_earned, @user_level)
     @xp_progress_percentage = xp_progress_percentage(@user_xp_earned, @xp_left_to_next_level)
@@ -20,17 +19,22 @@ class UsersController < ApplicationController
 
   private
 
-  def calculate_level(_user_xp_earned)
+  def calculate_level(user_xp_earned)
     base_xp_increment = 200
-    (@user_xp_earned / base_xp_increment).to_i + 1
+    (user_xp_earned / base_xp_increment).to_i + 1
   end
 
-  def xp_to_next_level(_user_xp_earned, user_level)
+  def xp_to_next_level(user_xp_earned, user_level)
     base_xp_increment = 200
-    user_level * base_xp_increment
+    total_xp_to_reach_next_level = user_level * base_xp_increment
+    total_xp_to_reach_next_level - user_xp_earned
   end
 
-  def xp_progress_percentage(user_xp_earned, xp_left_to_next_level)
-    (user_xp_earned.to_f / xp_left_to_next_level * 100).round(2)
+  def xp_progress_percentage(user_xp_earned, user_level)
+    base_xp_increment = 200
+    user_level = (user_xp_earned / base_xp_increment).to_i
+    xp_to_next_level = (user_level + 1) * base_xp_increment
+    xp_needed_for_next_level = xp_to_next_level - user_xp_earned
+    ((base_xp_increment - xp_needed_for_next_level).to_f / base_xp_increment * 100).round(2)
   end
 end
