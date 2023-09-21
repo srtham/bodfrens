@@ -5,10 +5,10 @@
 <% seconds_till_end = 0 %>
 
 <% if @room.bonus %>
-  <% seconds_till_end = 600 %>
+  <% seconds_till_end = 90 %>
   <% exercises = @bonus_exercises %>
 <% else %>
-  <% seconds_till_end = 900 %>
+  <% seconds_till_end = 180 %>
   <% exercises = @regular_exercises %>
 <% end %>
 <!-- -->
@@ -65,7 +65,7 @@
 
 
     <div class= "xp-container" style="width:65%; ">
-      <div class="progress-bar" style= <%= @room.bonus ? "background-color: #2f2f2f;" : ''%>  >
+      <div class="progress-bar" style= <%= @room.bonus ? "background: white;" : ''%>  >
         <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-game-target="bar"></div>
       </div>
       <div class="d-flex xp-points">
@@ -81,8 +81,8 @@
 
     <!---Modals---->
     <!--------Bonus Modal-------->
-    <section class="hidden-modal animate__animated animate__fadeInDown" id="bonusPromptModal" tabindex="-1" >
-        <div class="modal-dialog">
+    <section class="hidden-modal animate__animated animate__fadeIn" id="bonusPromptModal" tabindex="-1" >
+        <div class="modal-dialog" style="width:90%;">
 
           <div class="modal-content">
             <div class="modal-header">

@@ -56,7 +56,7 @@ export default class extends Controller {
     this.buttonSound.play()
     this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
     console.log(`the XP value is = ${this.XPvalue}`)
-    console.log(e.currentTarget)
+
     //change the icon
     const h5Element = e.currentTarget.querySelector("h5")
     // Changing the colors of the buttons depending on their value (negative or positive)
