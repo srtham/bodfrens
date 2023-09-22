@@ -1,0 +1,94 @@
+.select.badges {
+  padding-top: 123px;
+  padding-bottom: 20px;
+}
+
+.nav {
+  --bs-nav-link-hover-color: unset !important;
+}
+
+.nav.nav-pills {
+  display: flex;
+  padding: 12px 13px;
+  justify-content: center;
+  align-items: center;
+  gap: 38px;
+}
+
+.nav-link {
+  width: 120px;
+  height: 40px;
+  border-radius: 25px !important;
+  font-size: 12px;
+  background: #3B9686;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #245C53;
+}
+
+.tab-content {
+  height: 100%;
+  padding: 20px 31px;
+}
+
+.tab-pane.active {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  justify-items: center;
+}
+
+.badge-container {
+  width: 99px;
+  height: 130px;
+  padding: 9px 8px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  display: flex;
+}
+
+.badge-title {
+  color: #FFF;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  height: 15px;
+  width: 86px;
+  margin: 0;
+}
+
+.badge-image {
+  width: 60px;
+  height: 60px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
+}
+
+.badge-description {
+  color: #FFF;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.primary-btn.badges {
+  display: flex;
+  width: 176px;
+  padding: 11px 0px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 76px auto 0px;
+}
+
+.primary-btn.badges:hover {
+  background-color: #3B9686;
+}

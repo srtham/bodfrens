@@ -1,4 +1,39 @@
-<h1>Badges#index</h1>
-<p>Find me in app/views/badges/index.html.erb</p>
-<%= link_to "Back to Home", root_path, class: "primary-btn" %>
-<%= link_to "All Badges", badges_path, class: "secondary-btn" %>
+<div class="badges-container">
+  <article class="select badges">Badges</article>
+  <ul class="nav nav-pills" id="Badges">
+    <li class="badges-item">
+      <button class="nav-link active primary-btn" id="all-badges-tab" data-bs-toggle="pill" data-bs-target="#all-badges" role="tab">All Badges</button>
+    </li>
+    <li class="badges-item">
+      <button class="nav-link primary-btn" id="your-badges-tab" data-bs-toggle="pill" data-bs-target="#your-badges" role="tab">Your Badges</button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="all-badges" role="tabpanel">
+      <% @badges.each do |badge| %>
+        <div class="badge-container">
+          <p class="badge-title"><%= badge.title %></p>
+          <%= image_tag badge.image_url, alt: badge.title, class: 'badge-image' %>
+          <p class="badge-description"><%= badge.description %></p>
+        </div>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="your-badges" role="tabpanel">
+      <!-- Content for Pill 2 -->
+      <p></p>
+      <h1>Your Badges is not yet available.</h1>
+    </div>
+    <%= button_to "Back to Home", root_path, method: :get, class: "btn primary-btn badges" %>
+  </div>
+</div>
+
+<!-- The divs above are just for the scrolling animation and bg
+  find them under the _backgrounds.scss in components -->
+  <div class="bg-container">
+    <div class="bg-color">
+      <div class="bg-infinite">
+      </div>
+    </div>
+  </div>
+<!-- --->
