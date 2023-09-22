@@ -35,7 +35,7 @@
   data-game-seconds-left-value="<%= seconds_till_end %>">
 
   <div class="room-page-container">
-    <div class="spacer" style="height:10%; width 2px;"></div>
+    <div class="spacer" style="height:5%; width 2px;"></div>
 
     <section class="timer">
       <%= content_tag(:h1, "Go!", data: {
@@ -46,9 +46,9 @@
     </section>
 
     <section class="game-buttons-container animate__animated animate__fadeInDown">
-      <% exercises.each do |exercise| %>
+      <% exercises.each_with_index do |exercise, index| %>
         <div>
-          <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal">
+          <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal<%=index + 1%>">
             <%= image_tag("svgs/search_logo_gray.svg") %>
           </button>
           <button
@@ -128,24 +128,27 @@
     </section>
 
 
-    <!--------Exercise Modal-------->
-    <section class="modal fade" aria-labelledby="exerciseModalLabel" aria-hidden="true" id="exerciseModal" tabindex="-1">
-        <div class="modal-dialog">
+    <!--------Exercise Modals-------->
+    <% exercises.each_with_index do |exercise, index| %>
+      <section class="modal fade" aria-labelledby="exerciseModal<%=index + 1%>Label" aria-hidden="true" id="exerciseModal<%=index + 1%>" tabindex="-1">
+          <div class="modal-dialog">
 
-          <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body">
-              Exercise Name
-            </div>
-            <div class="modal-footer">
-              <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">Close</button>
+            <div class="exercise-modal">
+              <div class="modal-header">
+              </div>
+              <div class="modal-body">
+                <h1><%= exercise.title %><br><h1>
+                <%= image_tag(asset_path(exercise.image_url), style: "width: 120px") %><br>
+                <p><%= exercise.description %></p>
+              </div>
+              <div class="modal-footer">
+                <button data-bs-dismiss="modal" type="button" aria-label="Close" class="give-up-btn">Close</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
+      </section>
+      <% end %>
   </div>
 
 </div>
