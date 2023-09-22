@@ -12,6 +12,10 @@ puts "Clearing all Exercises"
 Exercise.destroy_all
 puts "Clearing done"
 
+puts "Clearing all User Data"
+UserGameDatum.destroy_all
+puts "Clearing done"
+
 puts "create 10 exercise"
 # Create 10 example exercises
 exercise_data = [

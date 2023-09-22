@@ -6,18 +6,18 @@
 
     <div class="card-text">
       <h4>Your Level</h4>
-      <h4>32</h4>
+      <h4> <%= @user_level %></h4>
     </div>
 
     <div class="card-text" data-value= "-25" method: :post>
       <h4>XP left to next level</h4>
-      <h4>340</h4>
+      <h4> <%= @xp_left_to_next_level %></h4>
     </div>
 
     <div class="stats-spacer" style="height: 5px; width: 2px;" ></div>
 
     <div class="progress-bar">
-      <div class="stats-progressed-bar" data-game-button-target="bar"></div>
+      <div class="stats-progressed-bar" data-game-button-target="bar" style="width: <%= @xp_progress_percentage %>%;"></div>
     </div>
   </section>
 
@@ -25,7 +25,7 @@
 
     <div class="card-text">
       <h4>Average Workout Time</h4>
-      <h4> <%= @average_workout_time %></h4>
+      <h4> <%= number_with_precision(@average_workout_time, precision: 2) %></h4>
     </div>
 
     <div class="card-text">
