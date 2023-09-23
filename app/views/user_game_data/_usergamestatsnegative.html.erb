@@ -1,1 +1,38 @@
-<h1>UserGameData#usergamestatsnegative</h1>
+<div class="vh-100 page-container d-flex align-items-center d-flex justify-content-center px-4 text-center">
+
+  <h1><strong>Exercise Stats</strong></h1>
+
+  <div class="col-md-8 select-mode-btn"> <!--- need to be fixed -->
+    <h5 class="text-center text-justify text-black text-wrap fs-6"><strong> Workout time: <%= @user_game_data.time_taken%> mins</strong></h5>
+  </div>
+
+<!-- XP Earned -->
+  <div class="col-md-8">
+    <h5 class = "text-white"><strong><%= @user_game_data.game_xp %> XP Earned</strong></h5>
+    <h5 class = "text-black"><strong><%= @user_game_data.game_xp %> XP Lost</strong></h5> <!-- not updated-->
+  </div>
+
+<div class= "xp-container" style="width:65%">
+  <h5 class = "text-white"><strong><%= @user_game_data.game_xp %> XP Lost</strong></h5>
+  <div class="progress-bar" >
+    <div class="game-progressed-bar" data-game-target="bar"></div>
+  </div>
+</div>
+
+
+  <div class="main-orange-btn">
+    <strong><%= link_to "Play Again?", mode_select_rooms_path , style: "color: white; text-decoration: none;"%></strong>
+  </div>
+
+  <div class="gray-modal-btn">
+    <strong><%= link_to "Exit", root_path , style: "color: black; text-decoration: none;"%></strong>
+  </div>
+
+</div>
+
+<div class="bg-container">
+  <div class="bg-color">
+    <div class="bg-infinite">
+    </div>
+  </div>
+</div>
