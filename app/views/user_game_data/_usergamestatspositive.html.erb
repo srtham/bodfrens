@@ -2,35 +2,37 @@
 
   <h1><strong>Exercise Stats</strong></h1>
 
-  <div class="col-md-8 select-mode-btn"> <!--- need to be fixed -->
+  <div class="col-md-8 select-mode-btn" style= "display: flex; flex-wrap: wrap; align-content: center;">
     <h5 class="text-center text-justify text-black text-wrap fs-6"><strong> Workout time: <%= (@user_game_data.time_taken)/60%> mins</strong></h5>
-      <h5 class="text-center text-black text-wrap fs-6">
-        <% if @user_game_data.bonus_finish %>
-          <%= "Bonus round completed" %>
-        <% end %><br>
-      </h5>
+      <% if @user_game_data.bonus_finish %>
+        <h5 class="text-center text-black text-wrap fs-6">Bonus Round Completed!</h5>
+      <% end %><br>
+     </h5>
   </div>
 
 <div class="d-flex flex-column">
-  <!-- XP Earned -->
-    <div class= "xp-container" style="width:65%">
-      <h5 class = "text-white"><strong><%= @user_game_data.game_xp %> XP Earned</strong></h5>
-      <div class="progress-bar">
-        <div class="game-progressed-bar" data-game-target="bar"></div>
-      </div>
+
+  <div class= "xp-container" style=" padding-block-start: 30px; width:100%;">
+    <h3 class = "text-white"><strong><%= @user_game_data.game_xp %> XP Earned</strong></h5>
+    <!-- progress bar to be added: will increase with XP earned within the level -->
+    <div class="progress-bar" >
+      <div class="game-progressed-bar" style="width:100%"></div>
     </div>
-
-  <!-- Level (to insert level with yx code) -->
-
-  <div class="col-md-8">
-    <h5 class = "text-white"><strong>You leveled up!</strong></h5>
-    <%= @user_game_data.level %>
   </div>
 
-  <!-- Badges (to insert badge user earned, how to relate to game) -->
-  <div class="col-md-8">
+  <div class="col-md-8" style="padding-block-start: 30px; padding-block-end:30px;">
+  <% if @user_level.to_i > @user_start_level.to_i %>
+    <h5 class = "text-white"><strong><%= "You leveled up!"%></strong></h5>
+    <h6 class = "text-white">You are at level <%= @user_level %> now.</h6>
+  <% else %>
+    <h5 class = "text-white"><strong>You are at level <%= @user_level %>!</strong></h5>
+  <% end %>
+  </div>
+
+  <!-- Badges (to be inserted; based on what was earned from the game) -->
+  <%# <div class="col-md-8" style="padding-block-start: 30px; padding-block-end:30px;">
     <h5 class = "text-white"><strong>Badge Earned!</strong></h5>
-  </div>
+  </div> %>
 
  </div>
 
