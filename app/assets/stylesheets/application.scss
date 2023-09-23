@@ -17,17 +17,14 @@
   /* Your CSS styles for screens wider than 1080 pixels go here */
   /* For example, change the background color */
 
-  h1 {
+  h1, h2, h3, h4, h5, p, a, a.main-orange-btn, .homepage-bottom, img, button {
     display: none;
   }
 
-  p {
-    display: none;
+  h5.disclaimer {
+    display: block;
   }
 
-  a {
-    display: none;
-  }
 }
 
 @media screen and (max-width: 1080px) {
