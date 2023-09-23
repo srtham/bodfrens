@@ -5,10 +5,10 @@
 <% seconds_till_end = 0 %>
 
 <% if @room.bonus %>
-  <% seconds_till_end = 400 %>
+  <% seconds_till_end = 60 %>
   <% exercises = @bonus_exercises %>
 <% else %>
-  <% seconds_till_end = 600 %>
+  <% seconds_till_end = 180 %>
   <% exercises = @regular_exercises %>
 <% end %>
 <!-- -->
