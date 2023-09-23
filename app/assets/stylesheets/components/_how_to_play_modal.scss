@@ -1,3 +1,7 @@
+.modal-dialog.h2p {
+  height: 900px;
+}
+
 .modal-content.h2p {
   display: flex;
   padding: 60px 10px 80px 10px;
@@ -25,6 +29,10 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+
+#howToplayIndicators {
+  height: 600px;
 }
 
 .btn-close.h2p {
@@ -67,4 +75,8 @@
   width: 235px;
   height: 200px;
   margin: 0 auto;
+}
+
+.carousel-indicators.h2p {
+  margin-bottom: 100px;
 }
