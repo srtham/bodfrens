@@ -1,13 +1,14 @@
 //Buttons across all pages//
 
-.main-orange-btn { // rounded orange button with gradient
+.main-orange-btn {
+  // rounded orange button with gradient
   display: flex;
   padding: 7px 22px;
   justify-content: center;
   align-items: center;
   border-radius: 13px;
   margin: 4px;
-  background: linear-gradient(270deg, #EA7F09 -7.5%, #F9BF14 69.64%);
+  background: linear-gradient(270deg, #ea7f09 -7.5%, #f9bf14 69.64%);
   box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.13);
   font-weight: 700;
   color: white;
@@ -17,7 +18,8 @@
   line-height: normal;
 }
 
-.gray-modal-btn { // gray button for modal prompt
+.gray-modal-btn {
+  // gray button for modal prompt
   display: flex;
   border: none;
   margin: 4px;
@@ -25,16 +27,17 @@
   justify-content: center;
   align-items: center;
   border-radius: 13px;
-  background: linear-gradient(270deg, #CCC -7.5%, #E0E0E0 69.64%);
+  background: linear-gradient(270deg, #ccc -7.5%, #e0e0e0 69.64%);
   box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.13);
   font-weight: 700;
-  color: #5A5A5A;
+  color: #5a5a5a;
   text-decoration: none;
   font-size: 20px;
   line-height: normal;
 }
 
-.primary-btn { // darker green button
+.primary-btn {
+  // darker green button
   display: flex;
   width: 40%;
   border: none;
@@ -43,7 +46,7 @@
   align-items: flex-start;
   gap: 10px;
   border-radius: 20px;
-  background: #237C6E;
+  background: #237c6e;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   font-weight: 700;
   text-decoration: none;
@@ -51,7 +54,8 @@
   font-size: 13px;
 }
 
-.secondary-btn { // lighter green button
+.secondary-btn {
+  // lighter green button
   display: flex;
   width: 30%;
   padding: 12px 13px;
@@ -59,7 +63,7 @@
   align-items: flex-start;
   gap: 10px;
   border-radius: 20px;
-  background: #3B9686;
+  background: #3b9686;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   font-weight: 700;
   text-decoration: none;
@@ -67,25 +71,27 @@
   font-size: 13px;
 }
 
-.select-mode-btn { // select mode buttons
+.select-mode-btn {
+  // select mode buttons
   display: flex;
   padding: 22px 22.5px;
   border-radius: 30px;
   border: none;
   justify-content: center;
   align-items: center;
-  background: #F3F3F3;
+  background: #f3f3f3;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 80%;
   height: 10%;
-  color: #3A6E64;
+  color: #3a6e64;
   font-size: 20px;
   font-weight: 700;
   line-height: normal;
   text-decoration: none;
 }
 
-.give-up-btn { // light grey button for user to give up
+.give-up-btn {
+  // light grey button for user to give up
   display: flex;
   height: 25px;
   border: none;
@@ -96,17 +102,16 @@
   gap: 10px;
   flex-shrink: 0;
   border-radius: 13px;
-  background: #89908D;
+  background: #89908d;
   text-decoration: none;
   color: white;
   font-weight: 700;
   font-size: 13px;
 }
 
-
-
-.button .text { // game room exercise button text
-  color: #3C3C3C;
+.button .text {
+  // game room exercise button text
+  color: #3c3c3c;
   text-align: right;
   font-size: 17px;
   font-style: normal;
@@ -114,8 +119,8 @@
   line-height: normal;
 }
 
-
-.icon { // magnifying glass icon
+.icon {
+  // magnifying glass icon
   width: 41px;
   z-index: 1;
   height: 43px;
@@ -133,8 +138,8 @@
   mix-blend-mode: multiply;
 }
 
-
-.button { // game room exercise button
+.button {
+  // game room exercise button
   position: absolute;
   display: inline-flex;
   justify-content: space-between;
@@ -147,7 +152,7 @@
   gap: 0px;
   flex-shrink: 0;
   border-radius: 25px;
-  background: #F5F5F5;
+  background: #f5f5f5;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
   cursor: pointer;
   text-decoration: none;
@@ -156,7 +161,7 @@
 
   .xp {
     width: 50px;
-    color: #3A9586;
+    color: #3a9586;
     text-align: center;
     font-family: Montserrat;
     font-size: 14px;
@@ -167,7 +172,8 @@
   }
 }
 
-.button-regular-done { // game room exercise button
+.button-regular-done {
+  // game room exercise button
   position: absolute;
   display: inline-flex;
   justify-content: space-between;
@@ -180,46 +186,8 @@
   gap: 0px;
   flex-shrink: 0;
   border-radius: 25px;
-  background: #F5F5F5;
-  background: linear-gradient(270deg, #EA7F09 1.83%, #F9BF14 95.87%);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
-  cursor: pointer;
-  text-decoration: none;
-  left: 50%; /* Horizontal centering */
-  transform: translateX(-50%); /* Center the button horizontally */
-    .xp {
-      width: 50px;
-      color: #f3f3f3;
-      text-align: center;
-      font-family: Montserrat;
-      font-size: 11px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      margin: 0;
-    }
-
-    .text { // game room exercise button text
-      color: #f7f7f7;
-    }
-
-}
-
-.button-bonus-done { // game room exercise button
-  position: absolute;
-  display: inline-flex;
-  justify-content: space-between;
-  border: none;
-  align-items: center;
-  width: 80%;
-  height: 60px;
-  padding: 0px 13px 0px 30px;
-  align-items: center;
-  gap: 0px;
-  flex-shrink: 0;
-  border-radius: 25px;
-  background: #F5F5F5;
-  background: linear-gradient(270deg, #43B191 1.83%, #55D1AD 95.87%);
+  background: #f5f5f5;
+  background: linear-gradient(270deg, #ea7f09 1.83%, #f9bf14 95.87%);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
   cursor: pointer;
   text-decoration: none;
@@ -237,7 +205,47 @@
     margin: 0;
   }
 
-  .text { // game room exercise button text
+  .text {
+    // game room exercise button text
+    color: #f7f7f7;
+  }
+}
+
+.button-bonus-done {
+  // game room exercise button
+  position: absolute;
+  display: inline-flex;
+  justify-content: space-between;
+  border: none;
+  align-items: center;
+  width: 80%;
+  height: 60px;
+  padding: 0px 13px 0px 30px;
+  align-items: center;
+  gap: 0px;
+  flex-shrink: 0;
+  border-radius: 25px;
+  background: #f5f5f5;
+  background: linear-gradient(270deg, #43b191 1.83%, #55d1ad 95.87%);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
+  cursor: pointer;
+  text-decoration: none;
+  left: 50%; /* Horizontal centering */
+  transform: translateX(-50%); /* Center the button horizontally */
+  .xp {
+    width: 50px;
+    color: #f3f3f3;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+  }
+
+  .text {
+    // game room exercise button text
     color: #f7f7f7;
   }
 }
