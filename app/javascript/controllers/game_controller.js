@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="game"
 export default class extends Controller {
-  static targets = ["button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton"];
+  static targets = ["buttonsSection", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton"];
 
   static values = {
     secondsUntilEnd: Number,
@@ -66,12 +66,18 @@ export default class extends Controller {
 
       //Mark the XP as earned
       h5Element.innerHTML = "XP\ngained";
+
+      // //Change Info Button Color
+      // this.buttonsSectionTarget.querySelector(`#exerciseInfoButton-${e.currentTarget.id}`).classList.add();
     } else {
       e.currentTarget.classList.remove("button-regular-done");
       e.currentTarget.classList.add("button");
 
       //Mark the XP as earned
       h5Element.textContent = `${e.currentTarget.value * -1}XP`;
+
+      // //Change Info Button Color
+      // this.buttonsSectionTarget.querySelector(`#exerciseInfoButton-${e.currentTarget.id}`).remove();
     }
 
     // Increasing the width of the bar
@@ -170,6 +176,13 @@ export default class extends Controller {
           "X-CSRF-Token": this.csrfToken
         },
         body: JSON.stringify({bonus: true})
+      }).then(response => {
+        if (response.ok) {
+          location.reload();
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
       });
     }
 
@@ -259,7 +272,6 @@ export default class extends Controller {
 
   startBonus() {
     this.changeRoomToBonus();
-    location.reload();
   }
 
 }

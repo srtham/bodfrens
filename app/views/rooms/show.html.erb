@@ -45,16 +45,17 @@
       }) %>
     </section>
 
-    <section class="game-buttons-container animate__animated animate__fadeInDown">
+    <section class="game-buttons-container animate__animated animate__fadeInDown" data-game-target="buttonsSection">
       <% exercises.each_with_index do |exercise, index| %>
         <div>
-          <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal<%=index + 1%>">
+          <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal<%=index + 1%>" id="exerciseInfoButton-<%=index + 1%>">
             <%= image_tag("svgs/search_logo_gray.svg") %>
           </button>
           <button
             data-game-target="<%= @room.bonus ? 'bonusButton' : 'button' %>"
             data-action="<%= @room.bonus ? 'click->game#markBonusComplete' : 'click->game#markComplete' %>"
             value="<%= exercise.exercise_xp %>"
+            id="<%=index + 1%>"
             class="button"
           >
             <span class="spacer" style="width:10%"></span><h3 class="text" style="width: fit-content; text-align: center;"><%="#{exercise.title}"%></h3> <h5 class="xp"><%="#{exercise.exercise_xp}XP"%></h5>
