@@ -37,6 +37,7 @@
 .primary-btn { // darker green button
   display: flex;
   width: 40%;
+  border: none;
   padding: 11px 0px;
   justify-content: center;
   align-items: flex-start;
@@ -86,10 +87,9 @@
 
 .give-up-btn { // light grey button for user to give up
   display: flex;
-  width: 20%;
   height: 25px;
   border: none;
-  padding: 10px 6px;
+  padding: 10px 8px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -122,14 +122,17 @@
   flex-shrink: 0;
   position: relative;
   right: 120px;
-  top: 6px;
+  top: 7.5px;
 
   background: none;
   border: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
+  opacity: 0.7;
+  mix-blend-mode: multiply;
 }
+
 
 .button { // game room exercise button
   position: absolute;
@@ -195,6 +198,11 @@
       line-height: normal;
       margin: 0;
     }
+
+    .text { // game room exercise button text
+      color: #f7f7f7;
+    }
+
 }
 
 .button-bonus-done { // game room exercise button
@@ -227,5 +235,9 @@
     font-weight: 700;
     line-height: normal;
     margin: 0;
+  }
+
+  .text { // game room exercise button text
+    color: #f7f7f7;
   }
 }

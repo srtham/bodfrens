@@ -29,4 +29,7 @@ Rails.application.routes.draw do
       # patch 'game_complete', to: 'user_game_data#update_complete', as: 'update_game_complete'
     end
   end
+
+  ## added this in for the quit feature, might have to delete.
+  patch 'room/:id/game_complete', to: "rooms#update_room", as: "patch_game_complete"
 end

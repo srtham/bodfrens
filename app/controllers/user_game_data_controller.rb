@@ -3,8 +3,6 @@ class UserGameDataController < ApplicationController
   def update
     # JSON.parse(request.body.read)
     # Access specific data fields (assuming you sent data like { "field1": "value1", "field2": "value2" })
-
-    end_game = params[:end_game]
     game_xp = params[:game_xp]
     finish = params[:finish]
     time_taken = params[:time_taken]
@@ -12,13 +10,8 @@ class UserGameDataController < ApplicationController
     user_game_datum.game_xp = game_xp
     user_game_datum.finish = finish
     user_game_datum.time_taken = time_taken
+    user_game_datum.bonus_finish = params[:bonus_finish]
     user_game_datum.save
-
-    redirect_to show_game_complete_room_path(user_game_datum.room) if end_game == true
-  end
-
-  def update_complete
-    # might need to delete this... I'm still confused about the re-directs.
   end
 
   def show
@@ -31,4 +24,6 @@ class UserGameDataController < ApplicationController
     @user_game_data = @game_room_id.user_game_data.first # may get more complicated with more users
   end
 
+  def show
+  end
 end
