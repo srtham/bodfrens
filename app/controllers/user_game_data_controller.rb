@@ -21,15 +21,24 @@ class UserGameDataController < ApplicationController
 
   def show_game_stats
     @game_room_id = Room.find(params[:id])
-    @user_game_data = @game_room_id.user_game_data.first # may get more complicated with more users
-    @user_level = show_game_stats_user
-    raise
+    @user_game_data = @game_room_id.user_game_data.first
+    @user_earned_xp = @user_game_data.game_xp
+    @user_start_level = show_user_start_level
+    @user_level = show_user_level # may get more complicated with more users
   end
 
-  def show_game_stats_user
+  private
+
+  def show_user_start_level
+    @user = @user_game_data.user
+    @user_start_xp = @user.user_game_data.sum(:game_xp) - @user_earned_xp
+    @user_start_level = ((@user_start_xp.to_i)/200) + 1
+  end
+
+  def show_user_level
     @user = @user_game_data.user
     @user_xp = @user.user_game_data.sum(:game_xp)
-    raise
-    @user_level = User.calculate_level(@user_xp_earned)
+    @user_level = ((@user_xp.to_i)/200) + 1
   end
+
 end
