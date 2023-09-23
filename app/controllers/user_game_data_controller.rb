@@ -24,6 +24,4 @@ class UserGameDataController < ApplicationController
     @user_game_data = @game_room_id.user_game_data.first # may get more complicated with more users
   end
 
-  def show
-  end
 end
