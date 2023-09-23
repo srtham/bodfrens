@@ -1,4 +1,4 @@
-<div class="page-container" style="padding-top: 15%;">
+<div class="page-container" style="padding-top: 15%; display: flex; justify-content: center;">
   <h1 class="text-white"> <strong>Exercise </strong></h1>
 
   <div id="exerciseCarousel" class="carousel slide" data-interval="false">
@@ -16,9 +16,9 @@
                       <%= image_tag(asset_path(exercise.image_url), class: 'exercises-small-gif') %>
                     </div>
                     <div class="col-md-8">
-                      <div class="card-body">
+                      <div>
                         <h5 class="exercises-title text-white"><%= exercise.title %></h5>
-                        <p class="card-text text-white">
+                        <p class="exercises-text ">
                           <%= exercise.description %><br>
                         </p>
                       </div>
