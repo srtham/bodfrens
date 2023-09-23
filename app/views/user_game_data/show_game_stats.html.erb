@@ -1,2 +1,5 @@
-<h1>UserGameData#show_game_stats</h1>
-<p>Find me in app/views/user_game_data/show_game_stats.html.erb</p>
+<% if @user_game_data.finish %>
+  <%= render "user_game_data/usergamestatspositive" %>
+<% else %>
+  <%= render "user_game_data/usergamestatsnegative" %>
+<% end %>
