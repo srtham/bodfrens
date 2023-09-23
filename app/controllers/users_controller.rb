@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    session[:user_id] = @user.id
     @user_xp_earned = @user.user_game_data.sum(:game_xp)
     @user_level = calculate_level(@user_xp_earned)
     @xp_left_to_next_level = xp_to_next_level(@user_xp_earned, @user_level)

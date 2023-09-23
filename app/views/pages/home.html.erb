@@ -8,7 +8,7 @@
     <div class="homepage-top-bar-left">
       <%= image_tag("svgs/bodfrens_graphics-01.svg", width: "55px") %>
       <div class="user-bar-details">
-        <h4>Username, lvl 23</h4>
+        <h4>Username, Level <%= @user_level %></h4>
         <%= link_to "Settings", edit_user_registration_path  %>
       </div>
     </div>
@@ -55,7 +55,7 @@
         </div>
 
         <div>
-          <h1> 9 </h2>
+          <h1> <%= @workout_finished %> </h1>
           <p> total games played </p>
         </div>
       <% end %>
