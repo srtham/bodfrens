@@ -3,7 +3,7 @@
   <h1><strong>Exercise Stats</strong></h1>
 
   <div class="col-md-8 select-mode-btn"> <!--- need to be fixed -->
-    <h5 class="text-center text-justify text-black text-wrap fs-6"><strong> Workout time: <%= @user_game_data.time_taken%> mins</strong></h5>
+    <h5 class="text-center text-justify text-black text-wrap fs-6"><strong> Workout time: <%= (@user_game_data.time_taken)/60%> mins</strong></h5>
       <h5 class="text-center text-black text-wrap fs-6">
         <% if @user_game_data.bonus_finish %>
           <%= "Bonus round completed" %>
@@ -11,24 +11,28 @@
       </h5>
   </div>
 
-<!-- XP Earned -->
-  <div class= "xp-container" style="width:65%">
-    <h5 class = "text-white"><strong><%= @user_game_data.game_xp %> XP Earned</strong></h5>
-    <div class="progress-bar">
-      <div class="game-progressed-bar" data-game-target="bar"></div>
+<div class="d-flex flex-column">
+  <!-- XP Earned -->
+    <div class= "xp-container" style="width:65%">
+      <h5 class = "text-white"><strong><%= @user_game_data.game_xp %> XP Earned</strong></h5>
+      <div class="progress-bar">
+        <div class="game-progressed-bar" data-game-target="bar"></div>
+      </div>
     </div>
+
+  <!-- Level (to insert level with yx code) -->
+
+  <div class="col-md-8">
+    <h5 class = "text-white"><strong>You leveled up!</strong></h5>
+    <%= @user_game_data.level %>
   </div>
 
-<!-- Level (to insert level with yx code) -->
+  <!-- Badges (to insert badge user earned, how to relate to game) -->
+  <div class="col-md-8">
+    <h5 class = "text-white"><strong>Badge Earned!</strong></h5>
+  </div>
 
-<div class="col-md-8">
-  <h5 class = "text-white"><strong>You leveled up!</strong></h5>
-</div>
-
-<!-- Badges (to insert badge user earned, how to relate to game) -->
-<div class="col-md-8">
-  <h5 class = "text-white"><strong>Badge Earned!</strong></h5>
-</div>
+ </div>
 
 
   <div class="main-orange-btn">
