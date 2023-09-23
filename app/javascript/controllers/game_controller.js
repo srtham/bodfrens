@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ["buttonsSection", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton"];
 
   static values = {
-    secondsUntilEnd: Number,
     end: Number,
     room: Number,
     user: Number,
@@ -110,7 +109,6 @@ export default class extends Controller {
 
     if (this.secondsUntilEnd <= 0) {
       console.log("Time's up!!!")
-      clearInterval(this.countdown); // guard clause - this should call the modal
       this.timerTarget.innerHTML = "Time's Up!";
       return
     }
