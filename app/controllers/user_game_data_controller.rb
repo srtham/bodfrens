@@ -22,6 +22,14 @@ class UserGameDataController < ApplicationController
   def show_game_stats
     @game_room_id = Room.find(params[:id])
     @user_game_data = @game_room_id.user_game_data.first # may get more complicated with more users
+    @user_level = show_game_stats_user
+    raise
   end
 
+  def show_game_stats_user
+    @user = @user_game_data.user
+    @user_xp = @user.user_game_data.sum(:game_xp)
+    raise
+    @user_level = User.calculate_level(@user_xp_earned)
+  end
 end
