@@ -2,13 +2,13 @@
 
 
 <!-- ruby code to determine game length -->
-<% seconds_till_end = 0 %>
+<% seconds_left = 0 %>
 
 <% if @room.bonus %>
-  <% seconds_till_end = 60 %>
+  <% seconds_left = 90 %>
   <% exercises = @bonus_exercises %>
 <% else %>
-  <% seconds_till_end = 180 %>
+  <% seconds_left = 180 %>
   <% exercises = @regular_exercises %>
 <% end %>
 <!-- -->
@@ -32,7 +32,8 @@
   data-game-user-value="<%=@user%>"
   data-game-end-value="<%= @room.bonus ? @bonus_xp + @regular_xp : @regular_xp %>"
   data-game-data-id-value=<%=@user_game_data.id%>
-  data-game-seconds-left-value="<%= seconds_till_end %>">
+  data-game-seconds-left-value="<%= seconds_left %>"
+  data-game-bonus-value="<%=@room.bonus%>">
 
   <div class="room-page-container">
     <div class="spacer" style="height:5%; width 2px;"></div>
