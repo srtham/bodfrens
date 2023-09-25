@@ -9,8 +9,10 @@ class User < ApplicationRecord
   def average_time
     user_data = user_game_data
     if user_data.present?
-      average_time = user_data.sum(:time_taken).to_f / 60 / user_data.count
-      return average_time
+      average_time = user_data.sum(:time_taken).to_f / user_data.count
+      minutes = (average_time / 60).to_i
+      seconds = (average_time % 60).to_i
+      return "#{minutes}:#{seconds}"
     else
       return 0
     end
