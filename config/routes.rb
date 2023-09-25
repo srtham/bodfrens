@@ -30,6 +30,4 @@ Rails.application.routes.draw do
     end
   end
 
-  # ## added this in for the quit feature, might have to delete.
-  # patch 'room/:id/game_complete', to: "rooms#update_room", as: "patch_game_complete"
 end

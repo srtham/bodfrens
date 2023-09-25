@@ -2,8 +2,8 @@ class RoomsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[update]
 
   def create
-    @room = Room.new(room_params)
-    @room.user = current_user
+    @room = Room.create(mode: "multi")
+    redirect_to lobby_room_path(@room.id)
   end
 
   # def update_room
@@ -23,6 +23,9 @@ class RoomsController < ApplicationController
     room = Room.find(params[:id])
     room.bonus = bonus
     room.save
+  end
+
+  def lobby
   end
 
   def show

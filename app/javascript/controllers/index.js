@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import CopyTextController from "./copy_text_controller"
+application.register("copy-text", CopyTextController)
+
 import GameController from "./game_controller"
 application.register("game", GameController)
 
