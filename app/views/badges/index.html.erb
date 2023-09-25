@@ -20,9 +20,41 @@
       <% end %>
     </div>
     <div class="tab-pane fade" id="your-badges" role="tabpanel">
-      <!-- Content for Pill 2 -->
-      <p></p>
-      <h1>Your Badges is not yet available.</h1>
+      <% if @earned_friend_beater %>
+        <div class="badge-container">
+          <p class="badge-title">Friend Beater</p>
+          <%= image_tag "pngs/bodfrens_graphics-05.png", alt: 'Friend Beater', class: 'badge-image' %>
+          <p class="badge-description">Win a friend in one game</p>
+        </div>
+      <% end %>
+      <% if @earned_lone_wolf %>
+        <div class="badge-container">
+          <p class="badge-title">Lone Wolf</p>
+          <%= image_tag "pngs/bodfrens_graphics-08.png", alt: 'Lone Wolf', class: 'badge-image' %>
+          <p class="badge-description">Complete 3 single player games</p>
+        </div>
+      <% end %>
+      <% if @earned_first_game %>
+        <div class="badge-container">
+          <p class="badge-title">First Game</p>
+          <%= image_tag "pngs/bodfrens_graphics-07.png", alt: 'First Game', class: 'badge-image' %>
+          <p class="badge-description">Play your first bodfrens game</p>
+        </div>
+      <% end %>
+      <% if @earned_bonus_bunny %>
+        <div class="badge-container">
+          <p class="badge-title">Bonus Bunny</p>
+          <%= image_tag "pngs/bodfrens_graphics-09.png", alt: 'Bonus Bunny', class: 'badge-image' %>
+          <p class="badge-description">Finish three bonus rounds</p>
+        </div>
+      <% end %>
+      <% if @earned_quitter %>
+        <div class="badge-container">
+          <p class="badge-title">Quitter</p>
+          <%= image_tag "pngs/bodfrens_graphics-06.png", alt: 'Bonus Bunny', class: 'badge-image' %>
+          <p class="badge-description">Um, quit a game</p>
+        </div>
+      <% end %>
     </div>
     <%= button_to "Back to Home", root_path, method: :get, class: "btn primary-btn badges" %>
   </div>
