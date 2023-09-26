@@ -34,6 +34,14 @@ class RoomsController < ApplicationController
     @regular_xp = calculate_exp(@regular_exercises)
     @bonus_exercises = @user_game_data.exercises.where(is_bonus: true)
     @bonus_xp = calculate_exp(@bonus_exercises)
+    # @multiplayerroom = Multiplayerroom.find_by(room: @room)
+    # @message = Message.new
+
+    if @room.mode == "multi"
+      render "rooms/multiplayershow"
+    else
+      render "rooms/show"
+    end
   end
 
   def calculate_exp(exercises)
@@ -49,6 +57,22 @@ class RoomsController < ApplicationController
   def single_player
     # 1. create room
     room = Room.create(mode: "single")
+    # 2. create user game data
+    game_data = UserGameDatum.create(user: current_user, room:)
+    # 3. Get 5 non-bonus exercises from the database
+    regular_exercises = Exercise.where(is_bonus: false).limit(5)
+    # 4. Get 3 bonus exercises from the database
+    bonus_exercises = Exercise.where(is_bonus: true).limit(3)
+    # 5. Create active exercises linked to the user_game_data of the room.
+    create_active_exercises(regular_exercises, game_data)
+    create_active_exercises(bonus_exercises, game_data)
+    redirect_to room_path(room)
+  end
+
+  def multi_player
+    # 1. create room
+    room = Room.create(mode: "multi")
+    room.save!
     # 2. create user game data
     game_data = UserGameDatum.create(user: current_user, room:)
     # 3. Get 5 non-bonus exercises from the database

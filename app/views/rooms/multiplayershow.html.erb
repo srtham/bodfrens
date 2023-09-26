@@ -1,0 +1,12 @@
+<h1>THIS IS THE MULTIPLAYER SHOW PAGE</h1>
+<h2>should render a partial page to wait for other players to join</h2>
+
+
+<div
+  data-controller="multiplayerroom-subscription"
+  data-multiplayerroom-subscription-multiplayerroom-id-value="<%= @room.id %>"
+> raise
+  <h1>#<%= @room.name %></h1>
+
+  <div class="messages" data-chatroom-subscription-target="messages">
+  <!-- [...] -->

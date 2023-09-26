@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'mode-select', to: 'active_exercises#create', as: 'mode_select_active_exercises'
 
   post "single_player", to: "rooms#single_player", as: "single_player"
+  post "multi_player", to: "rooms#multi_player", as: "multi_player"
 
   get 'users/:id', to: 'users#show', as: 'user'
   resources :badges, only: [:index]
