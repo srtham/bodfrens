@@ -26,6 +26,7 @@ class RoomsController < ApplicationController
   end
 
   def lobby
+    @room = Room.find(params[:id])
   end
 
   def show

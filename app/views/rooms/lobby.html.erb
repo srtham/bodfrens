@@ -1,14 +1,14 @@
 
+<div data-controller="lobby-subscribe" data-lobby-subscribe-room-id-value="<%=@room.id%>">
+  <div class="lobby-page-container" data-controller="copy-text">
 
-<div class="lobby-page-container" data-controller="copy-text">
+    <h3>Waiting for bodfren...</h3>
+    <h3>Share the link below with a friend to start a game!</h3>
 
-  <h3>Waiting for bodfren...</h3>
-  <h3>Share the link below with a friend to start a game!</h3>
+    <%= button_to "Copy link", "#", value: "localhost:3000/room/#{params[:id]}/lobby", class: "gray-modal-btn", style: "width: auto; height:50px;", data: {action: "click->copy-text#copyText", copy_text_target: "linkBtn"} %>
 
-  <%= button_to "Copy link", "#", value: "localhost:3000/room/#{params[:id]}/lobby", class: "gray-modal-btn", style: "width: auto; height:50px;", data: {action: "click->copy-text#copyText", copy_text_target: "linkBtn"} %>
-
+  </div>
 </div>
-
 <!-- The divs above are just for the scrolling animation and bg
   find them under the _backgrounds.scss in components -->
 
