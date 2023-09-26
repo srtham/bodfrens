@@ -269,8 +269,7 @@ export default class extends Controller {
       })
     }
 
-
-  startBonus() {
+    startBonus() {
     this.changeRoomToBonus();
     location.reload();
   }

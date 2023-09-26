@@ -10,41 +10,31 @@ export default class extends Controller {
 
   markComplete(event) {
     // Logic for marking as complete
-    // Send message to subscribed channel
-    if (event.target.classList.contains('button-clicked')) {
-      return;
-    }
+    console.log("Exercise completed!");
 
-    event.target.classList.add('button-clicked');
-    event.target.disabled = true;
+    const channel = consumer.subscriptions.create({ channel: "MultiplayerChannel" }, {
+        received(data) {
+            console.log(data);
+        }
+    });
 
-    console.log("Exercise completed!")
-    // event.target.classList.add('button-clicked');
-    consumer.subscriptions.create({ channel: "MultiplayerChannel" }, {
-      received(data) {
-        console.log(data)
-      }
-    })
-  }
+    channel.send({ message: "Regular exercise completed by client!" });
+}
+
 
   markBonusComplete(event) {
     // Logic for marking as complete
-    // Send message to subscribed channel
-    if (event.target.classList.contains('button-clicked')) {
-      return;
-    }
+    console.log("Bonus Exercise completed!");
 
-    event.target.classList.add('button-clicked');
-    event.target.disabled = true;
-
-    console.log("Bonus Exercise completed!")
-    // event.target.classList.add('button-clicked');
-    consumer.subscriptions.create({ channel: "MultiplayerChannel" }, {
+    const channel = consumer.subscriptions.create({ channel: "MultiplayerChannel" }, {
       received(data) {
-        console.log(data)
+        console.log(data);
       }
-    })
-  }
+    });
+
+    channel.send({ message: "Bonus exercise completed by client!" });
+}
+
 
   connect() {
     this.channel = createConsumer().subscriptions.create(
