@@ -2,7 +2,7 @@ class MultiplayerChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
     multiplayerroom = Multiplayerroom.find(params[:multiplayerroom_id])
-    stream_form multiplayerroom
+
     stream_for multiplayerroom
   end
 
@@ -11,6 +11,8 @@ class MultiplayerChannel < ApplicationCable::Channel
   end
 
   def relay(data)
-    ActionCable.server.broadcast("multiplayer_channel", message: data["message"])
+    multiplayerroom = Multiplayerroom.find(params[:multiplayerroom_id])
+    MultiplayerChannel.broadcast_to(multiplayerroom, message: data["message"])
+    # ActionCable.server.broadcast("multiplayer_channel", message: data["message"])
   end
 end

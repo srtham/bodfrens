@@ -10,7 +10,7 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-
+@import "pages/game";
 
 // This was my attempt to make the bg media responsive. Only this should go in the body, everything else should have a container on a separate page so that the bg-color doesn't intefere.
 @media screen and (min-width: 1081px) {

@@ -52,6 +52,13 @@ export default class extends Controller {
   }
 
   markComplete(e) {
+    if (e.target.classList.contains('button-clicked')) {
+      return;
+    }
+
+    e.target.classList.add('button-clicked');
+    e.target.disabled = true;
+
     e.preventDefault()
     this.buttonSound.play()
     this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
@@ -174,9 +181,16 @@ export default class extends Controller {
     }
 
 
-  markBonusComplete(e) {
-    e.preventDefault()
-    this.buttonSound.play()
+    markBonusComplete(e) {
+      if (e.target.classList.contains('button-clicked')) {
+        return;
+      }
+
+      e.target.classList.add('button-clicked');
+      e.target.disabled = true;
+
+      e.preventDefault()
+      this.buttonSound.play()
     this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
     console.log(`the XP value is = ${this.XPvalue}`)
 
@@ -211,7 +225,6 @@ export default class extends Controller {
       this.updateUserGameDatumWithBonusFinish();
       console.log("BONUS FINISH")
     }
-
   }
 
   updateUserGameDatumWithBonusFinish() {
@@ -261,5 +274,4 @@ export default class extends Controller {
     this.changeRoomToBonus();
     location.reload();
   }
-
 }

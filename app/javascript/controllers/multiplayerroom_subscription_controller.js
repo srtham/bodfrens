@@ -11,8 +11,16 @@ export default class extends Controller {
   markComplete(event) {
     // Logic for marking as complete
     // Send message to subscribed channel
+    if (event.target.classList.contains('button-clicked')) {
+      return;
+    }
+
+    event.target.classList.add('button-clicked');
+    event.target.disabled = true;
+
     console.log("Exercise completed!")
-    consumer.subscriptions.create({ channel: "MultiPlayerRoomChannel" }, {
+    // event.target.classList.add('button-clicked');
+    consumer.subscriptions.create({ channel: "MultiplayerChannel" }, {
       received(data) {
         console.log(data)
       }
@@ -22,8 +30,16 @@ export default class extends Controller {
   markBonusComplete(event) {
     // Logic for marking as complete
     // Send message to subscribed channel
+    if (event.target.classList.contains('button-clicked')) {
+      return;
+    }
+
+    event.target.classList.add('button-clicked');
+    event.target.disabled = true;
+
     console.log("Bonus Exercise completed!")
-    consumer.subscriptions.create({ channel: "MultiPlayerRoomChannel" }, {
+    // event.target.classList.add('button-clicked');
+    consumer.subscriptions.create({ channel: "MultiplayerChannel" }, {
       received(data) {
         console.log(data)
       }
@@ -32,7 +48,7 @@ export default class extends Controller {
 
   connect() {
     this.channel = createConsumer().subscriptions.create(
-      { channel: "MultiplayerroomChannel", multiplayerroom_id: this.multiplayerroomIdValue },
+      { channel: "MultiplayerChannel", multiplayerroom_id: this.multiplayerroomIdValue },
       {
         received: (data) => {
           this.messagesTarget.insertAdjacentHTML("beforeend", data)
