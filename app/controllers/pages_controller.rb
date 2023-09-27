@@ -4,7 +4,7 @@ class PagesController < ApplicationController
       redirect_to new_user_session_path
     else
       @user = current_user
-      @workout_finished = @user.user_game_data.where(finish: true).count
+      @workout_played = @user.user_game_data.where(finish: [true, false]).count
       @user_xp_earned = @user.user_game_data.sum(:game_xp)
       @user_level = calculate_level(@user_xp_earned)
     end
