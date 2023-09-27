@@ -18,3 +18,17 @@
     line-height: normal;
   }
 }
+
+.lobby-page-container-hidden {
+  display: none;
+}
+
+.h1-lobby {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+  color: $dark-green;
+}

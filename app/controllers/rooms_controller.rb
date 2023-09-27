@@ -17,6 +17,31 @@ class RoomsController < ApplicationController
   #   user_game_datum.time_taken = time_taken
   #   user_game_datum.save
   # end
+  def create_from_lobby
+    @room = Room.find(params[:id])
+
+    # get all the ids associated with the room
+    user_game_data_ids = @room.user_game_data.pluck(:id)
+    # will not create a new UserGameDatum if user_id is already associated with the room.
+    # Or if there are already 2 users associated with the room.
+    return if @room.user_game_data.count >= 2 || user_game_data_ids.include?(current_user.id)
+
+    # if there is 0 UserGameDatum associated with the room
+    UserGameDatum.create(user: current_user, room: @room)
+
+    return unless @room.user_game_data.count == 2
+
+    # 3. Get 5 non-bonus exercises from the database
+    regular_exercises = Exercise.where(is_bonus: false).limit(5)
+    # 4. Get 3 bonus exercises from the database
+    bonus_exercises = Exercise.where(is_bonus: true).limit(3)
+    # 5. Create active exercises linked to the user_game_data of the room.
+    @room.user_game_data.each do |game_data|
+      create_active_exercises(regular_exercises, game_data)
+      create_active_exercises(bonus_exercises, game_data)
+    end
+    LobbyChannel.broadcast_to(@room, "ready")
+  end
 
   def update
     bonus = params[:bonus]
@@ -81,4 +106,5 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:winner_user_id, :user_game_data_id, :active_exercise_id, :exercise_id, :user_id, :room_id)
   end
+
 end
