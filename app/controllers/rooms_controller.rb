@@ -21,7 +21,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
 
     # get all the ids associated with the room
-    user_game_data_ids = @room.user_game_data.pluck(:id)
+    user_game_data_ids = @room.user_game_data.pluck(:user_id)
     # will not create a new UserGameDatum if user_id is already associated with the room.
     # Or if there are already 2 users associated with the room.
     return if @room.user_game_data.count >= 2 || user_game_data_ids.include?(current_user.id)
