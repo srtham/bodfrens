@@ -1,2 +1,107 @@
-<h1>Rooms#show</h1>
-<p>Find me in app/views/rooms/multiplayershow.html.erb</p>
+<h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
+<div class="container multiplayer">
+  <header class="multiplayer-top">
+    <section class="timer">15:00</section>
+    <button type="button" class="multiplayer giveup-btn">Give Up</button>
+  </header>
+  <main class="current-user">
+    <div class="user-btn">
+      <button class="icon" id="user-btn-img">
+        <%= image_tag("svgs/search_logo_gray.svg") %>
+      </button>
+      <button type="button" class="button user" style="padding-left: 60px">
+        <h3 class="text fs-5">20 Push-Ups</h3><h5 class="xp">10XP</h5>
+      </button>
+    </div>
+    <div class="user-btn">
+      <button class="icon" id="user-btn-img">
+        <%= image_tag("svgs/search_logo_gray.svg") %>
+      </button>
+      <button type="button" class="button user" style="padding-left: 60px">
+        <h3 class="text fs-5">20 Push-Ups</h3><h5 class="xp">10XP</h5>
+      </button>
+    </div>
+    <div class="user-btn">
+      <button class="icon" id="user-btn-img">
+        <%= image_tag("svgs/search_logo_gray.svg") %>
+      </button>
+      <button type="button" class="button user" style="padding-left: 60px">
+        <h3 class="text fs-5">20 Push-Ups</h3><h5 class="xp">10XP</h5>
+      </button>
+    </div>
+    <div class="user-btn">
+      <button class="icon" id="user-btn-img">
+        <%= image_tag("svgs/search_logo_gray.svg") %>
+      </button>
+      <button type="button" class="button user" style="padding-left: 60px">
+        <h3 class="text fs-5">20 Push-Ups</h3><h5 class="xp">10XP</h5>
+      </button>
+    </div>
+    <div class="user-btn">
+      <button class="icon" id="user-btn-img">
+        <%= image_tag("svgs/search_logo_gray.svg") %>
+      </button>
+      <button type="button" class="button user" style="padding-left: 60px">
+        <h3 class="text fs-5">20 Push-Ups</h3><h5 class="xp">10XP</h5>
+      </button>
+    </div>
+      <div class= "xp-container user" style="width:65%; ">
+        <div class="progress-bar" style="background: grey;"></div>
+        <div class="d-flex xp-points">
+        <p>0</p><p>/120 XP EARNED</p>
+        </div>
+      </div>
+  </main>
+  <main class="opponent">
+    <section class="opponent-left">
+      <div class="opponent-btn-container">
+        <button type="button" class="opponent-button">
+          <h3 class="opp-button-text">20 Push-Ups</h3>
+        </button>
+      </div>
+      <div class="opponent-btn-container">
+        <button type="button" class="opponent-button">
+          <h3 class="opp-button-text">20 Push-Ups</h3>
+        </button>
+      </div>
+      <div class="opponent-btn-container">
+        <button type="button" class="opponent-button">
+          <h3 class="opp-button-text">20 Push-Ups</h3>
+        </button>
+      </div>
+      <div class="opponent-btn-container">
+        <button type="button" class="opponent-button">
+          <h3 class="opp-button-text">20 Push-Ups</h3>
+        </button>
+      </div>
+      <div class="opponent-btn-container">
+        <button type="button" class="opponent-button">
+          <h3 class="opp-button-text">20 Push-Ups</h3>
+        </button>
+      </div>
+      <div class= "xp-container">
+        <div class="progress-bar" style="background: grey;"></div>
+      </div>
+    </section>
+    <section class="opponent-right">
+      <aside class= "opp-aside">
+        <p class="opp-title">Your Bodfren</p>
+        <%= image_tag("svgs/bodfrens_graphics-01.svg", class: "opp-img") %>
+        <p class="opp-username">Username</p>
+        <p class="opp-lvl">lvl 39</p>
+        <p class="workout-complete">Workout Complete!</p>
+        <p class="bonus-round">Your bodfren has opted for a bonus round!</p>
+      </aside>
+    </section>
+  </main>
+</div>
+
+
+
+<!-- The divs above are just for the scrolling animation and bg
+find them under the _backgrounds.scss in components -->
+
+<div class="bg-container animate__animated animate__fadeIn">
+  <div class="bg-color-gray"></div>
+</div>
