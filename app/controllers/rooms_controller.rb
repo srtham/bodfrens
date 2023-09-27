@@ -74,7 +74,7 @@ class RoomsController < ApplicationController
     room = Room.create(mode: "multi")
     room.save!
     # 2. create user game data
-    game_data = UserGameDatum.create(user: current_user, room:)
+    game_data = UserGameDatum.create(user: current_user, room: room)
     # 3. Get 5 non-bonus exercises from the database
     regular_exercises = Exercise.where(is_bonus: false).limit(5)
     # 4. Get 3 bonus exercises from the database
@@ -87,7 +87,7 @@ class RoomsController < ApplicationController
 
   def create_active_exercises(exercises, game_data)
     exercises.each do |exercise|
-      ActiveExercise.create(exercise:, user_game_datum: game_data)
+      ActiveExercise.create(exercise: exercise, user_game_datum: game_data)
     end
   end
 
