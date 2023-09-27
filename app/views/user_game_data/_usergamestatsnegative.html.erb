@@ -20,6 +20,24 @@
       </div>
       <h6 class = "text-white" style = "padding-block-start:20px;">You are at level <%= @user_level %> now.</h6>
     </div>
+
+    <!-- Badges (to be inserted; based on what was earned from the game) -->
+    <div class="col-md-8" style="padding-block-start: 30px; padding-block-end:30px;">
+    <% badges_earned = [] %>
+    <% badges_earned << "Friend Beater" if @friend_beater_gained %>
+    <% badges_earned << "Lone Wolf" if @lone_wolf_gained %>
+    <% badges_earned << "First Game" if @first_game_gained %>
+    <% badges_earned << "Bonus Bunny" if @bonus_bunny_gained %>
+    <% badges_earned << "Quitter" if @quitter_gained %>
+      <% if badges_earned.empty? %>
+        <h5 class = "text-white"><strong>You did not earn any badges.</strong></h5>
+      <% else %>
+        <h5 class = "text-white"><strong>Badge Earned!</strong></h5>
+        <% badges_earned.each do |badge| %>
+          <h5 class = "text-white"><strong>You earned the <%= badge %> badge.</strong></h5>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 
   <div class="main-orange-btn">

@@ -25,6 +25,14 @@ class UserGameDataController < ApplicationController
     @user_earned_xp = @user_game_data.game_xp
     @user_start_level = show_user_start_level
     @user_level = show_user_level # may get more complicated with more users
+
+    # badges logic
+    @user = current_user
+    @friend_beater_gained = @user.user_game_data.joins(:room).where(room: { mode: 'multi', winner_user_id: @user_id }).count == 1
+    @lone_wolf_gained = @user.user_game_data.joins(:room).where(room: { mode: 'single' }, finish: true).count == 3
+    @bonus_bunny_gained = @user.user_game_data.where(bonus_finish: true).count == 3
+    @first_game_gained = @user.user_game_data.where(finish: [true, false]).count == 1
+    @quitter_gained = @user.user_game_data.where(finish: false).count == 1
   end
 
   private
