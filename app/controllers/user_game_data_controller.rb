@@ -16,14 +16,14 @@ class UserGameDataController < ApplicationController
 
   def show
     @game_room_id = Room.find(params[:id])
-    @user_game_data = @game_room_id.user_game_data.first # may get more complicated with more users
+    @user_game_data = @game_room_id.user_game_data.find { |instance| instance.user == current_user }
   end
 
   def show_game_stats
     @game_room_id = Room.find(params[:id])
-    @user_game_data = @game_room_id.user_game_data.first
+    @user = current_user
+    @user_game_data = @game_room_id.user_game_data.find { |instance| instance.user == current_user }
     @user_game_time = game_time(@user_game_data.time_taken)
-    @user = @user_game_data.user
     @user_xp_earned_total = @user.user_game_data.sum(:game_xp)
     @user_xp_earned_game = @user_game_data.game_xp
     @user_start_level = show_user_start_level
