@@ -1,10 +1,13 @@
-<div class="vh-100 page-container d-flex align-items-center d-flex justify-content-center px-4 text-center">
+<div class="px-4 page-container d-flex align-items-center d-flex justify-content-center text-center">
 
   <h1><strong>Exercise Stats</strong></h1>
+  <p><%= @user.user_id %><p>
 
-  <div class="col-md-8 select-mode-btn" style= "display: flex; flex-wrap: wrap; align-content: center;">
-    <h5 class="text-center text-justify text-black text-wrap fs-6"><strong> Workout time: <%= (@user_game_data.time_taken)/60%> mins</strong></h5>
-  </div>
+ <div class="col-md-8 select-mode-btn" style= "display: flex; flex-wrap: wrap; align-content: center;">
+  <h5 class="text-center text-justify text-black text-wrap fs-6" style="margin-bottom: 0.1rem;">
+    <strong> Workout time: <%= @user_game_time %></strong>
+  </h5>
+</div>
 
   <div class="d-flex flex-column">
       <div class="col-md-8" style=" padding: 30px; padding-block-start: 20px;">
@@ -12,21 +15,22 @@
         <h6 class = "text-black"><strong>- 100 XP Lost</strong></h6>
       </div>
 
-    <div class= "xp-container" style=" padding-block-end: 50px;">
+    <div class= "xp-container" style=" padding-block-start: 20px;">
       <h3 class = "text-white"><strong><%= - @user_game_data.game_xp %> XP Lost</strong></h5>
       <!-- progress bar to be added: will increase with XP earned within the level -->
-      <div class="progress-bar" >
-        <div class="game-progressed-bar" style="width:100%"></div>
+      <div class="progress-bar" > <!-- to be animated -->
+        <div class="stats-progressed-bar" data-game-button-target="bar" style="width: <%= @xp_progress_percentage %>%;"></div>
       </div>
-      <h6 class = "text-white" style = "padding-block-start:20px;">You are at level <%= @user_level %> now.</h6>
+      <p class="text-white" style = "padding-block-start:10px;"> <%= @xp_left_to_next_level %> XP left to the next level </p>
+      <h5 class = "text-white" style = "padding-block-start:20px; padding-block-end: 30px;"><strong> You are at level <%= @user_level %> now.</strong></h5>
     </div>
   </div>
 
-  <div class="main-orange-btn">
+  <div class="main-orange-btn" style="width: 200px; height: 50px">
     <strong><%= link_to "Play Again?", mode_select_rooms_path , style: "color: white; text-decoration: none;"%></strong>
   </div>
 
-  <div class="gray-modal-btn">
+  <div class="gray-modal-btn" style="width: 200px; height: 50px">
     <strong><%= link_to "Exit", root_path , style: "color: black; text-decoration: none;"%></strong>
   </div>
 

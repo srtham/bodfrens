@@ -2,10 +2,10 @@
 <div class="container main">
   <article class="select">Select Mode</article>
   <button type="button" class="select-mode-btn animate__animated animate__fadeInDown" data-bs-toggle="modal" data-bs-target="#singleModal">
-    Single Player
+    <%= image_tag("svgs/bodfrens_graphics-03.svg", style: "width: 36px;height:45px; padding-right: 15px;") %>Single Player
   </button>
   <button type="button" class="select-mode-btn animate__animated animate__fadeInDown" data-bs-toggle="modal" data-bs-target="#multiModal">
-    MultiPlayer
+    <%= image_tag("svgs/bodfrens_graphics-04.svg", style: "width: 50px;height:45px; padding-right: 15px;") %>Multi-Player
   </button>
   <%= button_to "Cancel", root_path, method: :get, class: "btn btn-primary", id: "cancel-btn" %>
 
@@ -36,12 +36,13 @@
         <div class="modal-header">
         </div>
         <div class="modal-body">
-          Multiplayer is not yet available.
+          Start a multiplayer match?
           <!--Start a multiplayer match?-->
         </div>
         <div class="modal-footer">
           <!--<button type="button" class="btn btn-primary">Yes</button>-->
-          <button data-bs-dismiss="modal" type="button" aria-label="Close" class="main-orange-btn">Cancel</button>
+          <%= button_to "Yes", mode_select_rooms_path, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+          <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
         </div>
       </div>
     </div>
