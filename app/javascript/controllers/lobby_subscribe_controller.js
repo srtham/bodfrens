@@ -33,6 +33,7 @@ export default class extends Controller {
     e.currentTarget.classList.add("h1-lobby")
     e.currentTarget.innerText="Waiting for bodfren...";
     e.currentTarget.disabled = true;
+    // this.startGameButtonTarget.disabled = true;
   }
 
   disconnect() {

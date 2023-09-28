@@ -59,6 +59,7 @@ class RoomsController < ApplicationController
     if user_signed_in?
       @room = Room.find(params[:id])
     else
+      session[:room_id] = params[:id]
       redirect_to new_user_session_path, notice: "You must be signed in to join a lobby."
     end
   end
