@@ -1,2 +1,16 @@
 <h1>Rooms#show</h1>
 <p>Find me in app/views/rooms/multiplayershow.html.erb</p>
+
+<div class="container multiplayerroom"
+  data-controller="multiplayerroom-subscription"
+  data-multiplayerroom-subscription-room-id-value="<%= @room.id %>"
+>
+  <h1>#<%= @room.id %></h1>
+
+
+  <div class="exercise" data-multiplayerroom-subscription-target="exercise">
+  <%# <% @chatroom.messages.each do |message| %>
+    <%# <%= render "messages/message", message: message %>
+  <%# <% end %>
+  <!-- action taken here should be changing the colour of the button -->
+</div>
