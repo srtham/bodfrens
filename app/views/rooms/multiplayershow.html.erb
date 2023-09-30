@@ -1,6 +1,8 @@
 
 
-<div class="container multiplayer">
+<div class="container multiplayer"
+  data-controller="multi-game"
+  data-multi-game-room-value=<%=@room.id%>>
   <header class="multiplayer-top">
     <section class="timer">15:00</section>
     <button type="button" class="multiplayer giveup-btn">Give Up</button>
@@ -12,7 +14,7 @@
         <button class="icon" id="user-btn-img">
           <%= image_tag("svgs/search_logo_gray.svg") %>
         </button>
-        <button type="button" class="button user" style="padding-left: 60px">
+        <button type="button" id="<%=active_exercise.id%>" data-game-target='button' data-action='click->multi-game#markComplete' class="button user" style="padding-left: 60px">
           <h3 class="text fs-5"><%= active_exercise.exercise.title %></h3><h5 class="xp"><%= active_exercise.exercise.exercise_xp %>XP</h5>
         </button>
       </div>
@@ -26,16 +28,18 @@
       </div>
   </main>
 
+
   <main class="opponent">
     <section class="opponent-left">
 
       <% @player2_regular_exercises.each do |active_exercise| %>
         <div class="opponent-btn-container">
-          <button type="button" class="opponent-button">
+          <button type="button" class="<%= active_exercise.complete ? "opponent-button-gray" : "opponent-button" %>">
             <h3 class="opp-button-text"><%= active_exercise.exercise.title %></h3>
           </button>
         </div>
       <% end %>
+
       <div class= "xp-container">
         <div class="progress-bar" style="background: grey;"></div>
       </div>
