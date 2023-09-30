@@ -1,0 +1,226 @@
+.container.multiplayer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  gap: 5px;
+}
+
+.multiplayer-top {
+  margin-top: 20px;
+  padding: 14px 0 14px 0;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #515151;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Montserrat;
+  font-size: 51px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-bottom: 20px;
+}
+
+.multiplayer.giveup-btn {
+  display: flex;
+  width: 87px;
+  padding: 3px 0px;
+  justify-content: center;
+  border-radius: 13px;
+  background: #89908D;
+  color: #FFF;
+  font-family: Montserrat;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: normal;
+  margin: auto;
+  border-color: transparent;
+}
+
+.current-user{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+
+}
+.user-btn {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 58px;
+}
+
+.button.user {
+  justify-content: space-around;
+  height: 58px;
+}
+
+.user-btn.text {
+  color: #3C3C3C;
+  text-align: right;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 163px;
+}
+
+#user-btn-img {
+  right: -40px;
+}
+
+.xp-container.user {
+  margin: auto;
+}
+
+.opponent {
+  display: flex;
+  gap: 14px;
+  width: 100vw;
+  height: 336px;
+  padding: 0px 28px;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 30px 30px 0px 0px;
+  background: linear-gradient(180deg, #B5B5B5 0%, rgba(181, 181, 181, 0.00) 100%);
+  box-shadow: 4px 0px 9px 0px rgba(0, 0, 0, 0.13);
+}
+
+.opponent-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  height: 100%;
+}
+.opponent-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.opponent-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 10px;
+  padding: 15px 15px 15px 19px;
+  border-radius: 25px;
+  background: #DBDBDB;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
+  border-color: transparent;
+}
+
+.opp-button-text {
+  color: #3C3C3C;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 0;
+}
+
+#opponent-xp {
+  display: flex;
+  justify-content: center;
+}
+
+.opponent-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 114px;
+  height: 337px;
+  padding: 10px;
+}
+
+.opp-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 10px 10px 10px;
+
+}
+
+.opp-title {
+  color: #2F2F2F;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 0;
+}
+
+.opp-img {
+  width: 72px;
+  height: 73px;
+  border-radius: 73px;
+  background: lightgray 50% / cover no-repeat;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin: 10px 0 10px 0;
+}
+
+.opp-username {
+  color: #2F2F2F;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 5px;
+}
+
+.opp-lvl {
+  color: #2F2F2F;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.workout-complete {
+  border-radius: 30px;
+  background: #3C3C3C;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
+  color: #FFF;
+  padding: 5px 6px;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 7px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.bonus-round {
+  border-radius: 20px;
+  background: linear-gradient(270deg, #EA7F09 -17.65%, #F8B614 108.82%);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
+  color: #FFF;
+  padding: 10px 11px;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 7px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

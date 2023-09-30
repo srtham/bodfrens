@@ -16,18 +16,26 @@ class UserGameDataController < ApplicationController
 
   def show
     @game_room_id = Room.find(params[:id])
-    @user_game_data = @game_room_id.user_game_data.first # may get more complicated with more users
+    @user_game_data = @game_room_id.user_game_data.find { |instance| instance.user == current_user }
   end
 
   def show_game_stats
     @game_room_id = Room.find(params[:id])
-    @user_game_data = @game_room_id.user_game_data.first
-    @user_earned_xp = @user_game_data.game_xp
+    @user = current_user
+    @user_game_data = @game_room_id.user_game_data.find { |instance| instance.user == current_user }
+    @user_game_time = game_time(@user_game_data.time_taken)
+    @user_xp_earned_total = @user.user_game_data.sum(:game_xp)
+    @user_xp_earned_game = @user_game_data.game_xp
     @user_start_level = show_user_start_level
+
     @user_level = show_user_level # may get more complicated with more users
+    @xp_left_to_next_level = xp_to_next_level(@user_xp_earned_total, @user_level)
+    @xp_progress_percentage = xp_progress_percentage(@user_xp_earned_total)
+    # @user_start_badge = show_user_start_badge
+    # @user_badge = show_user_badge
+    # @new_badge_count = @user_badge - @user_start_badge
 
     # badges logic
-    @user = current_user
     @friend_beater_gained = check_friend_beater
     @lone_wolf_gained = check_lone_wolf
     @bonus_bunny_gained = check_bonus_bunny
@@ -37,16 +45,35 @@ class UserGameDataController < ApplicationController
 
   private
 
+  def game_time(user_time)
+    my_time = Time.at(user_time)
+    return my_time.strftime("%M:%S")
+  end
+
+  def xp_to_next_level(user_xp_earned, user_level)
+    base_xp_increment = 200
+    total_xp_of_reach_next_level = user_level * base_xp_increment
+    total_xp_of_reach_next_level - user_xp_earned
+  end
+
+  def xp_progress_percentage(user_xp_earned)
+    base_xp_increment = 200
+    user_level = (user_xp_earned / base_xp_increment).to_i
+    xp_to_next_level = (user_level + 1) * base_xp_increment
+    xp_needed_for_next_level = xp_to_next_level - user_xp_earned
+    ((base_xp_increment - xp_needed_for_next_level).to_f / base_xp_increment * 100).round(2)
+  end
+
   def show_user_start_level
-    @user = @user_game_data.user
-    @user_start_xp = @user.user_game_data.sum(:game_xp) - @user_earned_xp
-    @user_start_level = ((@user_start_xp.to_i)/200) + 1
+    user_start_xp = @user_xp_earned_total - @user_xp_earned_game
+    (user_start_xp.to_i / 200) + 1
   end
 
   def show_user_level
-    @user = @user_game_data.user
-    @user_xp = @user.user_game_data.sum(:game_xp)
-    @user_level = ((@user_xp.to_i)/200) + 1
+    (@user_xp_earned_total.to_i / 200) + 1
+  end
+
+  def show_user_start_badge
   end
 
   # checking for earned badges logic
@@ -93,5 +120,4 @@ class UserGameDataController < ApplicationController
         EarnedBadge.create(user: current_user, badge_title: "Quitter")
       end
     end
-  end
 end

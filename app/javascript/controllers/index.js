@@ -4,11 +4,17 @@
 
 import { application } from "./application"
 
+import CopyTextController from "./copy_text_controller"
+application.register("copy-text", CopyTextController)
+
 import GameController from "./game_controller"
 application.register("game", GameController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import LobbySubscribeController from "./lobby_subscribe_controller"
+application.register("lobby-subscribe", LobbySubscribeController)
 
 import TimerController from "./timer_controller"
 application.register("timer", TimerController)

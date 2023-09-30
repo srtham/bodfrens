@@ -12,7 +12,8 @@ export default class extends Controller {
     dataId: Number,
     secondsLeft: Number,
     xp: Number,
-    timeTaken: Number
+    timeTaken: Number,
+    bonus: Boolean
   }
 
   connect() {
@@ -95,7 +96,7 @@ export default class extends Controller {
   }
 
   countdown() {
-
+    // ends the countdown when the round is over.
     if (this.XPvalue == this.endValue) {
       clearInterval(this.countdown);
       this.timerTarget.innerHTML = "Round End"
@@ -103,9 +104,13 @@ export default class extends Controller {
     }
 
     if (this.secondsUntilEnd <= 0) {
-      console.log("Time's up!!!")
       clearInterval(this.countdown); // guard clause - this should call the modal
       this.timerTarget.innerHTML = "Time's Up!";
+      if (this.bonusValue == true) {
+        this.updateUserGameDatumWithBonusTimesUp();
+      } else {
+        this.updateUserGameDatumWithTimesUp()
+      }
       return
     }
 
@@ -113,10 +118,52 @@ export default class extends Controller {
     const secondsLeft = Math.floor(this.secondsUntilEnd % 60).toString().padStart(2, '0')
 
     this.timerTarget.innerHTML = `${minutesLeft} : ${secondsLeft}`
-
     this.secondsUntilEnd = this.secondsUntilEnd - 1;
 
+
   }
+
+  updateUserGameDatumWithTimesUp() {
+    // Update the data to the ruby controller
+      fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({game_xp: this.XPvalue, finish: false, time_taken: this.secondsLeftValue - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = `/room/${this.roomValue}/game_complete`;
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
+      })
+    }
+
+  updateUserGameDatumWithBonusTimesUp() {
+    // Update the data to the ruby controller
+      fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: this.secondsLeftValue - this.secondsUntilEnd + this.timeTakenValue, user_game_datum_id: this.dataIdValue})
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = `/room/${this.roomValue}/game_complete`;
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
+      })
+    }
+
+
 
   updateUserGameDatumWithFinish() {
   // Update the data to the ruby controller
@@ -126,7 +173,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         "X-CSRF-Token": this.csrfToken
       },
-      body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: 900 - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
+      body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: this.secondsLeftValue - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
     });
   }
 
@@ -140,7 +187,7 @@ export default class extends Controller {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({game_xp: this.XPvalue - 100, finish: false, time_taken: 900 - this.secondsUntilEnd, bonus_finish: false, user_game_datum_id: this.dataIdValue})
+        body: JSON.stringify({game_xp: this.XPvalue - 100, finish: false, time_taken: this.secondsLeftValue - this.secondsUntilEnd, bonus_finish: false, user_game_datum_id: this.dataIdValue})
       })
       .then(response => {
         if (response.ok) {
@@ -222,7 +269,7 @@ export default class extends Controller {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({game_xp: this.XPvalue, finish: true, bonus_finish: true, time_taken: (600 - this.secondsUntilEnd) + this.timeTakenValue, user_game_datum_id: this.dataIdValue})
+        body: JSON.stringify({game_xp: this.XPvalue, finish: true, bonus_finish: true, time_taken: (this.secondsLeftValue - this.secondsUntilEnd) + this.timeTakenValue, user_game_datum_id: this.dataIdValue})
       })
       .then(response => {
         if (response.ok) {
@@ -244,7 +291,7 @@ export default class extends Controller {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({game_xp: this.XPvalue, finish: true, bonus_finish: false, time_taken: (600 - this.secondsUntilEnd) + this.timeTakenValue, user_game_datum_id: this.dataIdValue})
+        body: JSON.stringify({game_xp: this.XPvalue, finish: true, bonus_finish: false, time_taken: (this.secondsLeftValue - this.secondsUntilEnd) + this.timeTakenValue, user_game_datum_id: this.dataIdValue})
       })
       .then(response => {
         if (response.ok) {

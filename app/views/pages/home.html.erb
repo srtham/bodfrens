@@ -23,8 +23,9 @@
   <div class="spacer" style="width: 1px; height: 250px"></div>
 
   <%= image_tag "pngs/logo.png", width: "85%", class: "animate__animated animate__fadeInDown"%>
-  <%= link_to "Start", mode_select_pages_path, class: "main-orange-btn animate__animated animate__fadeInDown" %>
-
+  <%= link_to mode_select_pages_path, class: "main-orange-btn animate__animated animate__fadeInDown" do%>
+    <span><p style="margin:0; display:flex; gap: 4px;">Start<%=image_tag("svgs/start_button_image.svg")%></p></span>
+  <% end %>
   <div class="spacer" style="width: 1px; height: 110px"></div>
 
   <div class="homepage-bottom">
