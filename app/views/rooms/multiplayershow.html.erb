@@ -1,61 +1,25 @@
-<h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+
 
 <div class="container multiplayer">
   <header class="multiplayer-top">
     <section class="timer">15:00</section>
     <button type="button" class="multiplayer giveup-btn">Give Up</button>
   </header>
+
   <main class="current-user">
-    <div class="user-btn">
-      <button class="icon" id="user-btn-img">
-        <%= image_tag("svgs/search_logo_gray.svg") %>
-      </button>
-      <button type="button" class="button user">
-        <span class="spacer" style="width:10%"></span>
-        <h3 class="text fs-5" style="width: fit-content; text-align: center">20 Push-Ups</h3>
-        <h5 class="xp">10XP</h5>
-      </button>
-    </div>
-    <div class="user-btn">
-      <button class="icon" id="user-btn-img">
-        <%= image_tag("svgs/search_logo_gray.svg") %>
-      </button>
-      <button type="button" class="button user">
-        <span class="spacer" style="width:10%"></span>
-        <h3 class="text fs-5" style="width: fit-content; text-align: center">20 Push-Ups</h3>
-        <h5 class="xp">10XP</h5>
-      </button>
-    </div>
-    <div class="user-btn">
-      <button class="icon" id="user-btn-img">
-        <%= image_tag("svgs/search_logo_gray.svg") %>
-      </button>
-      <button type="button" class="button user">
-        <span class="spacer" style="width:10%"></span>
-        <h3 class="text fs-5" style="width: fit-content; text-align: center">20 Push-Ups</h3>
-        <h5 class="xp">10XP</h5>
-      </button>
-    </div>
-    <div class="user-btn">
-      <button class="icon" id="user-btn-img">
-        <%= image_tag("svgs/search_logo_gray.svg") %>
-      </button>
-      <button type="button" class="button user">
-        <span class="spacer" style="width:10%"></span>
-        <h3 class="text fs-5" style="width: fit-content; text-align: center">20 Push-Ups</h3>
-        <h5 class="xp">10XP</h5>
-      </button>
-    </div>
+    <% @player1_regular_exercises.each do |active_exercise| %>
       <div class="user-btn">
-      <button class="icon" id="user-btn-img">
-        <%= image_tag("svgs/search_logo_gray.svg") %>
-      </button>
-      <button type="button" class="button user">
-        <span class="spacer" style="width:10%"></span>
-        <h3 class="text fs-5" style="width: fit-content; text-align: center">20 Push-Ups</h3>
-        <h5 class="xp">10XP</h5>
-      </button>
-    </div>
+        <button class="icon" id="user-btn-img">
+          <%= image_tag("svgs/search_logo_gray.svg") %>
+        </button>
+        <button type="button" class="button user">
+          <span class="spacer" style="width:10%"></span>
+          <h3 class="text fs-5" style="width: fit-content; text-align: center"><%= active_exercise.exercise.title %></h3>
+          <h5 class="xp"><%= active_exercise.exercise.exercise_xp %>XP</h5>
+        </button>
+      </div>
+    <% end %>
+
       <div class= "xp-container user" style="width:65%; ">
         <div class="progress-bar" style="background: grey;"></div>
         <div class="d-flex xp-points earn-points">
@@ -63,33 +27,16 @@
         </div>
       </div>
   </main>
+
   <main class="opponent">
     <section class="opponent-left">
-      <div class="opponent-btn-container">
-        <button type="button" class="opponent-button">
-          <h3 class="opp-button-text">20 Push-Ups</h3>
-        </button>
-      </div>
-      <div class="opponent-btn-container">
-        <button type="button" class="opponent-button">
-          <h3 class="opp-button-text">20 Push-Ups</h3>
-        </button>
-      </div>
-      <div class="opponent-btn-container">
-        <button type="button" class="opponent-button">
-          <h3 class="opp-button-text">20 Push-Ups</h3>
-        </button>
-      </div>
-      <div class="opponent-btn-container">
-        <button type="button" class="opponent-button">
-          <h3 class="opp-button-text">20 Push-Ups</h3>
-        </button>
-      </div>
-      <div class="opponent-btn-container">
-        <button type="button" class="opponent-button">
-          <h3 class="opp-button-text">20 Push-Ups</h3>
-        </button>
-      </div>
+      <% @player2_regular_exercises.each do |active_exercise| %>
+        <div class="opponent-btn-container">
+          <button type="button" class="opponent-button">
+            <h3 class="opp-button-text"><%= active_exercise.exercise.title %></h3>
+          </button>
+        </div>
+      <% end %>
       <div class= "xp-container">
         <div class="progress-bar" style="background: grey;"></div>
       </div>
@@ -108,10 +55,9 @@
 </div>
 
 
-
 <!-- The divs above are just for the scrolling animation and bg
 find them under the _backgrounds.scss in components -->
-
-<div class="bg-container animate__animated animate__fadeIn">
+<h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
+<div class="bg-container animate__animated animate__fadeIn" id="container-gray">
   <div class="bg-color-gray"></div>
 </div>
