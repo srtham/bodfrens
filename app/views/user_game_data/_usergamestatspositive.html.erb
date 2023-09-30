@@ -38,7 +38,7 @@
   <% badges_earned << "Bonus Bunny" if @bonus_bunny_gained %>
   <% badges_earned << "Quitter" if @quitter_gained %>
   <% if badges_earned.empty? %>
-    <h5 class = "text-white"><strong>You did not earn any badges.</strong></h5>
+    <h5 class = "text-white"><strong>No badges earned.</strong></h5>
   <% else %>
     <h5 class = "text-white"><strong>Badge Earned!</strong></h5>
     <% badges_earned.each do |badge| %>

@@ -28,11 +28,11 @@ class UserGameDataController < ApplicationController
 
     # badges logic
     @user = current_user
-    @friend_beater_gained = @user.user_game_data.joins(:room).where(room: { mode: 'multi', winner_user_id: @user_id }).count == 1
-    @lone_wolf_gained = @user.user_game_data.joins(:room).where(room: { mode: 'single' }, finish: true).count == 3
-    @bonus_bunny_gained = @user.user_game_data.where(bonus_finish: true).count == 3
-    @first_game_gained = @user.user_game_data.where(finish: [true, false]).count == 1
-    @quitter_gained = @user.user_game_data.where(finish: false).count == 1
+    @friend_beater_gained = check_friend_beater
+    @lone_wolf_gained = check_lone_wolf
+    @bonus_bunny_gained = check_bonus_bunny
+    @first_game_gained = check_first_game
+    @quitter_gained = check_quitter_badge
   end
 
   private
@@ -49,4 +49,49 @@ class UserGameDataController < ApplicationController
     @user_level = ((@user_xp.to_i)/200) + 1
   end
 
+  # checking for earned badges logic
+  def check_friend_beater
+    beat_friend = @user.user_game_data.joins(:room).where(room: { mode: 'multi', winner_user_id: @user_id }).count == 1
+    if !EarnedBadge.exists?(user: current_user, badge_id: 6)
+      if beat_friend
+        EarnedBadge.create(user: current_user, badge_id: 6)
+      end
+    end
+  end
+
+  def check_lone_wolf
+    single_games = @user.user_game_data.joins(:room).where(room: { mode: 'single' }, finish: true).count == 3
+    if !EarnedBadge.exists?(user: current_user, badge_id: 7)
+      if single_games
+        EarnedBadge.create(user: current_user, badge_id: 7)
+      end
+    end
+  end
+
+  def check_bonus_bunny
+    bonus_game = @user.user_game_data.where(bonus_finish: true).count == 3
+    if !EarnedBadge.exists?(user: current_user, badge_id: 9)
+      if bonus_game
+        EarnedBadge.create(user: current_user, badge_id: 9)
+      end
+    end
+  end
+
+  def check_first_game
+    first_game = @user.user_game_data.where(finish: [true, false]).count == 1
+    if !EarnedBadge.exists?(user: current_user, badge_id: 8)
+      if first_game
+        EarnedBadge.create(user: current_user, badge_id: 8)
+      end
+    end
+  end
+
+  def check_quitter_badge
+    quit_game = @user.user_game_data.where(finish: false).count
+    if !EarnedBadge.exists?(user: current_user, badge_id: 10)
+      if quit_game == 1
+        EarnedBadge.create(user: current_user, badge_id: 10)
+      end
+    end
+  end
 end
