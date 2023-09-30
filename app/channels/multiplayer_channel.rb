@@ -6,6 +6,7 @@ class MultiplayerChannel < ApplicationCable::Channel
     puts "multiplayerroom_id: #{params[:multiplayerroom_id]}"
     Rails.logger.info "Received params: #{params.inspect}"
     return reject unless @room
+
     stream_for @room
   end
 
@@ -15,8 +16,20 @@ class MultiplayerChannel < ApplicationCable::Channel
 
   def relay(data)
     return reject unless @room
-    Rails.logger.info "Relaying message: #{data["message"]}"
+
+    Rails.logger.info "Relaying message: #{data['message']}"
     MultiplayerChannel.broadcast_to(@room, message: data["message"])
+  end
+
+  def receive(data)
+    case data["message"]
+    when "Click button"
+      ActionCable.server.broadcast "multiplayer_channel", message: "Click button", button_id: data["button_id"]
+    when "Regular exercise completed by client!"
+      # Handle regular exercise completion
+    when "Bonus exercise completed by client!"
+      # Handle bonus exercise completion
+    end
   end
 
   private
