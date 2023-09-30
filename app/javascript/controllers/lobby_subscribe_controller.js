@@ -34,6 +34,7 @@ export default class extends Controller {
     e.currentTarget.innerText="Waiting for bodfren...";
     e.currentTarget.disabled = true;
     // this.startGameButtonTarget.disabled = true;
+    e.currentTarget.parentElement.submit();
   }
 
   disconnect() {

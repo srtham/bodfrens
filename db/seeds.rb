@@ -28,7 +28,6 @@ exercise_data = [
   { title: "6 Marches", description: "Works on your back and arm muscles.", exercise_xp: 20, is_bonus: true, image_url: "animationsFA/High_knee.gif" },
   { title: "5 Kallang Wave", description: "Effective abdominal exercise.", exercise_xp: 20, is_bonus: true, image_url: "animationsFA/Crunches.gif" }
 ]
-
 exercise_data.each do |data|
   Exercise.create(data)
 end

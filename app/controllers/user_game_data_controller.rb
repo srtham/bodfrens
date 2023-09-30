@@ -70,7 +70,4 @@ class UserGameDataController < ApplicationController
 
   def show_user_badge
   end
-
-
-
 end
