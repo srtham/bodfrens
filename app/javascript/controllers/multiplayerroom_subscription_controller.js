@@ -9,7 +9,7 @@ export default class extends Controller {
       end: Number,
       user: Number,
       dataId: Number,
-      exerciseId: Number,
+      activeexerciseId: Number,
       secondsLeft: Number,
       xp: Number,
       timeTaken: Number,
@@ -36,7 +36,7 @@ export default class extends Controller {
 
       //mark individual exercise as complete
       this.updateActiveExerciseWithFinish
-      console.log(`Player ${this.userValue} has finish exercise id ${this.exerciseIdValue}`)
+      console.log(`Player ${this.userValue} has finish exercise id ${this.activeexerciseId}`)
 
       //change the icon
       const h5Element = e.currentTarget.querySelector("h5")
@@ -95,15 +95,13 @@ export default class extends Controller {
     }
 
     updateActiveExerciseWithFinish(event) {
-      console.log("code here");
-      console.log(this.csrfToken);
       fetch(`/room/${this.roomValue}/active_exercises/${event.currentTarget.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({exercise_id: Number(event.currentTarget.id), complete:true})
+        body: JSON.stringify({active_exercise_id: Number(event.currentTarget.id), complete:true})
       });
     }
 

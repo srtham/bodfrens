@@ -1,14 +1,12 @@
 class ActiveExercisesController < ApplicationController
 
   def update
-    puts "Code here"
-    @exercise = ActiveExercise.find(params[:exercise_id])
+    @active_exercise = ActiveExercise.find(params[:active_exercise_id])
     status = params[:complete]
-    @exercise.complete = status
-    @exercise.save
-    if @exercise.save
+    @active_exercise.complete = status
+    if @active_exercise.save
       MultiplayerChannel.broadcast_to(
-        @room,
+        @active_exercise.user_game_datum.room,
         "Exercise completed for user"
       )
       head :ok
