@@ -17,38 +17,6 @@ export default class extends Controller {
     static targets = ["exercise", "button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton"]
 
     connect() {
-       // set audio files
-    this.startSound = new Audio("/audios/start.mp3")
-    this.buttonSound = new Audio("/audios/clicksound.mp3")
-    this.finishSound = new Audio("/audios/Finish.wav")
-
-    this.startSound.play() // plays the start sound on connect
-
-    this.XPvalue = this.xpValue; // XP Value tracks how much the XP user has gathered so far in a game room.
-    this.csrfToken = document.querySelector("meta[name='csrf-token']").content
-    // bunch of logs to check if the data being sent is correct...
-    console.log(`this is the user_id connected to the room = ${this.userValue}`)
-    console.log(`this is the ID of the user_game_data = ${this.dataIdValue}`)
-    console.log(`this is the room ID = ${this.roomValue}`);
-    console.log(`this is the end value= ${this.endValue}`);
-    console.log("The game is now connected");
-    console.log(`This is the XP value of the room = ${this.xpValue}` )
-    console.log(`This is the time taken from the other room = ${this.timeTakenValue}` )
-    // timer settings:
-    ///// this.secondsUntilEnd = this.data.get("seconds-until-end-value");
-    this.Modal = document.getElementById("bonusPromptModal");
-
-    this.secondsUntilEnd = this.secondsLeftValue
-    console.log(this.secondsUntilEnd); // to check the data value after each interval
-
-    this.countdown = setInterval(this.countdown.bind(this), 1000) // sets the interval for countdown to reload every 1 second
-
-    //set values for the bar calculations
-    this.barEndNumber = this.endValue - this.xpValue
-    this.barWidth = 0
-
-    //set the final EXP printed at the bottom via innerHTML
-    this.barFinalExpTarget.innerHTML = `/${this.barEndNumber} XP EARNED`
 
     //create multiplayerroom_subscription_channel
     this.channel = createConsumer().subscriptions.create(
@@ -56,6 +24,8 @@ export default class extends Controller {
       { received: data => console.log(data) }
     )
     console.log(`Subscribed to the multiplayerroom with the id ${this.roomIdValue}.`)
+
+    this.csrfToken = document.querySelector("meta[name='csrf-token']").content
     }
 
     markComplete(e) {
@@ -124,14 +94,16 @@ export default class extends Controller {
       this.Modal.classList.add("game-modal");
     }
 
-    updateActiveExerciseWithFinish() {
-      fetch(`/room/${this.roomValue}/active_exercises/${this.exerciseIdValue}`, {
+    updateActiveExerciseWithFinish(event) {
+      console.log("code here");
+      console.log(this.csrfToken);
+      fetch(`/room/${this.roomValue}/active_exercises/${event.currentTarget.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({exercise_id: this.exerciseIdValue, complete:true})
+        body: JSON.stringify({exercise_id: Number(event.currentTarget.id), complete:true})
       });
     }
 

@@ -1,6 +1,7 @@
 class ActiveExercisesController < ApplicationController
 
   def update
+    puts "Code here"
     @exercise = ActiveExercise.find(params[:exercise_id])
     status = params[:complete]
     @exercise.complete = status
@@ -11,5 +12,7 @@ class ActiveExercisesController < ApplicationController
         "Exercise completed for user"
       )
       head :ok
+    end
   end
+
 end

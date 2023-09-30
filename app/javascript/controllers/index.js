@@ -7,9 +7,6 @@ import { application } from "./application"
 import CopyTextController from "./copy_text_controller"
 application.register("copy-text", CopyTextController)
 
-import ExerciseController from "./exercise_controller"
-application.register("exercise", ExerciseController)
-
 import GameController from "./game_controller"
 application.register("game", GameController)
 
