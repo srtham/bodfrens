@@ -3,18 +3,20 @@ import { createConsumer } from "@rails/actioncable"
 
 // Connects to data-controller="multiplayerroom-subscription"
 export default class extends Controller {
+    static targets = ["exercise", "button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton", "player1exercise", "player2exercise"]
+
     static values = {
       roomId: Number,
       secondsUntilEnd: Number,
       end: Number,
-      user: Number,
+      player1UserId: Number,
+      player2UserId: Number,
       dataId: Number,
       activeexerciseId: Number,
       secondsLeft: Number,
       xp: Number,
       timeTaken: Number,
-      bonus: Boolean }
-    static targets = ["exercise", "button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton", "player1exercise"]
+      bonus: Boolean}
 
     connect() {
 
@@ -32,8 +34,9 @@ export default class extends Controller {
     this.csrfToken = document.querySelector("meta[name='csrf-token']").content
     this.XPvalue = this.xpValue; // XP Value tracks how much the XP user has gathered so far in a game room.
     // bunch of logs to check if the data being sent is correct...
-    console.log(`this is the user_id connected to the room = ${this.userValue}`)
-    console.log(`this is the ID of the user_game_data = ${this.dataIdValue}`)
+    console.log(`this is player 1 user_id connected to the room = ${this.player1UserIdValue}`);
+    console.log(`this is player 2 user_id connected to the room = ${this.player2UserIdValue}`);
+    console.log(`this is the ID of the user_game_data = ${this.dataIdValue}`);
     console.log(`this is the room ID = ${this.roomIdValue}`);
     console.log(`this is the end value= ${this.endValue}`);
     console.log("The game is now connected");
@@ -57,26 +60,31 @@ export default class extends Controller {
     }
 
     update_active_exercise(active_exercise) {
-      this.buttonSound.play()
-      this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
-      console.log(`the XP value is = ${this.XPvalue}`)
 
-      //change the icon
       const activeExerciseElement = this.player1exerciseTarget.querySelector(`#button-${active_exercise.id}`)
-      const h5Element = activeExerciseElement.querySelector("h5")
+
+      const activeExerciseOpponentElement = this.player2exerciseTarget.querySelector(`#button-${active_exercise.id}`)
       // Changing the colors of the buttons depending on their value (negative or positive)
       if (active_exercise.complete) {
-        activeExerciseElement.classList.remove("button");
-        activeExerciseElement.classList.add("button-regular-done");
 
-        //Mark the XP as earned
-        h5Element.innerHTML = "XP\ngained";
+        if (activeExerciseOpponentElement !== null) {
+          activeExerciseOpponentElement.classList.remove("opponent-button");
+          activeExerciseOpponentElement.classList.add("opponent-button-gray");
+          activeExerciseElement.value = activeExerciseElement.value * -1;
+        }
+
+        if (activeExerciseElement !== null) {
+          const h5Element = activeExerciseElement.querySelector("h5")
+          activeExerciseElement.classList.remove("button");
+          activeExerciseElement.classList.add("button-regular-done");
+          h5Element.innerHTML = "XP\ngained"
+        }
       } else {
         activeExerciseElement.classList.remove("button-regular-done");
         activeExerciseElement.classList.add("button");
 
         //Mark the XP as earned
-        h5Element.textContent = `${activeExerciseElement.value * -1}XP`;
+        // h5Element.textContent = `${activeExerciseElement.value * -1}XP`;
       }
 
       // Increasing the width of the bar
@@ -86,56 +94,6 @@ export default class extends Controller {
 
       // Update the exp value printed at the bottom
       this.barExpTarget.innerHTML = `${this.barWidth}`
-
-      // Change the value of the button to negative
-      activeExerciseElement.value = activeExerciseElement.value * -1
-
-      // End Game with Finish
-      if (this.XPvalue == this.endValue) {
-        this.finishSound.play()
-        this.updateUserGameDatumWithFinish();
-        console.log("REGULAR GAME FINISH");
-        this.showBonusModal();
-      };
-    }
-
-    markComplete(e) {
-      e.preventDefault()
-      this.buttonSound.play()
-      this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
-      console.log(`the XP value is = ${this.XPvalue}`)
-
-      //mark individual exercise as complete
-      this.updateActiveExerciseWithFinish
-      console.log(`Player ${this.userValue} has finish exercise id ${this.activeexerciseId}`)
-
-      //change the icon
-      const h5Element = e.currentTarget.querySelector("h5")
-      // Changing the colors of the buttons depending on their value (negative or positive)
-      if (e.currentTarget.value > 0) {
-        e.currentTarget.classList.remove("button");
-        e.currentTarget.classList.add("button-regular-done");
-
-        //Mark the XP as earned
-        h5Element.innerHTML = "XP\ngained";
-      } else {
-        e.currentTarget.classList.remove("button-regular-done");
-        e.currentTarget.classList.add("button");
-
-        //Mark the XP as earned
-        h5Element.textContent = `${e.currentTarget.value * -1}XP`;
-      }
-
-      // Increasing the width of the bar
-      this.barWidth += parseInt(e.currentTarget.value,10);
-      this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
-      console.log(this.barWidth)
-
-      // Update the exp value printed at the bottom
-      this.barExpTarget.innerHTML = `${this.barWidth}`
-
-      // Change the value of the button to negative
-      e.currentTarget.value = e.currentTarget.value * -1
 
       // End Game with Finish
       if (this.XPvalue == this.endValue) {

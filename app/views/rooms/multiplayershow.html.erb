@@ -1,6 +1,9 @@
 <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
-<div class="container multiplayer" data-controller="multiplayerroom-subscription" data-multiplayerroom-subscription-room-id-value="<%= @room.id %>" >
+<div class="container multiplayer" data-controller="multiplayerroom-subscription"
+data-multiplayerroom-subscription-room-id-value="<%= @room.id %>"
+data-multiplayerroom-subscription-player-1-user-id-value="<%= @player1.id %>"
+data-multiplayerroom-subscription-player-2-user-id-value="<%= @player2_user_id %>">
   <header class="multiplayer-top">
     <section class="timer">15:00</section>
     <button type="button" class="multiplayer giveup-btn">Give Up</button>
@@ -26,12 +29,12 @@
       </div>
   </main>
 
-  <main class="opponent">
+  <main class="opponent" data-multiplayerroom-subscription-target="player2exercise">
     <section class="opponent-left">
 
       <% @player2_regular_exercises.each do |active_exercise| %>
-        <div class="opponent-btn-container" data-action="click->multiplayerroom-subscription#updateActiveExerciseWithFinish">
-          <button type="button" class="opponent-button">
+        <div class="opponent-btn-container">
+          <button type="button" class="opponent-button" id="button-<%= active_exercise.id %>">
             <h3 class="opp-button-text"><%= active_exercise.exercise.title %></h3>
           </button>
         </div>

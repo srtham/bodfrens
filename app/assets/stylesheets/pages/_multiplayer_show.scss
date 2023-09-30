@@ -132,6 +132,19 @@
   margin-bottom: 0;
 }
 
+.opponent-button-gray {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 10px;
+  padding: 15px 15px 15px 19px;
+  border-radius: 25px;
+  background: #737373;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
+  border-color: transparent;
+}
+
 #opponent-xp {
   display: flex;
   justify-content: center;
