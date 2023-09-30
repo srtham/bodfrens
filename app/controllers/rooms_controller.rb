@@ -66,13 +66,6 @@ class RoomsController < ApplicationController
       render "rooms/singleplayershow"
     else
       render "rooms/multiplayershow"
-      if @exercise.save
-        MultiplayerChannel.broadcast_to(
-          @room,
-          render_to_string(partial: "message", locals: {message: @message}) # this one can be changed to whatever action we want to happen
-        )
-        head :ok
-      else
     end
   end
 
