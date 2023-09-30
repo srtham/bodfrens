@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_30_045209) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_30_032116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "active_exercises", force: :cascade do |t|
     t.bigint "exercise_id", null: false
-    t.boolean "complete", default: false
+    t.boolean "complete"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_game_datum_id"
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_045209) do
     t.integer "winner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "target"
     t.string "mode"
     t.boolean "bonus", default: false
     t.integer "user_count", default: 0

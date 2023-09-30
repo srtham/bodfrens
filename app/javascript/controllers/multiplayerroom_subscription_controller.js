@@ -30,7 +30,7 @@ export default class extends Controller {
     console.log(`Subscribed to the multiplayerroom with the id ${this.roomIdValue}.`)
 
     this.csrfToken = document.querySelector("meta[name='csrf-token']").content
-    this.XPvalue = this.xpValue; // XP Value tracks how much the XP user has gathered so far in a game room.
+    this.XPvalue = 32 // XP Value tracks how much the XP user has gathered so far in a game room.
     // bunch of logs to check if the data being sent is correct...
     console.log(`this is the user_id connected to the room = ${this.userValue}`)
     console.log(`this is the ID of the user_game_data = ${this.dataIdValue}`)
@@ -46,7 +46,7 @@ export default class extends Controller {
     this.secondsUntilEnd = this.secondsLeftValue
     console.log(this.secondsUntilEnd); // to check the data value after each interval
 
-    this.countdown = setInterval(this.countdown.bind(this), 1000) // sets the interval for countdown to reload every 1 second
+    // this.countdown = setInterval(this.countdown.bind(this), 1000) // sets the interval for countdown to reload every 1 second
 
     //set values for the bar calculations
     this.barEndNumber = this.endValue - this.xpValue
@@ -59,35 +59,42 @@ export default class extends Controller {
     update_active_exercise(active_exercise) {
       // // this.buttonSound.play()
       // this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
-      console.log(`the XP value is = ${this.XPvalue}`)
+      // console.log(`the XP value is = ${this.XPvalue}`)
 
       //change the icon
-      const activeExerciseElement = this.player1exerciseTarget.querySelector(`#button-${active_exercise.id}`);
+      const activeExerciseElement = this.player1exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
 
-      const activeExerciseOpponentElement = this.player2exerciseTarget.querySelector(`#button-${active_exercise.id}`);
+      const activeExerciseOpponentElement = this.player2exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
       // Changing the colors of the buttons depending on their value (negative or positive)
       if (active_exercise.complete) {
         if (activeExerciseOpponentElement !== null ) {
-        console.log(activeExerciseOpponentElement);
+        // console.log(activeExerciseOpponentElement);
         activeExerciseOpponentElement.classList.remove("opponent-button");
         activeExerciseOpponentElement.classList.add("opponent-button-gray");
         };
         if (activeExerciseElement !== null ) {
-        console.log(activeExerciseElement);
+        // console.log(activeExerciseElement);
         const h5Element = activeExerciseElement.querySelector("h5")
-        activeExerciseElement.classList.remove("button");
-        activeExerciseElement.classList.add("button-regular-done");
+        activeExerciseElement.classList.remove("button-user");
+        activeExerciseElement.classList.add("button-user-selected");
         h5Element.innerHTML = "XP\ngained";
         };
 
         //Mark the XP as earned
 
       } else {
-        // activeExerciseElement.classList.remove("button-regular-done");
-        // activeExerciseElement.classList.add("button");
-
-        //Mark the XP as earned
-        // h5Element.textContent = `${activeExerciseElement.value * -1}XP`;
+        if (activeExerciseOpponentElement !== null ) {
+        // console.log(activeExerciseOpponentElement);
+        activeExerciseOpponentElement.classList.add("opponent-button");
+        activeExerciseOpponentElement.classList.remove("opponent-button-gray");
+        };
+        if (activeExerciseElement !== null ) {
+        // console.log(activeExerciseElement);
+        const h5Element = activeExerciseElement.querySelector("h5")
+        activeExerciseElement.classList.add("button-user");
+        activeExerciseElement.classList.remove("button-user-selected");
+        h5Element.innerHTML = "XP\ngained";
+        };
       }
 
       // Increasing the width of the bar
@@ -112,80 +119,110 @@ export default class extends Controller {
       // };
     }
 
-    countdown() {
-      // ends the countdown when the round is over.
-      if (this.XPvalue == this.endValue) {
-        clearInterval(this.countdown);
-        this.timerTarget.innerHTML = "Round End"
-        return
-      }
-
-      if (this.secondsUntilEnd <= 0) {
-        clearInterval(this.countdown); // guard clause - this should call the modal
-        this.timerTarget.innerHTML = "Time's Up!";
-        if (this.bonusValue == true) {
-          this.updateUserGameDatumWithBonusTimesUp();
-        } else {
-          this.updateUserGameDatumWithTimesUp()
-        }
-        return
-      }
-
-      const minutesLeft = Math.floor(this.secondsUntilEnd / 60)
-      const secondsLeft = Math.floor(this.secondsUntilEnd % 60).toString().padStart(2, '0')
-
-      this.timerTarget.innerHTML = `${minutesLeft} : ${secondsLeft}`
-      this.secondsUntilEnd = this.secondsUntilEnd - 1;
-
-
-    }
-
-    markComplete(e) {
+    updateActiveExercise(e) {
       e.preventDefault()
-      this.buttonSound.play()
-      this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
-      console.log(`the XP value is = ${this.XPvalue}`)
-
-      //mark individual exercise as complete
-      this.updateActiveExerciseWithFinish
-      console.log(`Player ${this.userValue} has finish exercise id ${this.activeexerciseId}`)
-
-      //change the icon
-      const h5Element = e.currentTarget.querySelector("h5")
-      // Changing the colors of the buttons depending on their value (negative or positive)
+      console.log(e.currentTarget)
+      console.log(e.currentTarget.value)
       if (e.currentTarget.value > 0) {
-        e.currentTarget.classList.remove("button");
-        e.currentTarget.classList.add("button-regular-done");
-
-        //Mark the XP as earned
-        h5Element.innerHTML = "XP\ngained";
+        fetch(`/room/${this.roomIdValue}/active_exercises/${e.currentTarget.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": this.csrfToken
+          },
+          body: JSON.stringify({active_exercise_id: Number(e.currentTarget.id), complete:true})
+        })
+        .then(res => console.log(res));
       } else {
-        e.currentTarget.classList.remove("button-regular-done");
-        e.currentTarget.classList.add("button");
-
-        //Mark the XP as earned
-        h5Element.textContent = `${e.currentTarget.value * -1}XP`;
+        fetch(`/room/${this.roomIdValue}/active_exercises/${e.currentTarget.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": this.csrfToken
+          },
+          body: JSON.stringify({active_exercise_id: Number(e.currentTarget.id), complete: false})
+        })
+        .then(res => console.log(res));
       }
 
-      // Increasing the width of the bar
-      this.barWidth += parseInt(e.currentTarget.value,10);
-      this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
-      console.log(this.barWidth)
 
-      // Update the exp value printed at the bottom
-      this.barExpTarget.innerHTML = `${this.barWidth}`
-
-      // Change the value of the button to negative
       e.currentTarget.value = e.currentTarget.value * -1
-
-      // End Game with Finish
-      if (this.XPvalue == this.endValue) {
-        this.finishSound.play()
-        this.updateUserGameDatumWithFinish();
-        console.log("REGULAR GAME FINISH");
-        this.showBonusModal();
-      };
     }
+
+    // countdown() {
+    //   // ends the countdown when the round is over.
+    //   if (this.XPvalue == this.endValue) {
+    //     clearInterval(this.countdown);
+    //     this.timerTarget.innerHTML = "Round End"
+    //     return
+    //   }
+
+    //   if (this.secondsUntilEnd <= 0) {
+    //     clearInterval(this.countdown); // guard clause - this should call the modal
+    //     this.timerTarget.innerHTML = "Time's Up!";
+    //     if (this.bonusValue == true) {
+    //       this.updateUserGameDatumWithBonusTimesUp();
+    //     } else {
+    //       this.updateUserGameDatumWithTimesUp()
+    //     }
+    //     return
+    //   }
+
+    //   const minutesLeft = Math.floor(this.secondsUntilEnd / 60)
+    //   const secondsLeft = Math.floor(this.secondsUntilEnd % 60).toString().padStart(2, '0')
+
+    //   this.timerTarget.innerHTML = `${minutesLeft} : ${secondsLeft}`
+    //   this.secondsUntilEnd = this.secondsUntilEnd - 1;
+
+
+    // }
+
+    // markComplete(e) {
+    //   e.preventDefault()
+    //   this.buttonSound.play()
+    //   this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
+    //   console.log(`the XP value is = ${this.XPvalue}`)
+
+    //   //mark individual exercise as complete
+    //   this.updateActiveExerciseWithFinish
+    //   console.log(`Player ${this.userValue} has finish exercise id ${this.activeexerciseId}`)
+
+    //   //change the icon
+    //   const h5Element = e.currentTarget.querySelector("h5")
+    //   // Changing the colors of the buttons depending on their value (negative or positive)
+    //   if (e.currentTarget.value > 0) {
+    //     e.currentTarget.classList.remove("button");
+    //     e.currentTarget.classList.add("button-regular-done");
+
+    //     //Mark the XP as earned
+    //     h5Element.innerHTML = "XP\ngained";
+    //   } else {
+    //     e.currentTarget.classList.remove("button-regular-done");
+    //     e.currentTarget.classList.add("button");
+
+    //     //Mark the XP as earned
+    //     h5Element.textContent = `${e.currentTarget.value * -1}XP`;
+    //   }
+
+    //   // Increasing the width of the bar
+    //   this.barWidth += parseInt(e.currentTarget.value,10);
+    //   this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
+    //   console.log(this.barWidth)
+
+    //   // Update the exp value printed at the bottom
+    //   this.barExpTarget.innerHTML = `${this.barWidth}`
+
+    //   // Change the value of the button to negative
+    //   e.currentTarget.value = e.currentTarget.value * -1
+
+    //   // End Game with Finish
+    //   if (this.XPvalue == this.endValue) {
+    //     this.finishSound.play()
+    //     this.updateUserGameDatumWithFinish();
+    //     console.log("REGULAR GAME FINISH");
+    //     this.showBonusModal();
+    //   };
+    // }
 
     updateUserGameDatumWithFinish() {
       // Update the data to the ruby controller
@@ -206,16 +243,6 @@ export default class extends Controller {
       this.Modal.classList.add("game-modal");
     }
 
-    updateActiveExerciseWithFinish(event) {
-      fetch(`/room/${this.roomValue}/active_exercises/${event.currentTarget.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": this.csrfToken
-        },
-        body: JSON.stringify({active_exercise_id: Number(event.currentTarget.id), complete:true})
-      })
-      .then(res => console.log(res));
-    }
+
 
   }

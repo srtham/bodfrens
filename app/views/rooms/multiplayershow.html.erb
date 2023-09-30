@@ -14,11 +14,11 @@
 
   <main class="current-user" data-multiplayerroom-subscription-target="player1exercise">
     <% @player1_regular_exercises.each do |active_exercise| %>
-      <div class="user-btn" data-action="click->multiplayerroom-subscription#updateActiveExerciseWithFinish" id="<%= active_exercise.id %>">
+      <div class="user-btn" id="<%= active_exercise.id %>">
         <button class="icon" id="user-btn-img">
           <%= image_tag("svgs/search_logo_gray.svg") %>
         </button>
-        <button type="button" class="button user" style="padding-left: 60px" id="button-<%= active_exercise.id %>">
+        <button type="button" class="button-user" data-action="click->multiplayerroom-subscription#updateActiveExercise" value="<%=active_exercise.exercise.exercise_xp%>" style="padding-left: 60px" id="<%= active_exercise.id %>">
           <h3 class="text fs-5"><%= active_exercise.exercise.title %></h3><h5 class="xp"><%= active_exercise.exercise.exercise_xp %>XP</h5>
         </button>
       </div>
@@ -37,7 +37,7 @@
 
       <% @player2_regular_exercises.each do |active_exercise| %>
         <div class="opponent-btn-container">
-          <button type="button" class="opponent-button" id="button-<%= active_exercise.id %>">
+          <button type="button" class="opponent-button" id="<%= active_exercise.id %>">
             <h3 class="opp-button-text"><%= active_exercise.exercise.title %></h3>
           </button>
         </div>

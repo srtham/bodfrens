@@ -19,6 +19,7 @@ class RoomsController < ApplicationController
   # end
   def create_from_lobby
     @room = Room.find(params[:id])
+    puts @room.user_game_data.count
     # get all the ids associated with the room
     user_game_data_ids = @room.user_game_data.pluck(:user_id)
     # will not create a new UserGameDatum if user_id is already associated with the room.
@@ -44,6 +45,7 @@ class RoomsController < ApplicationController
       create_active_exercises(regular_exercises, game_data)
       create_active_exercises(bonus_exercises, game_data)
     end
+
     LobbyChannel.broadcast_to(@room, "ready")
   end
 
