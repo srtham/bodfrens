@@ -19,7 +19,6 @@ class RoomsController < ApplicationController
   # end
   def create_from_lobby
     @room = Room.find(params[:id])
-
     # get all the ids associated with the room
     user_game_data_ids = @room.user_game_data.pluck(:user_id)
     # will not create a new UserGameDatum if user_id is already associated with the room.

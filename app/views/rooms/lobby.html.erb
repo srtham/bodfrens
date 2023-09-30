@@ -9,7 +9,7 @@
 
   <div class="lobby-page-container-hidden" data-lobby-subscribe-target="startPage">
     <h3>Are you ready?</h3>
-    <%= button_to "Start Match", "#", class: "main-orange-btn", style: "width: auto; height: 50px;", data: { action: "click->lobby-subscribe#wait", lobby_subscribe_target: "startGameButton" } %>
+    <%= button_to "Start Match", rooms_create_from_lobby_room_path(@room), class: "main-orange-btn", style: "width: auto; height: 50px;", data: { action: "click->lobby-subscribe#wait" } %>
   </div>
 
 </div>
