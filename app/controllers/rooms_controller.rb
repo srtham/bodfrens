@@ -67,7 +67,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     if @room.mode == "single"
       @user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
-      @user = @user_game_data.user_id
+      @user = current_user
       @regular_exercises = @user_game_data.exercises.where(is_bonus: false)
       @regular_xp = calculate_exp(@regular_exercises)
       @bonus_exercises = @user_game_data.exercises.where(is_bonus: true)
