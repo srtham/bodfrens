@@ -2,7 +2,13 @@
 
 <div class="container multiplayer" data-controller="multiplayerroom-subscription" data-multiplayerroom-subscription-room-id-value="<%= @room.id %>" >
   <header class="multiplayer-top">
-    <section class="timer">15:00</section>
+    <section class="timer">
+      <%= content_tag(:h1, "Go!", data: {
+        multiplayerroom_subscription_target: "timer",
+        # seconds_until_end_value: 900
+        # KIV this, for some reason it's not being read in the controller
+      }) %>
+    </section>
     <button type="button" class="multiplayer giveup-btn">Give Up</button>
   </header>
 
@@ -21,17 +27,17 @@
       <div class= "xp-container user" style="width:65%; ">
         <div class="progress-bar" style="background: grey;"></div>
         <div class="d-flex xp-points earn-points">
-          <p>0</p><p>/120 XP EARNED</p>
+            <p data-multiplayerroom-subscription-target="barExp">0</p><p data-multiplayerroom-subscription-target="barFinalExp">/120 XP EARNED</p>
         </div>
       </div>
   </main>
 
-  <main class="opponent">
+  <main class="opponent" data-multiplayerroom-subscription-target="player2exercise">
     <section class="opponent-left">
 
       <% @player2_regular_exercises.each do |active_exercise| %>
-        <div class="opponent-btn-container" data-action="click->multiplayerroom-subscription#updateActiveExerciseWithFinish">
-          <button type="button" class="opponent-button">
+        <div class="opponent-btn-container">
+          <button type="button" class="opponent-button" id="button-<%= active_exercise.id %>">
             <h3 class="opp-button-text"><%= active_exercise.exercise.title %></h3>
           </button>
         </div>

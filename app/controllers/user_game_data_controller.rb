@@ -120,4 +120,5 @@ class UserGameDataController < ApplicationController
         EarnedBadge.create(user: current_user, badge_title: "Quitter")
       end
     end
+  end
 end
