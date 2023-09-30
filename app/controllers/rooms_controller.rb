@@ -24,7 +24,12 @@ class RoomsController < ApplicationController
     user_game_data_ids = @room.user_game_data.pluck(:user_id)
     # will not create a new UserGameDatum if user_id is already associated with the room.
     # Or if there are already 2 users associated with the room.
-    return if @room.user_game_data.count >= 2 || user_game_data_ids.include?(current_user.id)
+    if user_game_data_ids.include?(current_user.id)
+      redirect_to lobby_room_path(@room), notice: "You can't play a game with yourself."
+      return
+    end
+
+    return if @room.user_game_data.count >= 2
 
     # if there is 0 UserGameDatum associated with the room
     UserGameDatum.create(user: current_user, room: @room)
@@ -51,7 +56,12 @@ class RoomsController < ApplicationController
   end
 
   def lobby
-    @room = Room.find(params[:id])
+    if user_signed_in?
+      @room = Room.find(params[:id])
+    else
+      session[:room_id] = params[:id]
+      redirect_to new_user_session_path, notice: "You must be signed in to join a lobby."
+    end
   end
 
   def show
