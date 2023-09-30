@@ -19,6 +19,9 @@ export default class extends Controller {
           this.startPageTarget.classList.add("lobby-page-container")
           this.startPageTarget.classList.remove("lobby-page-container-hidden")
         }
+        if (data === "ready") {
+          window.location.href = `/room/${this.roomIdValue}`;
+        }
        }
       }
     )
@@ -30,6 +33,8 @@ export default class extends Controller {
     e.currentTarget.classList.add("h1-lobby")
     e.currentTarget.innerText="Waiting for bodfren...";
     e.currentTarget.disabled = true;
+    // this.startGameButtonTarget.disabled = true;
+    e.currentTarget.parentElement.submit();
   }
 
   disconnect() {

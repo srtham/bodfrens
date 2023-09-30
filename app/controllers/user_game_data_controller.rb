@@ -27,12 +27,21 @@ class UserGameDataController < ApplicationController
     @user_xp_earned_total = @user.user_game_data.sum(:game_xp)
     @user_xp_earned_game = @user_game_data.game_xp
     @user_start_level = show_user_start_level
-    @user_level = show_user_level
+
+    @user_level = show_user_level # may get more complicated with more users
     @xp_left_to_next_level = xp_to_next_level(@user_xp_earned_total, @user_level)
     @xp_progress_percentage = xp_progress_percentage(@user_xp_earned_total)
     # @user_start_badge = show_user_start_badge
     # @user_badge = show_user_badge
     # @new_badge_count = @user_badge - @user_start_badge
+
+    # badges logic
+    @user = current_user
+    @friend_beater_gained = check_friend_beater
+    @lone_wolf_gained = check_lone_wolf
+    @bonus_bunny_gained = check_bonus_bunny
+    @first_game_gained = check_first_game
+    @quitter_gained = check_quitter_badge
   end
 
   private
@@ -65,12 +74,63 @@ class UserGameDataController < ApplicationController
     (@user_xp_earned_total.to_i / 200) + 1
   end
 
-  def show_user_start_badge
+  # checking for earned badges logic
+  def check_friend_beater
+    beat_friend = @user.user_game_data.joins(:room).where(room: { mode: 'multi', winner_user_id: @user_id }).count
+    badge_title = "Friend Beater"
+
+    if beat_friend == 1
+      badge = Badge.find_by(title: badge_title)
+      unless EarnedBadge.exists?(user: current_user, badge: badge)
+        EarnedBadge.create!(user: current_user, badge: badge)
+      end
+    end
   end
 
-  def show_user_badge
+  def check_lone_wolf
+    single_games = @user.user_game_data.joins(:room).where(room: { mode: 'single' }, finish: true).count
+    badge_title = "Lone Wolf"
+
+    if single_games == 3
+      badge = Badge.find_by(title: badge_title)
+      unless EarnedBadge.exists?(user: current_user, badge: badge)
+        EarnedBadge.create!(user: current_user, badge: badge)
+      end
+    end
   end
 
+  def check_bonus_bunny
+    bonus_game = @user.user_game_data.where(bonus_finish: true).count
+    badge_title = "Bonus Bunny"
+    if bonus_game == 3
+      badge = Badge.find_by(title: badge_title)
+      unless EarnedBadge.exists?(user: current_user, badge: badge)
+        EarnedBadge.create!(user: current_user, badge: badge)
+      end
+    end
+  end
 
+  def check_first_game
+    first_game = @user.user_game_data.where(finish: [true, false]).count
+    badge_title = "First Game!"
 
+    if first_game == 1
+      badge = Badge.find_by(title: badge_title)
+      unless EarnedBadge.exists?(user: current_user, badge: badge)
+        EarnedBadge.create!(user: current_user, badge: badge)
+      end
+    end
+  end
+
+  def check_quitter_badge
+    quit_game = @user.user_game_data.where(finish: false).count
+    badge_title = "Quitter"
+
+    if quit_game == 1
+      badge = Badge.find_by(title: badge_title)
+      unless EarnedBadge.exists?(user: current_user, badge: badge)
+        EarnedBadge.create!(user: current_user, badge: badge)
+      end
+    end
+  end
 end
