@@ -60,8 +60,10 @@
 }
 
 .button.user {
-  justify-content: space-around;
+  display: inline-flex;
+  justify-content: space-between;
   height: 58px;
+  width: 80%;
 }
 
 .user-btn.text {
@@ -100,7 +102,7 @@
   display: flex;
   gap: 14px;
   width: 100vw;
-  height: 336px;
+  height: 100vh;
   padding: 0px 28px;
   justify-content: flex-end;
   align-items: center;
