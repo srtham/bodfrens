@@ -28,7 +28,6 @@ exercise_data = [
   { title: "6 Marches", description: "Works on your back and arm muscles.", exercise_xp: 20, is_bonus: true, image_url: "animationsFA/High_knee.gif" },
   { title: "5 Kallang Wave", description: "Effective abdominal exercise.", exercise_xp: 20, is_bonus: true, image_url: "animationsFA/Crunches.gif" }
 ]
-
 exercise_data.each do |data|
   Exercise.create(data)
 end
@@ -40,7 +39,7 @@ puts "create 10 exercise"
 badge = [
   { title: "Friend Beater", description: "Win a friend in one game", image_url: "pngs/bodfrens_graphics-05.png" },
   { title: "Lone Wolf", description: "Complete 3 single player games", image_url: "pngs/bodfrens_graphics-08.png" },
-  { title: "First Game!", description: "Play your first bodfrens game", image_url: "pngs/bodfrens_graphics-07.png" },
+  { title: "First Game", description: "Play your first bodfrens game", image_url: "pngs/bodfrens_graphics-07.png" },
   { title: "Bonus Bunny", description: "Finish three bonus rounds", image_url: "pngs/bodfrens_graphics-09.png" },
   { title: "Quitter", description: "Um, quit a game?", image_url: "pngs/bodfrens_graphics-06.png" }
 ]

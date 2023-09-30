@@ -19,12 +19,16 @@ class RoomsController < ApplicationController
   # end
   def create_from_lobby
     @room = Room.find(params[:id])
-
     # get all the ids associated with the room
     user_game_data_ids = @room.user_game_data.pluck(:user_id)
     # will not create a new UserGameDatum if user_id is already associated with the room.
     # Or if there are already 2 users associated with the room.
-    return if @room.user_game_data.count >= 2 || user_game_data_ids.include?(current_user.id)
+    if user_game_data_ids.include?(current_user.id)
+      redirect_to lobby_room_path(@room), notice: "You can't play a game with yourself."
+      return
+    end
+
+    return if @room.user_game_data.count >= 2
 
     # if there is 0 UserGameDatum associated with the room
     UserGameDatum.create(user: current_user, room: @room)
@@ -51,18 +55,46 @@ class RoomsController < ApplicationController
   end
 
   def lobby
-    @room = Room.find(params[:id])
+    if user_signed_in?
+      @room = Room.find(params[:id])
+    else
+      session[:room_id] = params[:id]
+      redirect_to new_user_session_path, notice: "You must be signed in to join a lobby."
+    end
   end
 
   def show
     @room = Room.find(params[:id])
-    @user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
-    @user = @user_game_data.user_id
+    if @room.mode == "single"
+      @user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
+      @user = @user_game_data.user_id
+      @regular_exercises = @user_game_data.exercises.where(is_bonus: false)
+      @regular_xp = calculate_exp(@regular_exercises)
+      @bonus_exercises = @user_game_data.exercises.where(is_bonus: true)
+      @bonus_xp = calculate_exp(@bonus_exercises)
+      render "rooms/singleplayershow"
+    else
+      user_game_data_ids = @room.user_game_data.pluck(:user_id)
+      remaining_user_id = user_game_data_ids.reject { |id| id == current_user.id }
+      player2_user_id = remaining_user_id.first
+      @player1_user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
+      @player1 = @player1_user_game_data.user
+      @player2_user_game_data = UserGameDatum.find_by(user: player2_user_id, room: @room)
 
-    @regular_exercises = @user_game_data.exercises.where(is_bonus: false)
-    @regular_xp = calculate_exp(@regular_exercises)
-    @bonus_exercises = @user_game_data.exercises.where(is_bonus: true)
-    @bonus_xp = calculate_exp(@bonus_exercises)
+      @player1_regular_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
+                                                          .where(exercises: { is_bonus: false })
+
+      @player1_bonus_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
+                                                        .where(exercises: { is_bonus: true })
+
+      @player2_regular_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
+                                                          .where(exercises: { is_bonus: false })
+
+      @player2_bonus_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
+                                                        .where(exercises: { is_bonus: true })
+
+      render "rooms/multiplayershow"
+    end
   end
 
   def calculate_exp(exercises)

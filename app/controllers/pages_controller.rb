@@ -3,8 +3,13 @@ class PagesController < ApplicationController
     if user_signed_in? == false
       redirect_to new_user_session_path
     else
+      if session[:room_id].present?
+        room = Room.find_by(id: session[:room_id])
+        redirect_to lobby_room_path(room)
+        session.delete(:room_id)
+      end
       @user = current_user
-      @workout_finished = @user.user_game_data.where(finish: true).count
+      @workout_played = @user.user_game_data.where(finish: [true, false]).count
       @user_xp_earned = @user.user_game_data.sum(:game_xp)
       @user_level = calculate_level(@user_xp_earned)
     end
