@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def configure_permitted_parameters
+    # For additional in app/views/devise/registrations/edit.html.erb
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name username email password profile_photo])
+  end
     # [...]
     # before_action :authenticate_user!, :configure_permitted_parameters, if: :devise_controller?
 

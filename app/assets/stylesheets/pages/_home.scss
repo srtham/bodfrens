@@ -22,7 +22,12 @@
   display: flex;
   gap: 4px;
   align-items: center;
+}
 
+.profile-pic {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
 }
 
 .user-bar-details {

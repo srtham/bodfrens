@@ -1,6 +1,13 @@
 <div class="page-container" style="padding-top: 20%;">
+<div class="profile-picture">
+    <% if current_user.profile_photo.attached? %>
+      <%= cl_image_tag(current_user.profile_photo.key, :width=>150, :height=>150, id: "edit-profile-pic", style: "border-radius: 50%;") %>
+    <% else %>
+      <%= image_tag "svgs/bodfrens_graphics-01.svg", { width: "150", height: "150", id: "edit-profile-pic", style: "border-radius: 50%;" } %>
+    <% end %>
+  </div>
 
-<%= image_tag("svgs/bodfrens_graphics-01.svg", :width=>150, :height=>150,) %>
+
 
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
@@ -14,6 +21,7 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
+    <%= f.input :profile_photo, as: :file, label: 'Upload a profile picture'%>
     <%= f.input :password,
                 hint: "leave it blank if you don't want to change it",
                 required: false,

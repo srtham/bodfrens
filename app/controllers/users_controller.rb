@@ -20,6 +20,10 @@ class UsersController < ApplicationController
 
   private
 
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :profile_photo)
+  end
+
   def calculate_level(user_xp_earned)
     base_xp_increment = 200
     (user_xp_earned / base_xp_increment).to_i + 1
