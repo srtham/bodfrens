@@ -90,6 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_032116) do
     t.integer "winner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "target"
     t.string "mode"
     t.boolean "bonus", default: false
     t.integer "user_count", default: 0
