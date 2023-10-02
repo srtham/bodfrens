@@ -3,24 +3,24 @@
 
   <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
-  <div class="homepage-top-bar-left">
-    <div>
+  <div class="homepage-top-bar-left px-2">
+    <div class="d-flex align-items-center gap-2">
       <% if current_user.profile_photo.attached? %>
         <%= cl_image_tag(current_user.profile_photo.key, class: "profile-pic") %>
       <% else %>
-        <%= image_tag("svgs/bodfrens_graphics-01.svg") %>
+        <%= image_tag("svgs/bodfrens_graphics-01.svg", class: "profile-pic" ) %>
       <% end %>
-    </div>
-       <div class="user-bar-details">
-        <h4>Username, Level <%= @user_level %></h4>
+      <div class="user-bar-details">
+        <h4><%= @username %>, Level <%= @user_level %></h4>
         <%= link_to "Settings", edit_user_registration_path  %>
       </div>
+    </div>
+    <a href="#" data-bs-toggle="modal" data-bs-target="#howToplayModal">
+      <%= image_tag("pngs/bodfrens_graphics-17.png", width: "25px") %>
+    </a>
   </div>
+    <%= render 'shared/how_to_play_modal' %>
 
-      <a href="#" data-bs-toggle="modal" data-bs-target="#howToplayModal">
-        <%= image_tag("pngs/bodfrens_graphics-17.png", width: "25px") %>
-      </a>
-        <%= render 'shared/how_to_play_modal' %>
 
   </section>
 

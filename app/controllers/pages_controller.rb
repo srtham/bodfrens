@@ -9,6 +9,7 @@ class PagesController < ApplicationController
         session.delete(:room_id)
       end
       @user = current_user
+      @username = current_user.username
       @workout_played = @user.user_game_data.where(finish: [true, false]).count
       @user_xp_earned = @user.user_game_data.sum(:game_xp)
       @user_level = calculate_level(@user_xp_earned)

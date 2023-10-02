@@ -22,7 +22,9 @@
   display: flex;
   gap: 4px;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 10px;
 }
 
 .profile-pic {
