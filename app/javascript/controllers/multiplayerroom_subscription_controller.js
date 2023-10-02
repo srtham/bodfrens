@@ -68,11 +68,14 @@ export default class extends Controller {
     this.countdown = setInterval(this.countdown.bind(this), 1000);
 
     //set values for the bar calculations
-    this.barEndNumber = this.endValue - this.xpValue
+    this.playerOneBarEndNumber = this.playerOneEndXpValue - this.playerOneXpValue
+    this.playerTwoBarEndNumber = this.playerTwoEndXpValue - this.playerTwoXpValue
     this.barWidth = 0
 
     //set the final EXP printed at the bottom via innerHTML
-    this.barFinalExpTarget.innerHTML = `/${this.barEndNumber} XP EARNED`
+    //sr questions - how do i know if i should print it for player 1 or player 2
+    this.playerOneBarFinalExpTarget.innerHTML = `/${this.playerOneBarEndNumber} XP EARNED`
+    this.playerTwoBarFinalExpTarget.innerHTML = `/${this.playerTwoBarEndNumber} XP EARNED`
     }
 
     update_active_exercise(active_exercise) { // To update the buttons
