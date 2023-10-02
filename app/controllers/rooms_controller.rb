@@ -47,13 +47,20 @@ class RoomsController < ApplicationController
     end
 
     LobbyChannel.broadcast_to(@room, "ready")
+    head :ok
   end
 
   def update
-    bonus = params[:bonus]
-    room = Room.find(params[:id])
-    room.bonus = bonus
-    room.save
+    if params[:bonus].nil?
+      @room = Room.find(params[:id])
+      MultiplayerChannel.broadcast_to(@room, "start bonus")
+      head :ok
+    else
+      bonus = params[:bonus]
+      room = Room.find(params[:id])
+      room.bonus = bonus
+      room.save
+    end
   end
 
   def lobby
@@ -81,6 +88,8 @@ class RoomsController < ApplicationController
       @player2_user_id = remaining_user_id.first
       @player1_user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
       @player1 = @player1_user_game_data.user
+      @player2 = User.find(@player2_user_id)
+
       @player2_user_game_data = UserGameDatum.find_by(user: @player2_user_id, room: @room)
 
       @player1_regular_exercises = @player1_user_game_data.active_exercises.joins(:exercise)

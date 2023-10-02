@@ -7,8 +7,10 @@ export default class extends Controller {
       roomId: Number,
       secondsUntilEnd: Number,
       end: Number,
-      user: Number,
-      dataId: Number,
+      playerOne: Number,
+      playerTwo: Number,
+      playerOneDataId: Number,
+      playerTwoDataId: Number,
       activeexerciseId: Number,
       secondsLeft: Number,
       xp: Number,
@@ -17,36 +19,52 @@ export default class extends Controller {
     static targets = ["exercise", "button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton", "player1exercise", "player2exercise"]
 
     connect() {
+    this.csrfToken = document.querySelector("meta[name='csrf-token']").content;
 
     //create multiplayerroom_subscription_channel
     this.channel = createConsumer().subscriptions.create(
       { channel: "MultiplayerChannel", id: this.roomIdValue },
       { received: data => {
-        const active_exercise = JSON.parse(data);
-        console.log(data)
-        this.update_active_exercise(active_exercise)
+        const received_data =JSON.parse(data)
+
+        console.log(received_data)
+
+        if (received_data.hasOwnProperty("xp")) {
+          // to update an exercise as done/not done
+          const active_exercise = received_data;
+          this.update_active_exercise(active_exercise);
+        } else if (received_data.hasOwnProperty("regular_finish")) {
+          // To mark a user_game_data with a finished properly
+          const reg_finish_hash = received_data;
+          this.updateUserGameDatumWithFinish(reg_finish_hash);
+          console.log(`User ${reg_finish_hash.user_id} has finished all regular active exercises.`);
+        };
+
       } }
     )
-    console.log(`Subscribed to the multiplayerroom with the id ${this.roomIdValue}.`)
 
-    this.csrfToken = document.querySelector("meta[name='csrf-token']").content
-    this.XPvalue = 32 // XP Value tracks how much the XP user has gathered so far in a game room.
+    this.XPvalue = null // XP Value tracks how much the XP user has gathered so far in a game room.
     // bunch of logs to check if the data being sent is correct...
-    console.log(`this is the user_id connected to the room = ${this.userValue}`)
-    console.log(`this is the ID of the user_game_data = ${this.dataIdValue}`)
+    console.log(`Subscribed to the multiplayerroom with the id ${this.roomIdValue}.`);
+    console.log(`this is the player1 id connected to the room = ${this.playerOneValue}`);
+    console.log(`this is the player2 id connected to the room = ${this.playerTwoValue}`);
+    console.log(`this is the ID of the player one user_game_data = ${this.playerOneDataIdValue}`);
+    console.log(`this is the ID of the player one user_game_data = ${this.playerTwoDataIdValue}`);
     console.log(`this is the room ID = ${this.roomIdValue}`);
     console.log(`this is the end value= ${this.endValue}`);
     console.log("The game is now connected");
-    console.log(`This is the XP value of the room = ${this.xpValue}` )
-    console.log(`This is the time taken from the other room = ${this.timeTakenValue}` )
-    // timer settings:
-    ///// this.secondsUntilEnd = this.data.get("seconds-until-end-value");
-    this.Modal = document.getElementById("bonusPromptModal");
+    console.log(`This is the XP value of the room = ${this.xpValue}` );
+    console.log(`This is the time taken from the other room = ${this.timeTakenValue}` );
 
-    this.secondsUntilEnd = this.secondsLeftValue
-    console.log(this.secondsUntilEnd); // to check the data value after each interval
-
-    // this.countdown = setInterval(this.countdown.bind(this), 1000) // sets the interval for countdown to reload every 1 second
+    ///////////////////// TIMER SET UP
+    //start counting the time
+    this.timeElapsed = 0; // Use this variable to update how much time has passed.
+    setInterval(() => {
+      this.countTimeElapsed();
+    }, 1000);
+    // Set the secondsUntilEnd for the timer shown in the view
+    this.secondsUntilEnd = this.secondsLeftValue;
+    this.countdown = setInterval(this.countdown.bind(this), 1000);
 
     //set values for the bar calculations
     this.barEndNumber = this.endValue - this.xpValue
@@ -56,15 +74,15 @@ export default class extends Controller {
     this.barFinalExpTarget.innerHTML = `/${this.barEndNumber} XP EARNED`
     }
 
-    update_active_exercise(active_exercise) {
+    update_active_exercise(active_exercise) { // To update the buttons
       // // this.buttonSound.play()
       // this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
       // console.log(`the XP value is = ${this.XPvalue}`)
-
       //change the icon
       const activeExerciseElement = this.player1exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
 
       const activeExerciseOpponentElement = this.player2exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
+
       // Changing the colors of the buttons depending on their value (negative or positive)
       if (active_exercise.complete) {
         if (activeExerciseOpponentElement !== null ) {
@@ -82,7 +100,7 @@ export default class extends Controller {
 
         //Mark the XP as earned
 
-      } else {
+      } else { // to mark as unfinished
         if (activeExerciseOpponentElement !== null ) {
         // console.log(activeExerciseOpponentElement);
         activeExerciseOpponentElement.classList.add("opponent-button");
@@ -119,10 +137,10 @@ export default class extends Controller {
       // };
     }
 
-    updateActiveExercise(e) {
+    updateActiveExercise(e) { // To send requests to the controller
       e.preventDefault()
-      console.log(e.currentTarget)
-      console.log(e.currentTarget.value)
+      // console.log(e.currentTarget)
+      // console.log(e.currentTarget.value)
       if (e.currentTarget.value > 0) {
         fetch(`/room/${this.roomIdValue}/active_exercises/${e.currentTarget.id}`, {
           method: "PATCH",
@@ -132,7 +150,6 @@ export default class extends Controller {
           },
           body: JSON.stringify({active_exercise_id: Number(e.currentTarget.id), complete:true})
         })
-        .then(res => console.log(res));
       } else {
         fetch(`/room/${this.roomIdValue}/active_exercises/${e.currentTarget.id}`, {
           method: "PATCH",
@@ -142,14 +159,62 @@ export default class extends Controller {
           },
           body: JSON.stringify({active_exercise_id: Number(e.currentTarget.id), complete: false})
         })
-        .then(res => console.log(res));
       }
 
 
       e.currentTarget.value = e.currentTarget.value * -1
     }
 
-    // countdown() {
+    updateUserGameDatumWithFinish(reg_finish_hash) {
+      // Update the data to the ruby controller
+        const user_game_data_id = reg_finish_hash.user_game_data_id
+        console.log(user_game_data_id)
+        fetch(`/room/${this.roomIdValue}/user_game_data/${user_game_data_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": this.csrfToken
+          },
+          body: JSON.stringify({game_xp: 0, finish: true, time_taken: 0, user_game_datum_id: user_game_data_id})
+        })
+        .then(response => {
+          if (response.ok) {
+            const user_id = reg_finish_hash.user_id
+            this.showBonusModal(user_id)
+          } else {
+            console.error("Failed to update user game data.");
+          }
+        })
+    }
+
+    updateUserGameDatumWithBonusFinish(bonus_finish_hash) {
+      // STILL NOT YET DONE SINCE THE BONUS ROOM HAS NOT BEEN TRIGGERED
+      // Update the data to the ruby controller
+        fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": this.csrfToken
+          },
+          body: JSON.stringify({game_xp: 0, finish: true, bonus_finish: true, time_taken: 0, user_game_datum_id: this.dataIdValue})
+        })
+      };
+
+
+    showBonusModal(user_id) {
+      const modal = document.getElementById(`bonusPromptModal`);
+      console.log(modal)
+      if (this.playerOneValue == user_id ) {
+        modal.classList.remove("hidden-modal");
+        modal.classList.add("game-modal");
+      };
+    };
+
+    countTimeElapsed() {
+      this.timeElapsed++;
+    }
+
+    countdown() {
     //   // ends the countdown when the round is over.
     //   if (this.XPvalue == this.endValue) {
     //     clearInterval(this.countdown);
@@ -157,27 +222,32 @@ export default class extends Controller {
     //     return
     //   }
 
-    //   if (this.secondsUntilEnd <= 0) {
-    //     clearInterval(this.countdown); // guard clause - this should call the modal
-    //     this.timerTarget.innerHTML = "Time's Up!";
-    //     if (this.bonusValue == true) {
-    //       this.updateUserGameDatumWithBonusTimesUp();
-    //     } else {
-    //       this.updateUserGameDatumWithTimesUp()
-    //     }
-    //     return
-    //   }
+      if (this.secondsUntilEnd <= 0) {
+        clearInterval(this.countdown); // guard clause - this should call the modal
+        this.timerTarget.innerHTML = "Time's Up!";
+        if (this.bonusValue == true) {
+          this.updateUserGameDatumWithTimesUp();
+        } else {
+          this.updateUserGameDatumWithTimesUp()
+        }
+        return
+      }
 
-    //   const minutesLeft = Math.floor(this.secondsUntilEnd / 60)
-    //   const secondsLeft = Math.floor(this.secondsUntilEnd % 60).toString().padStart(2, '0')
+      const minutesLeft = Math.floor(this.secondsUntilEnd / 60)
+      const secondsLeft = Math.floor(this.secondsUntilEnd % 60).toString().padStart(2, '0')
 
-    //   this.timerTarget.innerHTML = `${minutesLeft} : ${secondsLeft}`
-    //   this.secondsUntilEnd = this.secondsUntilEnd - 1;
+      this.timerTarget.innerHTML = `${minutesLeft} : ${secondsLeft}`
+      this.secondsUntilEnd = this.secondsUntilEnd - 1;
+    };
+
+    updateUserGameDatumWithTimesUp() {
+
+    };
+
+  };
 
 
-    // }
-
-    // markComplete(e) {
+      // markComplete(e) {
     //   e.preventDefault()
     //   this.buttonSound.play()
     //   this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
@@ -223,26 +293,3 @@ export default class extends Controller {
     //     this.showBonusModal();
     //   };
     // }
-
-    updateUserGameDatumWithFinish() {
-      // Update the data to the ruby controller
-        fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": this.csrfToken
-          },
-          body: JSON.stringify({game_xp: this.XPvalue, finish: true, time_taken: this.secondsLeftValue - this.secondsUntilEnd, user_game_datum_id: this.dataIdValue})
-        });
-    }
-
-    showBonusModal() {
-      // Currently it shows buttons but it needs to show modals
-      console.log(this.Modal)
-      this.Modal.classList.remove("hidden-modal");
-      this.Modal.classList.add("game-modal");
-    }
-
-
-
-  }

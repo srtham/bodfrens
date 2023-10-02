@@ -1,6 +1,13 @@
 <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
-<div class="container multiplayer" data-controller="multiplayerroom-subscription" data-multiplayerroom-subscription-room-id-value="<%= @room.id %>" >
+<div class="container multiplayer" data-controller="multiplayerroom-subscription" data-multiplayerroom-subscription-room-id-value="<%= @room.id %>"
+data-multiplayerroom-subscription-player-one-value="<%= @player1.id %>"
+data-multiplayerroom-subscription-player-two-value="<%= @player2_user_id %>"
+data-multiplayerroom-subscription-player-one-data-id-value="<%= @player1_user_game_data.id %>"
+data-multiplayerroom-subscription-player-two-data-id-value="<%= @player2_user_game_data.id %>"
+data-multiplayerroom-subscription-seconds-left-value="900"  >
+
+
   <header class="multiplayer-top">
     <section class="timer">
       <%= content_tag(:h1, "Go!", data: {
@@ -57,7 +64,32 @@
       </aside>
     </section>
   </main>
+
+  <!---Modals---->
+
+    <section class="hidden-modal animate__animated animate__fadeIn" id="bonusPromptModal" tabindex="-1" >
+        <div class="modal-dialog" style="width:90%;">
+
+          <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+              Congratulations! You finished your workout. <br>
+              Opt for a bonus round?
+            </div>
+            <div class="modal-footer">
+              <%= button_to "Yes", "#", data: {action: "click->game#startBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
 </div>
+
+
 <!-- The divs above are just for the scrolling animation and bg
 find them under the _backgrounds.scss in components -->
 <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
