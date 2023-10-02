@@ -29,8 +29,7 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
           <h3 class="text fs-5"><%= active_exercise.exercise.title %></h3><h5 class="xp"><%= active_exercise.exercise.exercise_xp %>XP</h5>
         </button>
       </div>
-    <%end %>
-
+    <% end %>
       <div class= "xp-container user" style="width:65%; ">
         <div class="progress-bar" style="background: grey;"></div>
         <div class="d-flex xp-points earn-points">
@@ -41,7 +40,6 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
 
   <main class="opponent" data-multiplayerroom-subscription-target="player2exercise">
     <section class="opponent-left">
-
       <% @player2_regular_exercises.each do |active_exercise| %>
         <div class="opponent-btn-container">
           <button type="button" class="opponent-button" id="<%= active_exercise.id %>">
@@ -89,10 +87,9 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
 
 </div>
 
-
 <!-- The divs above are just for the scrolling animation and bg
 find them under the _backgrounds.scss in components -->
 <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
-<div class="bg-container animate__animated animate__fadeIn">
+<div class="bg-container animate__animated animate__fadeIn" id="container-gray">
   <div class="bg-color-gray"></div>
 </div>
