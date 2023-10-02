@@ -53,7 +53,13 @@ class RoomsController < ApplicationController
   def update
     if params[:bonus].nil?
       @room = Room.find(params[:id])
-      MultiplayerChannel.broadcast_to(@room, "start bonus")
+      @room.bonus_count_multiplayer += 1
+      @room.save
+      return unless @room.bonus_count_multiplayer == 2
+
+      @room.bonus = true
+      @room.save
+      MultiplayerChannel.broadcast_to(@room, { start_bonus: true }.to_json)
       head :ok
     else
       bonus = params[:bonus]
@@ -64,12 +70,12 @@ class RoomsController < ApplicationController
   end
 
   def lobby
-  if user_signed_in?
-    @room = Room.find(params[:id])
-  else
-    session[:room_id] = params[:id]
-    redirect_to new_user_session_path, notice: "You must be signed in to join a lobby."
-  end
+    if user_signed_in?
+      @room = Room.find(params[:id])
+    else
+      session[:room_id] = params[:id]
+      redirect_to new_user_session_path, notice: "You must be signed in to join a lobby."
+    end
   end
 
   def show
@@ -92,18 +98,17 @@ class RoomsController < ApplicationController
 
       @player2_user_game_data = UserGameDatum.find_by(user: @player2_user_id, room: @room)
 
-      @player1_regular_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                          .where(exercises: { is_bonus: false })
-
-      @player1_bonus_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                        .where(exercises: { is_bonus: true })
-
-      @player2_regular_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
-                                                          .where(exercises: { is_bonus: false })
-
-      @player2_bonus_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
-                                                        .where(exercises: { is_bonus: true })
-
+      if @room.bonus == true
+        @player1_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
+                                                            .where(exercises: { is_bonus: true })
+        @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
+                                                            .where(exercises: { is_bonus: true })
+      else
+        @player1_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
+                                                            .where(exercises: { is_bonus: false })
+        @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
+                                                            .where(exercises: { is_bonus: false })
+      end
       render "rooms/multiplayershow"
     end
   end
