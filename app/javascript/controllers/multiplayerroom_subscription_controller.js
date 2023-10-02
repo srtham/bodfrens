@@ -6,20 +6,24 @@ export default class extends Controller {
     static values = {
       roomId: Number,
       secondsUntilEnd: Number,
-      end: Number,
       playerOne: Number,
       playerTwo: Number,
       playerOneDataId: Number,
       playerTwoDataId: Number,
       activeexerciseId: Number,
       secondsLeft: Number,
-      xp: Number,
+      playerOneXp: Number,
+      playerTwoXp: Number,
+      playerOneEndXp: Number,
+      playerTwoEndXp: Number,
       timeTaken: Number,
       bonus: Boolean }
     static targets = ["exercise", "button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton", "player1exercise", "player2exercise"]
 
     connect() {
     this.csrfToken = document.querySelector("meta[name='csrf-token']").content;
+    this.playerOneXPValue = 0
+    this.playerTwoXPValue = 0
 
     //create multiplayerroom_subscription_channel
     this.channel = createConsumer().subscriptions.create(
@@ -43,17 +47,14 @@ export default class extends Controller {
       } }
     )
 
-    this.XPvalue = null // XP Value tracks how much the XP user has gathered so far in a game room.
-    // bunch of logs to check if the data being sent is correct...
+    // logs to check start of game
     console.log(`Subscribed to the multiplayerroom with the id ${this.roomIdValue}.`);
     console.log(`this is the player1 id connected to the room = ${this.playerOneValue}`);
     console.log(`this is the player2 id connected to the room = ${this.playerTwoValue}`);
     console.log(`this is the ID of the player one user_game_data = ${this.playerOneDataIdValue}`);
     console.log(`this is the ID of the player one user_game_data = ${this.playerTwoDataIdValue}`);
     console.log(`this is the room ID = ${this.roomIdValue}`);
-    console.log(`this is the end value= ${this.endValue}`);
     console.log("The game is now connected");
-    console.log(`This is the XP value of the room = ${this.xpValue}` );
     console.log(`This is the time taken from the other room = ${this.timeTakenValue}` );
 
     ///////////////////// TIMER SET UP
@@ -76,11 +77,9 @@ export default class extends Controller {
 
     update_active_exercise(active_exercise) { // To update the buttons
       // // this.buttonSound.play()
-      // this.XPvalue = this.XPvalue + parseInt(e.currentTarget.value,10);
-      // console.log(`the XP value is = ${this.XPvalue}`)
+
       //change the icon
       const activeExerciseElement = this.player1exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
-
       const activeExerciseOpponentElement = this.player2exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
 
       // Changing the colors of the buttons depending on their value (negative or positive)
@@ -99,6 +98,10 @@ export default class extends Controller {
         };
 
         //Mark the XP as earned
+        this.playerOneXpValue = this.playerOneXpValue + active_exercise.xp
+        this.playerTwoXpValue = this.playerTwoXpValue + active_exercise.xp
+        console.log(`the XP value of player 1 now is = ${this.playerOneXpValue}`)
+        console.log(`the XP value of player 2 now is = ${this.playerTwoXPValue}`)
 
       } else { // to mark as unfinished
         if (activeExerciseOpponentElement !== null ) {

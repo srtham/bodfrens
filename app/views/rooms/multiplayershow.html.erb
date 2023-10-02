@@ -1,11 +1,20 @@
 <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
-<div class="container multiplayer" data-controller="multiplayerroom-subscription" data-multiplayerroom-subscription-room-id-value="<%= @room.id %>"
-data-multiplayerroom-subscription-player-one-value="<%= @player1.id %>"
-data-multiplayerroom-subscription-player-two-value="<%= @player2_user_id %>"
-data-multiplayerroom-subscription-player-one-data-id-value="<%= @player1_user_game_data.id %>"
-data-multiplayerroom-subscription-player-two-data-id-value="<%= @player2_user_game_data.id %>"
-data-multiplayerroom-subscription-seconds-left-value="900"  >
+<div class="container multiplayer"
+
+  data-controller="multiplayerroom-subscription"
+  data-multiplayerroom-subscription-room-id-value="<%= @room.id %>"
+  data-multiplayerroom-subscription-player-one-value="<%= @player1.id %>"
+  data-multiplayerroom-subscription-player-two-value="<%= @player2.id %>"
+  data-multiplayerroom-subscription-player-one-data-id-value="<%= @player1_user_game_data.id %>"
+  data-multiplayerroom-subscription-player-two-data-id-value="<%= @player2_user_game_data.id %>"
+  data-multiplayerroom-subscription-player-one-xp-value="<%= @room.bonus ? @player1_user_game_data.game_xp : 0%>"
+  data-multiplayerroom-subscription-player-two-xp-value="<%= @room.bonus ? @player2_user_game_data.game_xp : 0%>"
+  data-multiplayerroom-subscription-player-one-end-xp-value="<%= @room.bonus ? @player1_bonus_xp + @player1_regular_xp : @player1_regular_xp %>"
+  data-multiplayerroom-subscription-player-two-end-xp-value="<%= @room.bonus ? @player2_bonus_xp + @player2_regular_xp : @player2_regular_xp %>"
+  data-multiplayerroom-subscription-seconds-left-value="900"  >
+
+
 
 
   <header class="multiplayer-top">
