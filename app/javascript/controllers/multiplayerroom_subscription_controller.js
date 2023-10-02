@@ -25,22 +25,27 @@ export default class extends Controller {
     this.channel = createConsumer().subscriptions.create(
       { channel: "MultiplayerChannel", id: this.roomIdValue },
       { received: data => {
-        const received_data =JSON.parse(data)
+          const received_data =JSON.parse(data)
 
-        console.log(received_data)
+          console.log(received_data)
 
-        if (received_data.hasOwnProperty("xp")) {
-          // to update an exercise as done/not done
-          const active_exercise = received_data;
-          this.update_active_exercise(active_exercise);
-        } else if (received_data.hasOwnProperty("regular_finish")) {
-          // To mark a user_game_data with a finished properly
-          const reg_finish_hash = received_data;
-          this.updateUserGameDatumWithFinish(reg_finish_hash);
-          console.log(`User ${reg_finish_hash.user_id} has finished all regular active exercises.`);
-        };
+          if (received_data.hasOwnProperty("xp")) {
+            // to update an exercise as done/not done
+            const active_exercise = received_data;
+            this.update_active_exercise(active_exercise);
+          } else if (received_data.hasOwnProperty("regular_finish")) {
+            // To mark a user_game_data with a finished properly
+            const reg_finish_hash = received_data;
+            this.updateUserGameDatumWithFinish(reg_finish_hash);
+            console.log(`User ${reg_finish_hash.user_id} has finished all regular active exercises.`);
+          } else if (received_data.hasOwnProperty("start_bonus")) {
+            if (received_data.start_bonus == true) {
+              location.reload();
+            };
+          }
+        }
 
-      } }
+      }
     )
 
     this.XPvalue = null // XP Value tracks how much the XP user has gathered so far in a game room.
@@ -239,6 +244,28 @@ export default class extends Controller {
       this.timerTarget.innerHTML = `${minutesLeft} : ${secondsLeft}`
       this.secondsUntilEnd = this.secondsUntilEnd - 1;
     };
+
+    updateWithChooseBonus(e) {
+      e.preventDefault()
+      fetch(`/room/${this.roomIdValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        }})
+        .then(response => {
+          if (response.ok) {
+            console.log("button clicked")
+            const modal = document.getElementById(`bonusPromptModal`);
+            console.log(modal);
+            modal.classList.remove("game-modal");
+            modal.classList.add("hidden-modal");
+
+          } else {
+            console.error("Failed to update the room with bonus.");
+          }
+        })
+    }
 
     updateUserGameDatumWithTimesUp() {
 

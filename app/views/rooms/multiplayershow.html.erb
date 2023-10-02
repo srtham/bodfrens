@@ -20,8 +20,8 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
   </header>
 
   <main class="current-user" data-multiplayerroom-subscription-target="player1exercise">
-    <% @player1_regular_exercises.each do |active_exercise| %>
-      <div class="user-btn" id="<%= active_exercise.id %>">
+    <% @player1_exercises.each do |active_exercise| %>
+      <div class="user-btn">
         <button class="icon" id="user-btn-img">
           <%= image_tag("svgs/search_logo_gray.svg") %>
         </button>
@@ -40,7 +40,7 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
 
   <main class="opponent" data-multiplayerroom-subscription-target="player2exercise">
     <section class="opponent-left">
-      <% @player2_regular_exercises.each do |active_exercise| %>
+      <% @player2_exercises.each do |active_exercise| %>
         <div class="opponent-btn-container">
           <button type="button" class="opponent-button" id="<%= active_exercise.id %>">
             <h3 class="opp-button-text"><%= active_exercise.exercise.title %></h3>
@@ -76,7 +76,7 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
               Opt for a bonus round?
             </div>
             <div class="modal-footer">
-              <%= button_to "Yes", "#", data: {action: "click->game#startBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <%= button_to "Yes", "#", data: {action: "click->multiplayerroom-subscription#updateWithChooseBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
               <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
             </div>
           </div>
