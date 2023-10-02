@@ -80,7 +80,11 @@
 .button-user-selected {
   justify-content: space-around;
   height: 58px;
-  background-color: #EA7F09;
+  background: linear-gradient(270deg, #EA7F09 1.83%, #F9BF14 95.87%);
+}
+
+.button-user-selected.text {
+  color: white;
 }
 
 .user-btn.text {
@@ -99,6 +103,10 @@
 
 .xp-container.user {
   margin: auto;
+}
+
+.xp-container.bonus {
+  padding-top: 40%;
 }
 
 .earn-points {
@@ -125,6 +133,11 @@
   align-items: center;
   border-radius: 30px 30px 0px 0px;
   background: linear-gradient(180deg, #B5B5B5 0%, rgba(181, 181, 181, 0.00) 100%);
+  box-shadow: 4px 0px 9px 0px rgba(0, 0, 0, 0.13);
+}
+
+.opponent.bonus {
+  background: linear-gradient(180deg, #2F2F2F 12.6%, #4D4D4D 100%);
   box-shadow: 4px 0px 9px 0px rgba(0, 0, 0, 0.13);
 }
 
@@ -162,7 +175,7 @@
   height: 10px;
   padding: 15px 15px 15px 19px;
   border-radius: 25px;
-  background: #737373;
+  background: linear-gradient(270deg, #626262 -6.64%, #909090 112.83%);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
   border-color: transparent;
 }
@@ -171,7 +184,7 @@
   color: #3C3C3C;
   text-align: center;
   font-family: Montserrat;
-  font-size: 20px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -241,6 +254,12 @@
   font-weight: 700;
   line-height: normal;
 }
+
+  .opponent-right.bonus .opp-title,
+  .opponent-right.bonus .opp-username,
+  .opponent-right.bonus .opp-lvl {
+    color: white; /* Text color when @room.bonus is true */
+  }
 
 .workout-complete {
   border-radius: 30px;
