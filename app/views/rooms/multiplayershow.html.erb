@@ -16,7 +16,13 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
         # KIV this, for some reason it's not being read in the controller
       }) %>
     </section>
-    <button type="button" class="multiplayer giveup-btn">Give Up</button>
+
+    <% if @room.bonus %>
+      <button type="button" class="multiplayer giveup-btn" data-bs-toggle="modal" data-bs-target="#giveUpModal" style="width: 108px">End Game</button>
+    <% else %>
+      <button type="button" class="multiplayer giveup-btn" data-bs-toggle="modal" data-bs-target="#giveUpModal">Give Up</button>
+    <% end %>
+
   </header>
 
   <main class="current-user" data-multiplayerroom-subscription-target="player1exercise">
@@ -25,7 +31,11 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
         <button class="icon" id="user-btn-img">
           <%= image_tag("svgs/search_logo_gray.svg") %>
         </button>
-        <button type="button" class="button-user button" data-action="click->multiplayerroom-subscription#updateActiveExercise" value="<%=active_exercise.exercise.exercise_xp%>" id="<%= active_exercise.id %>">
+        <button type="button" class="button-user button"
+          data-action="click->multiplayerroom-subscription#updateActiveExercise"
+          value="<%=active_exercise.exercise.exercise_xp%>"
+          id="<%= active_exercise.id %>"
+        >
           <span class="spacer" style="width:10%"></span>
           <h3 class="text fs-5"><%= active_exercise.exercise.title %></h3>
           <h5 class="xp"><%= active_exercise.exercise.exercise_xp %>XP</h5>
@@ -67,20 +77,48 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
   </main>
 
   <!---Modals---->
-
-    <section class="hidden-modal animate__animated animate__fadeIn" id="bonusPromptModal" tabindex="-1" >
+    <!--------Game Completion Modal-------->
+    <section class="hidden-modal animate__animated animate__fadeIn" id="bonusPromptModal" tabindex="-1" style="background-color: transparent;">
         <div class="modal-dialog" style="width:90%;">
+
+          <div class="modal-content" style="height: 83%; margin-top: 20%;">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+              <p style="margin-bottom: 40px;">Congratulations! You finished your workout.</p>
+              <p>Opt for a bonus round?</p>
+              <p style="font-size: 24px; padding: 20px;">Your bodfren will also need to accept to start.</p>
+            </div>
+            <div class="modal-footer">
+              <%= button_to "Yes", "#", data: {action: "click->multiplayerroom-subscription#updateWithChooseBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--------Give Up/End Game Modal-------->
+    <section class="modal fade" id="giveUpModal" tabindex="-1" aria-labelledby="giveUpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
 
           <div class="modal-content">
             <div class="modal-header">
             </div>
             <div class="modal-body">
-              Congratulations! You finished your workout. <br>
-              Opt for a bonus round?
+              <% if @room.bonus? %>
+                End the bonus round? There won't be a penalty.
+              <% else %>
+                Giving up will forfeit your current points and 100XP<br>Are you sure?
+              <% end %>
             </div>
             <div class="modal-footer">
-              <%= button_to "Yes", "#", data: {action: "click->multiplayerroom-subscription#updateWithChooseBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
-              <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
+              <% if @room.bonus? %>
+                <button type="button" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+              <% else %>
+                <button type="button" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+              <% end %>
+              <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
             </div>
           </div>
         </div>
