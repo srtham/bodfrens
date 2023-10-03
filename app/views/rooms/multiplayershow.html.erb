@@ -102,14 +102,16 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
     <section class="modal fade" id="giveUpModal" tabindex="-1" aria-labelledby="giveUpModalLabel" aria-hidden="true">
         <div class="modal-dialog">
 
-          <div class="modal-content">
+          <div class="modal-content" style="height: 750px; margin-top: 74px;">
             <div class="modal-header">
             </div>
             <div class="modal-body">
               <% if @room.bonus? %>
                 End the bonus round? There won't be a penalty.
               <% else %>
-                Giving up will forfeit your current points and 100XP<br>Are you sure?
+                <p style="margin-bottom: 40px;">Are you sure you want to give up?</p>
+                <p style="margin-bottom: 40px;">This is a multiplayer game.</p>
+                <p style="font-size: 21px;">You will lose 100XP</p>
               <% end %>
             </div>
             <div class="modal-footer">
