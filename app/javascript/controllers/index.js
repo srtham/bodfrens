@@ -16,5 +16,8 @@ application.register("hello", HelloController)
 import LobbySubscribeController from "./lobby_subscribe_controller"
 application.register("lobby-subscribe", LobbySubscribeController)
 
+import MultiplayerroomSubscriptionController from "./multiplayerroom_subscription_controller"
+application.register("multiplayerroom-subscription", MultiplayerroomSubscriptionController)
+
 import TimerController from "./timer_controller"
 application.register("timer", TimerController)

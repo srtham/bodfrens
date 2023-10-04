@@ -112,7 +112,7 @@ class UserGameDataController < ApplicationController
 
   def check_first_game
     first_game = @user.user_game_data.where(finish: [true, false]).count
-    badge_title = "First Game!"
+    badge_title = "First Game"
 
     if first_game == 1
       badge = Badge.find_by(title: badge_title)
