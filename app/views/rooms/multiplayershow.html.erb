@@ -1,12 +1,19 @@
 <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
-<div class="container multiplayer" data-controller="multiplayerroom-subscription" data-multiplayerroom-subscription-room-id-value="<%= @room.id %>"
-data-multiplayerroom-subscription-player-one-value="<%= @player1.id %>"
-data-multiplayerroom-subscription-player-two-value="<%= @player2_user_id %>"
-data-multiplayerroom-subscription-player-one-data-id-value="<%= @player1_user_game_data.id %>"
-data-multiplayerroom-subscription-player-two-data-id-value="<%= @player2_user_game_data.id %>"
-data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : '900' %>"
-data-multiplayerroom-subscription-player-one-previous-timing-value="<%= @room.bonus ? @player1_previous_timing : '0' %>" >
+<div class="container multiplayer"
+
+  data-controller="multiplayerroom-subscription"
+  data-multiplayerroom-subscription-room-id-value="<%= @room.id %>"
+  data-multiplayerroom-subscription-current-user-value="<%= @player1.id %>"
+  data-multiplayerroom-subscription-opponent-user-value="<%= @player2.id %>"
+  data-multiplayerroom-subscription-current-user-data-id-value="<%= @player1_user_game_data.id %>"
+  data-multiplayerroom-subscription-opponent-user-data-id-value="<%= @player2_user_game_data.id %>"
+  data-multiplayerroom-subscription-current-user-xp-value="<%= @room.bonus ? @player1_user_game_data.game_xp : 0%>"
+  data-multiplayerroom-subscription-opponent-user-xp-value="<%= @room.bonus ? @player2_user_game_data.game_xp : 0%>"
+  data-multiplayerroom-subscription-current-user-end-xp-value="<%= @room.bonus ? @player1_bonus_xp + @player1_regular_xp : @player1_regular_xp %>"
+  data-multiplayerroom-subscription-opponent-user-end-xp-value="<%= @room.bonus ? @player2_bonus_xp + @player2_regular_xp : @player2_regular_xp %>"
+  data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : '900' %>"
+  data-multiplayerroom-subscription-player-one-previous-timing-value="<%= @room.bonus ? @player1_previous_timing : '0' %>" >
 
   <header class="multiplayer-top">
     <section class="timer">
@@ -42,10 +49,12 @@ data-multiplayerroom-subscription-player-one-previous-timing-value="<%= @room.bo
         </button>
       </div>
     <% end %>
-      <div class= "xp-container user <%= @room.bonus ? 'bonus' : '' %>" style="width:65%; ">
-        <div class="progress-bar" style="background: grey;"></div>
+      <div class= "xp-container user" style="width:65%; ">
+        <div class="progress-bar" style="background: grey;">
+          <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-game-target="barCurrentUser"></div>
+        </div>
         <div class="d-flex xp-points earn-points">
-            <p data-multiplayerroom-subscription-target="barExp">0</p><p data-multiplayerroom-subscription-target="barFinalExp">/120 XP EARNED</p>
+            <p data-multiplayerroom-subscription-target="barExpCurrentUser">0</p><p data-multiplayerroom-subscription-target="barFinalExpCurrentUser"></p>
         </div>
       </div>
   </main>
@@ -69,6 +78,7 @@ data-multiplayerroom-subscription-player-one-previous-timing-value="<%= @room.bo
       <% end %>
       <div class= "xp-container <%= @room.bonus ? 'bonus' : '' %>">
         <div class="progress-bar" style="background: grey;"></div>
+          <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-game-target="barOpponentUser"></div>
       </div>
     </section>
     <section class="opponent-right" style="display:none"<%= @room.bonus ? 'bonus' : '' %>">

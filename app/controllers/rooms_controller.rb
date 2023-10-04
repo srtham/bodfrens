@@ -93,12 +93,11 @@ class RoomsController < ApplicationController
     else
       user_game_data_ids = @room.user_game_data.pluck(:user_id)
       remaining_user_id = user_game_data_ids.reject { |id| id == current_user.id }
-      @player2_user_id = remaining_user_id.first
+      @player2_user_id = remaining_user_id
       @player1_user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
       @player1 = @player1_user_game_data.user
-      @player2 = User.find(@player2_user_id)
-
       @player2_user_game_data = UserGameDatum.find_by(user: @player2_user_id, room: @room)
+      @player2 = @player2_user_game_data.user
 
       if @room.bonus == true
         @player1_previous_timing = @player1_user_game_data.time_taken
@@ -112,6 +111,10 @@ class RoomsController < ApplicationController
         @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
                                                     .where(exercises: { is_bonus: false })
       end
+
+      @player1_xp = calculate_multiplayer_exp(@player1_exercises)
+      @player2_xp = calculate_multiplayer_exp(@player2_exercises)
+
       render "rooms/multiplayershow"
     end
   end
@@ -124,6 +127,16 @@ class RoomsController < ApplicationController
     end
     return final_xp
   end
+
+  def calculate_multiplayer_exp(exercises)
+    final_xp = 0
+    exercises.each do |exercise|
+      exact_exercise = Exercise.find(exercise.exercise_id)
+      final_xp += exact_exercise.exercise_xp
+    end
+    return final_xp
+  end
+
 
   # POST
   def single_player
