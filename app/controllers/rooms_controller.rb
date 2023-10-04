@@ -85,11 +85,11 @@ class RoomsController < ApplicationController
     else
       user_game_data_ids = @room.user_game_data.pluck(:user_id)
       remaining_user_id = user_game_data_ids.reject { |id| id == current_user.id }
-      @player2_user_id = remaining_user_id.first
+      @player2_user_id = remaining_user_id
       @player1_user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
       @player1 = @player1_user_game_data.user
-      @player2 = User.find(@player2_user_id)
       @player2_user_game_data = UserGameDatum.find_by(user: @player2_user_id, room: @room)
+      @player2 = @player2_user_game_data.user
 
       @player1_regular_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
                                                           .where(exercises: { is_bonus: false })

@@ -6,24 +6,25 @@ export default class extends Controller {
     static values = {
       roomId: Number,
       secondsUntilEnd: Number,
-      playerOne: Number,
-      playerTwo: Number,
-      playerOneDataId: Number,
-      playerTwoDataId: Number,
+      currentUser: Number, // change this to current user
+      opponentUser: Number, // change this to opponent
+      currentUserDataId: Number,
+      opponentUserDataId: Number,
       activeexerciseId: Number,
       secondsLeft: Number,
-      playerOneXp: Number,
-      playerTwoXp: Number,
-      playerOneEndXp: Number,
-      playerTwoEndXp: Number,
+      currentUserXp: Number,
+      opponentUserXp: Number,
+      currentUserEndXp: Number,
+      opponentUserEndXp: Number,
       timeTaken: Number,
       bonus: Boolean }
-    static targets = ["exercise", "button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton", "player1exercise", "player2exercise"]
+    static targets = ["exercise", "button", "barCurrentUser", "timer", "xp", "barExpCurrentUser", "barFinalExpCurrentUser", "barOpponentUser", "bonusButton", "player1exercise", "player2exercise"]
 
     connect() {
     this.csrfToken = document.querySelector("meta[name='csrf-token']").content;
-    this.playerOneXPValue = 0
-    this.playerTwoXPValue = 0
+    this.currentUserXpValue = 0
+    this.opponentUserXpValue = 0
+
 
     //create multiplayerroom_subscription_channel
     this.channel = createConsumer().subscriptions.create(
@@ -49,10 +50,10 @@ export default class extends Controller {
 
     // logs to check start of game
     console.log(`Subscribed to the multiplayerroom with the id ${this.roomIdValue}.`);
-    console.log(`this is the player1 id connected to the room = ${this.playerOneValue}`);
-    console.log(`this is the player2 id connected to the room = ${this.playerTwoValue}`);
-    console.log(`this is the ID of the player one user_game_data = ${this.playerOneDataIdValue}`);
-    console.log(`this is the ID of the player one user_game_data = ${this.playerTwoDataIdValue}`);
+    console.log(`this is the current_user id connected to the room = ${this.currentUserValue}`);
+    console.log(`this is the opponent_user id connected to the room = ${this.opponentUserValue}`);
+    console.log(`this is the current_user user_game_data_id = ${this.currentUserDataIdValue}`);
+    console.log(`this is the opponent_user user_game_data_id = ${this.opponentUserDataIdValue}`);
     console.log(`this is the room ID = ${this.roomIdValue}`);
     console.log("The game is now connected");
     console.log(`This is the time taken from the other room = ${this.timeTakenValue}` );
@@ -68,14 +69,14 @@ export default class extends Controller {
     this.countdown = setInterval(this.countdown.bind(this), 1000);
 
     //set values for the bar calculations
-    this.playerOneBarEndNumber = this.playerOneEndXpValue - this.playerOneXpValue
-    this.playerTwoBarEndNumber = this.playerTwoEndXpValue - this.playerTwoXpValue
-    this.barWidth = 0
+    this.currentUserBarEndNumber = this.currentUserEndXpValue - this.currentUserXpValue
+    this.opponentUserBarEndNumber = this.opponentUserEndXpValue - this.opponentUserXpValue
+    this.currentUserBarWidth = 0
+    this.opponentUserBarWidth = 0
 
     //set the final EXP printed at the bottom via innerHTML
-    //sr questions - how do i know if i should print it for player 1 or player 2
-    this.playerOneBarFinalExpTarget.innerHTML = `/${this.playerOneBarEndNumber} XP EARNED`
-    this.playerTwoBarFinalExpTarget.innerHTML = `/${this.playerTwoBarEndNumber} XP EARNED`
+    this.barFinalExpCurrentUserTarget.innerHTML = `/ ${this.currentUserBarEndNumber} XP EARNED`
+    this.opponentUserBarFinalExpTarget.innerHTML = `/${this.opponentUserBarEndNumber} XP EARNED` // to be changed
     }
 
     update_active_exercise(active_exercise) { // To update the buttons
@@ -101,10 +102,14 @@ export default class extends Controller {
         };
 
         //Mark the XP as earned
-        this.playerOneXpValue = this.playerOneXpValue + active_exercise.xp
-        this.playerTwoXpValue = this.playerTwoXpValue + active_exercise.xp
-        console.log(`the XP value of player 1 now is = ${this.playerOneXpValue}`)
-        console.log(`the XP value of player 2 now is = ${this.playerTwoXPValue}`)
+        if (this.currentUserDataIdValue === active_exercise.ugd_id) {
+          this.currentUserXpValue += active_exercise.xp;
+        } else {
+          this.opponentUserXpValue += active_exercise.xp;
+        }
+        console.log(`the XP value of current_user is = ${this.currentUserXpValue}`)
+        console.log(`the XP value of opponent user is = ${this.opponentUserXpValue}`)
+
 
       } else { // to mark as unfinished
         if (activeExerciseOpponentElement !== null ) {
@@ -121,26 +126,18 @@ export default class extends Controller {
         };
       }
 
-      // Increasing the width of the bar
-      // this.barWidth += parseInt(activeExerciseElement.value,10);
-      // this.barTarget.style.width = `${(this.barWidth / this.barEndNumber) * 100}%`
-      // console.log(this.barWidth)
+      // Increasing the width of the bar of the current user
+      this.currentUserBarWidth += parseInt(activeExerciseElement.value,10);
+      this.barCurrentUserTarget.style.width = `${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`
+      console.log(this.currentUserBarWidth)
 
-      // // Update the exp value printed at the bottom
-      // this.barExpTarget.innerHTML = `${this.barWidth}`
+      // Update the exp value printed at the bottom of thsse current user
+      this.barExpCurrentUserTarget.innerHTML = `${this.currentUserXpValue}`
 
-      // Change the value of the button to negative
-
-      // BUGGY CODE FOR OPPONENTS
-      // activeExerciseElement.value = activeExerciseElement.value * -1
-
-      // End Game with Finish
-      // if (this.XPvalue == this.endValue) {
-      //   // this.finishSound.play()
-      //   this.updateUserGameDatumWithFinish();
-      //   console.log("REGULAR GAME FINISH");
-      //   this.showBonusModal();
-      // };
+      // Increasing the width of the bar of the opponent user
+      this.opponentUserBarWidth += parseInt(activeExerciseElement.value,10);
+      this.barOpponentUserTarget.style.width = `${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`
+      console.log(this.opponentUserBarWidth)
     }
 
     updateActiveExercise(e) { // To send requests to the controller
