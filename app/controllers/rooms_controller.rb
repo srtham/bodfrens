@@ -51,9 +51,11 @@ class RoomsController < ApplicationController
 
   def update
     if params[:bonus].nil?
+      # This code is to trigger multi-player.
       @room = Room.find(params[:id])
       @room.bonus_count_multiplayer += 1
       @room.save
+      MultiplayerChannel.broadcast_to(@room, { user_who_chose_bonus_id: params[:finished_user] }.to_json)
       return unless @room.bonus_count_multiplayer == 2
 
       @room.bonus = true
@@ -61,6 +63,7 @@ class RoomsController < ApplicationController
       MultiplayerChannel.broadcast_to(@room, { start_bonus: true }.to_json)
       head :ok
     else
+      # The following code is to trigger single player.
       bonus = params[:bonus]
       room = Room.find(params[:id])
       room.bonus = bonus

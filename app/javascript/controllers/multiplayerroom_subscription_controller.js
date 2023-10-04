@@ -37,11 +37,15 @@ export default class extends Controller {
             // To mark a user_game_data with a finished properly
             const reg_finish_hash = received_data;
             this.updateUserGameDatumWithFinish(reg_finish_hash);
-            console.log(`User ${reg_finish_hash.user_id} has finished all regular active exercises.`);
+            const finishedUserId = reg_finish_hash.user_id;
+            this.showOpponentFinishedTag(finishedUserId);
           } else if (received_data.hasOwnProperty("start_bonus")) {
             if (received_data.start_bonus == true) {
               location.reload();
             };
+          } else if (received_data.hasOwnProperty("user_who_chose_bonus_id")) {
+            const userWhoChoseBonusId = received_data.user_who_chose_bonus_id;
+            this.showOpponentBonusTag(userWhoChoseBonusId);
           }
         }
 
@@ -78,6 +82,22 @@ export default class extends Controller {
     //set the final EXP printed at the bottom via innerHTML
     this.barFinalExpTarget.innerHTML = `/${this.barEndNumber} XP EARNED`
     }
+
+    showOpponentBonusTag(userWhoChoseBonusId) {
+     // Shows the opponent's orange bonus tag if he/she chooses to play bonus.
+      if (userWhoChoseBonusId !== this.playerOneValue) {
+        const bonusTag = document.querySelector(".bonus-round");
+        bonusTag.style = "display:block";
+      };
+    };
+
+    showOpponentFinishedTag(finishedUserId) {
+      // Shows the opponent's orange bonus tag if he/she chooses to play bonus.
+       if (finishedUserId !== this.playerOneValue) {
+         const completeTag = document.querySelector(".workout-complete");
+         completeTag.style = "display:block";
+       };
+     };
 
     update_active_exercise(active_exercise) { // To update the buttons
       // // this.buttonSound.play()
@@ -208,7 +228,7 @@ export default class extends Controller {
 
     showBonusModal(user_id) {
       const modal = document.getElementById(`bonusPromptModal`);
-      console.log(modal)
+      // console.log(modal)
       if (this.playerOneValue == user_id ) {
         modal.classList.remove("hidden-modal");
         modal.classList.add("game-modal");
@@ -252,9 +272,12 @@ export default class extends Controller {
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
-        }})
+        },
+        body: JSON.stringify({finished_user: this.playerOneValue})
+        })
         .then(response => {
           if (response.ok) {
+            console.log("The room was updated with a patch.")
             // Show the wait message
             const exerciseDisplay = document.querySelector(".current-user");
             exerciseDisplay.style = "display:none";
@@ -262,11 +285,9 @@ export default class extends Controller {
             waitDisplay.style = "display:flex";
 
             const modal = document.getElementById(`bonusPromptModal`);
-            console.log(modal);
+            // console.log(modal);
             modal.classList.remove("game-modal");
             modal.classList.add("hidden-modal");
-
-
           } else {
             console.error("Failed to update the room with bonus.");
           }
