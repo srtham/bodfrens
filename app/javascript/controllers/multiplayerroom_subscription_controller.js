@@ -39,8 +39,9 @@ export default class extends Controller {
             this.showOpponentFinishedTag(finishedUserId);
           } else if (received_data.hasOwnProperty("bonus_finish")) {
             const bonus_finish_hash = received_data;
-            console.log(bonus_finish_hash)
-            this.updateUserGameDatumWithBonusFinish(bonus_finish_hash)
+            const finishedUserId = bonus_finish_hash.user_id;
+            this.showOpponentFinishedTag(finishedUserId);
+            this.updateUserGameDatumWithBonusFinish(bonus_finish_hash);
           } else if (received_data.hasOwnProperty("start_bonus")) {
             if (received_data.start_bonus == true) {
               location.reload();
@@ -193,6 +194,8 @@ export default class extends Controller {
     };
 
     updateUserGameDatumWithFinish(reg_finish_hash) {
+      // Needs to stop the countdown so that it says "Round End"
+
       // Update the data to the ruby controller
         const user_game_data_id = reg_finish_hash.user_game_data_id
         console.log(user_game_data_id)
@@ -215,6 +218,7 @@ export default class extends Controller {
     }
 
     updateUserGameDatumWithBonusFinish(bonus_finish_hash) {
+      // Needs to stop the countdown so that it says "Round End"
 
       // then update the user with the bonus_finish and the new time
       // So you need to get the time from the last room

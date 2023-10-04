@@ -5,7 +5,7 @@ data-multiplayerroom-subscription-player-one-value="<%= @player1.id %>"
 data-multiplayerroom-subscription-player-two-value="<%= @player2_user_id %>"
 data-multiplayerroom-subscription-player-one-data-id-value="<%= @player1_user_game_data.id %>"
 data-multiplayerroom-subscription-player-two-data-id-value="<%= @player2_user_game_data.id %>"
-data-multiplayerroom-subscription-seconds-left-value="900"  >
+data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : '900' %>"  >
 
 
   <header class="multiplayer-top">
