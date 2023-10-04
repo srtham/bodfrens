@@ -15,7 +15,9 @@ export default class extends Controller {
       secondsLeft: Number,
       xp: Number,
       timeTaken: Number,
-      bonus: Boolean }
+      bonus: Boolean,
+      playerOnePreviousTiming: Number
+     }
     static targets = ["exercise", "button", "bar", "timer", "xp", "barExp", "barFinalExp", "bonusButton", "player1exercise", "player2exercise"]
 
     connect() {
@@ -32,13 +34,27 @@ export default class extends Controller {
             const active_exercise = received_data;
             this.update_active_exercise(active_exercise);
           } else if (received_data.hasOwnProperty("regular_finish")) {
-            // To mark a user_game_data with a finished properly
             const reg_finish_hash = received_data;
+            if (reg_finish_hash.user_id === this.playerOneValue) {
+            clearInterval(this.countdown);
+            this.timerTarget.innerHTML = `Finished`
+            };
+
+            // To mark a user_game_data with a finished properly
+
             this.updateUserGameDatumWithFinish(reg_finish_hash);
+
             const finishedUserId = reg_finish_hash.user_id;
             this.showOpponentFinishedTag(finishedUserId);
           } else if (received_data.hasOwnProperty("bonus_finish")) {
             const bonus_finish_hash = received_data;
+
+            if (bonus_finish_hash.user_id === this.playerOneValue) {
+            clearInterval(this.countdown);
+            this.timerTarget.innerHTML = `Finished`
+            };
+
+
             const finishedUserId = bonus_finish_hash.user_id;
             this.showOpponentFinishedTag(finishedUserId);
             this.updateUserGameDatumWithBonusFinish(bonus_finish_hash);
@@ -205,7 +221,7 @@ export default class extends Controller {
             "Content-Type": "application/json",
             "X-CSRF-Token": this.csrfToken
           },
-          body: JSON.stringify({game_xp: 0, finish: true, time_taken: 0, user_game_datum_id: user_game_data_id})
+          body: JSON.stringify({game_xp: 0, finish: true, time_taken: this.timeElapsed, user_game_datum_id: user_game_data_id})
         })
         .then(response => {
           if (response.ok) {
@@ -232,7 +248,7 @@ export default class extends Controller {
             "Content-Type": "application/json",
             "X-CSRF-Token": this.csrfToken
           },
-          body: JSON.stringify({game_xp: 0, finish: true, bonus_finish: true, time_taken: 0, user_game_datum_id: user_game_data_id})
+          body: JSON.stringify({game_xp: 0, finish: true, bonus_finish: true, time_taken: this.playerOnePreviousTimingValue + this.timeElapsed, user_game_datum_id: user_game_data_id})
         })
         .then(response => {
           if (response.ok) {
@@ -253,6 +269,18 @@ export default class extends Controller {
         modal.classList.add("game-modal");
       };
     };
+
+    closeBonusEndModal(e) {
+      e.preventDefault()
+      // If the user decides to stay in the room after the bonus round ends.
+      const modal = document.getElementById(`bonusPromptModal`);
+      modal.classList.remove(".game-modal");
+      modal.classList.add("hidden-modal");
+      const exerciseDisplay = document.querySelector(".current-user");
+      exerciseDisplay.style = "display:none";
+      const waitDisplay = document.querySelector(".wait-message");
+      waitDisplay.style = "display:flex";
+    }
 
     countTimeElapsed() {
       this.timeElapsed++;
@@ -313,8 +341,31 @@ export default class extends Controller {
         })
     }
 
-    updateUserGameDatumWithTimesUp() {
+    updateUserGameDatumWithBonusEnd(e) {
+    // Update the data to the ruby controller
+      console.log("Attempting to update UserGameDatum with bonus end...")
+      e.preventDefault()
+      fetch(`/room/${this.roomIdValue}/user_game_data/${this.playerOneDataIdValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({game_xp: 0, finish: true, bonus_finish: false, time_taken: this.timeElapsed + this.playerOnePreviousTimingValue, user_game_datum_id: this.playerOneDataIdValue})
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = `/room/${this.roomIdValue}/game_complete`;
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
+      })
+    };
 
+    updateUserGameDatumWithQuit(e) {
+      e.preventDefault()
+      console.log("This function is being read")
     };
 
   };

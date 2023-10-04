@@ -101,15 +101,16 @@ class RoomsController < ApplicationController
       @player2_user_game_data = UserGameDatum.find_by(user: @player2_user_id, room: @room)
 
       if @room.bonus == true
+        @player1_previous_timing = @player1_user_game_data.time_taken
         @player1_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                            .where(exercises: { is_bonus: true })
+                                                    .where(exercises: { is_bonus: true })
         @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
-                                                            .where(exercises: { is_bonus: true })
+                                                    .where(exercises: { is_bonus: true })
       else
         @player1_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                            .where(exercises: { is_bonus: false })
+                                                    .where(exercises: { is_bonus: false })
         @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
-                                                            .where(exercises: { is_bonus: false })
+                                                    .where(exercises: { is_bonus: false })
       end
       render "rooms/multiplayershow"
     end

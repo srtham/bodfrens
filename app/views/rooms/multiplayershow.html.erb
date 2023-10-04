@@ -5,8 +5,8 @@ data-multiplayerroom-subscription-player-one-value="<%= @player1.id %>"
 data-multiplayerroom-subscription-player-two-value="<%= @player2_user_id %>"
 data-multiplayerroom-subscription-player-one-data-id-value="<%= @player1_user_game_data.id %>"
 data-multiplayerroom-subscription-player-two-data-id-value="<%= @player2_user_game_data.id %>"
-data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : '900' %>"  >
-
+data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : '900' %>"
+data-multiplayerroom-subscription-player-one-previous-timing-value="<%= @room.bonus ? @player1_previous_timing : '0' %>" >
 
   <header class="multiplayer-top">
     <section class="timer">
@@ -52,9 +52,9 @@ data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : 
 
   <main class="wait-message" style= "display:none">
     <% if @room.bonus %>
-      <h3><%="Waiting for your bodfren to finish"%></h3>
+      <h3><%="You can leave the room any time without penalty."%></h3>
     <% else %>
-      <h3><%="Waiting for your bodfren to select bonus"%></h3>
+      <h3><%="Waiting for your bodfren to select bonus."%></h3>
     <% end %>
   </main>
 
@@ -91,41 +91,51 @@ data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : 
           <div class="modal-content" style="height: 83%; margin-top: 20%;">
             <div class="modal-header">
             </div>
-            <div class="modal-body">
-              <p style="margin-bottom: 40px;">Congratulations! You finished your workout.</p>
-              <p>Opt for a bonus round?</p>
-              <p style="font-size: 24px; padding: 20px;">Your bodfren will also need to accept to start.</p>
-            </div>
-            <div class="modal-footer">
-              <%= button_to "Yes", "#", data: {action: "click->multiplayerroom-subscription#updateWithChooseBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
-              <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
-            </div>
+            <% if @room.bonus %>
+              <div class="modal-body">
+                <p style="margin-bottom: 40px;">Congratulations! You finished your workout.</p>
+                <p>End workout and leave room?</p>
+              </div>
+              <div class="modal-footer">
+                <%= link_to "Yes", show_game_complete_room_path, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+                <%= button_to "No", "#", data: {action: "click->multiplayerroom-subscription#closeBonusEndModal"}, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
+              </div>
+            <% else %>
+              <div class="modal-body">
+                <p style="margin-bottom: 40px;">Congratulations! You finished your workout.</p>
+                <p>Opt for a bonus round?</p>
+                <p style="font-size: 24px; padding: 20px;">Your bodfren will also need to accept to start.</p>
+              </div>
+              <div class="modal-footer">
+                <%= button_to "Yes", "#", data: {action: "click->multiplayerroom-subscription#updateWithChooseBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+                <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
     </section>
 
-    <!--------Give Up/End Game Modal-------->
+
+   <!--------Give Up/End Game Modal-------->
     <section class="modal fade" id="giveUpModal" tabindex="-1" aria-labelledby="giveUpModalLabel" aria-hidden="true">
         <div class="modal-dialog">
 
-          <div class="modal-content" style="height: 750px; margin-top: 74px;">
+          <div class="modal-content">
             <div class="modal-header">
             </div>
             <div class="modal-body">
               <% if @room.bonus? %>
                 End the bonus round? There won't be a penalty.
               <% else %>
-                <p style="margin-bottom: 40px;">Are you sure you want to give up?</p>
-                <p style="margin-bottom: 40px;">This is a multiplayer game.</p>
-                <p style="font-size: 21px;">You will lose 100XP</p>
+                Giving up will forfeit your current points and 100XP<br>Are you sure?
               <% end %>
             </div>
             <div class="modal-footer">
               <% if @room.bonus? %>
-                <button type="button" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+                <button type="button" data-action="click->multiplayerroom-subscription#updateUserGameDatumWithBonusEnd" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
               <% else %>
-                <button type="button" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+                <button type="button" data-action="click->multiplayerroom-subscription#updateUserGameDatumWithQuit" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
               <% end %>
               <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
             </div>
@@ -133,6 +143,7 @@ data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : 
         </div>
       </div>
     </section>
+
 
 
 </div>
