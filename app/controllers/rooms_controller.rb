@@ -19,6 +19,7 @@ class RoomsController < ApplicationController
   # end
   def create_from_lobby
     @room = Room.find(params[:id])
+    puts @room.user_game_data.count
     # get all the ids associated with the room
     user_game_data_ids = @room.user_game_data.pluck(:user_id)
     # will not create a new UserGameDatum if user_id is already associated with the room.
@@ -44,14 +45,28 @@ class RoomsController < ApplicationController
       create_active_exercises(regular_exercises, game_data)
       create_active_exercises(bonus_exercises, game_data)
     end
+
     LobbyChannel.broadcast_to(@room, "ready")
+    head :ok
   end
 
   def update
-    bonus = params[:bonus]
-    room = Room.find(params[:id])
-    room.bonus = bonus
-    room.save
+    if params[:bonus].nil?
+      @room = Room.find(params[:id])
+      @room.bonus_count_multiplayer += 1
+      @room.save
+      return unless @room.bonus_count_multiplayer == 2
+
+      @room.bonus = true
+      @room.save
+      MultiplayerChannel.broadcast_to(@room, { start_bonus: true }.to_json)
+      head :ok
+    else
+      bonus = params[:bonus]
+      room = Room.find(params[:id])
+      room.bonus = bonus
+      room.save
+    end
   end
 
   def lobby
@@ -67,7 +82,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     if @room.mode == "single"
       @user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
-      @user = @user_game_data.user_id
+      @user = current_user
       @regular_exercises = @user_game_data.exercises.where(is_bonus: false)
       @regular_xp = calculate_exp(@regular_exercises)
       @bonus_exercises = @user_game_data.exercises.where(is_bonus: true)
@@ -76,23 +91,24 @@ class RoomsController < ApplicationController
     else
       user_game_data_ids = @room.user_game_data.pluck(:user_id)
       remaining_user_id = user_game_data_ids.reject { |id| id == current_user.id }
-      player2_user_id = remaining_user_id.first
+      @player2_user_id = remaining_user_id.first
       @player1_user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
       @player1 = @player1_user_game_data.user
-      @player2_user_game_data = UserGameDatum.find_by(user: player2_user_id, room: @room)
+      @player2 = User.find(@player2_user_id)
 
-      @player1_regular_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                          .where(exercises: { is_bonus: false })
+      @player2_user_game_data = UserGameDatum.find_by(user: @player2_user_id, room: @room)
 
-      @player1_bonus_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                        .where(exercises: { is_bonus: true })
-
-      @player2_regular_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                          .where(exercises: { is_bonus: false })
-
-      @player2_bonus_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                        .where(exercises: { is_bonus: true })
-
+      if @room.bonus == true
+        @player1_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
+                                                            .where(exercises: { is_bonus: true })
+        @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
+                                                            .where(exercises: { is_bonus: true })
+      else
+        @player1_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
+                                                            .where(exercises: { is_bonus: false })
+        @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
+                                                            .where(exercises: { is_bonus: false })
+      end
       render "rooms/multiplayershow"
     end
   end

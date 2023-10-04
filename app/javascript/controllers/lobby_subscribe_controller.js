@@ -20,6 +20,7 @@ export default class extends Controller {
           this.startPageTarget.classList.remove("lobby-page-container-hidden")
         }
         if (data === "ready") {
+          console.log(data)
           window.location.href = `/room/${this.roomIdValue}`;
         }
        }

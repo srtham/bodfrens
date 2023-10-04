@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_30_032116) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_113802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,19 +80,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_032116) do
     t.string "image_url"
   end
 
-  create_table "images", force: :cascade do |t|
-    t.string "photo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "rooms", force: :cascade do |t|
     t.integer "winner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "target"
     t.string "mode"
     t.boolean "bonus", default: false
     t.integer "user_count", default: 0
+    t.integer "bonus_count_multiplayer", default: 0
   end
 
   create_table "user_game_data", force: :cascade do |t|
