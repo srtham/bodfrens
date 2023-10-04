@@ -27,8 +27,6 @@ export default class extends Controller {
       { received: data => {
           const received_data =JSON.parse(data)
 
-          console.log(received_data)
-
           if (received_data.hasOwnProperty("xp")) {
             // to update an exercise as done/not done
             const active_exercise = received_data;
@@ -39,6 +37,10 @@ export default class extends Controller {
             this.updateUserGameDatumWithFinish(reg_finish_hash);
             const finishedUserId = reg_finish_hash.user_id;
             this.showOpponentFinishedTag(finishedUserId);
+          } else if (received_data.hasOwnProperty("bonus_finish")) {
+            const bonus_finish_hash = received_data;
+            console.log(bonus_finish_hash)
+            this.updateUserGameDatumWithBonusFinish(bonus_finish_hash)
           } else if (received_data.hasOwnProperty("start_bonus")) {
             if (received_data.start_bonus == true) {
               location.reload();
@@ -213,15 +215,28 @@ export default class extends Controller {
     }
 
     updateUserGameDatumWithBonusFinish(bonus_finish_hash) {
-      // STILL NOT YET DONE SINCE THE BONUS ROOM HAS NOT BEEN TRIGGERED
-      // Update the data to the ruby controller
-        fetch(`/room/${this.roomValue}/user_game_data/${this.dataIdValue}`, {
+
+      // then update the user with the bonus_finish and the new time
+      // So you need to get the time from the last room
+      // That should be done in the controller and then sent to the javascript so that the User Game Datum can be updated.
+      // After which the bonus modal should pop up asking if you want to wait for your friend or not.
+      const user_game_data_id = bonus_finish_hash.user_game_data_id
+      console.log(user_game_data_id)
+      fetch(`/room/${this.roomIdValue}/user_game_data/${user_game_data_id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             "X-CSRF-Token": this.csrfToken
           },
-          body: JSON.stringify({game_xp: 0, finish: true, bonus_finish: true, time_taken: 0, user_game_datum_id: this.dataIdValue})
+          body: JSON.stringify({game_xp: 0, finish: true, bonus_finish: true, time_taken: 0, user_game_datum_id: user_game_data_id})
+        })
+        .then(response => {
+          if (response.ok) {
+            const user_id = bonus_finish_hash.user_id
+            this.showBonusModal(user_id)
+          } else {
+            console.error("Failed to update user game data.");
+          }
         })
       };
 
