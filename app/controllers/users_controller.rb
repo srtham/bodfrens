@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    @username = @user.username
     session[:user_id] = @user.id
     @user_xp_earned = @user.user_game_data.sum(:game_xp)
     @user_level = calculate_level(@user_xp_earned)
@@ -19,6 +20,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :profile_photo)
+  end
 
   def calculate_level(user_xp_earned)
     base_xp_increment = 200
