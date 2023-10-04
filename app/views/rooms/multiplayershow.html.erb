@@ -38,6 +38,14 @@ data-multiplayerroom-subscription-seconds-left-value="900"  >
       </div>
   </main>
 
+  <main class="wait-message" style= "display:none">
+    <% if @room.bonus %>
+      <h3><%="Waiting for your bodfren to finish"%></h3>
+    <% else %>
+      <h3><%="Waiting for your bodfren to select bonus"%></h3>
+    <% end %>
+  </main>
+
   <main class="opponent" data-multiplayerroom-subscription-target="player2exercise">
     <section class="opponent-left">
       <% @player2_exercises.each do |active_exercise| %>

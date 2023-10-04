@@ -61,8 +61,21 @@
   justify-content: center;
   gap: 14px;
   width: 100%;
-
 }
+
+.wait-message {
+  height: 50%;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  h3 {
+    font-weight: 700;
+  }
+}
+
 .user-btn {
   display: flex;
   flex-direction: row;

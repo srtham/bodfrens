@@ -47,7 +47,6 @@ class RoomsController < ApplicationController
     end
 
     LobbyChannel.broadcast_to(@room, "ready")
-    head :ok
   end
 
   def update

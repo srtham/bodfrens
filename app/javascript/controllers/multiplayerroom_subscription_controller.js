@@ -118,7 +118,7 @@ export default class extends Controller {
         activeExerciseElement.classList.remove("button-user-selected");
         h5Element.innerHTML = "XP\ngained";
         };
-      }
+      };
 
       // Increasing the width of the bar
       // this.barWidth += parseInt(activeExerciseElement.value,10);
@@ -140,7 +140,7 @@ export default class extends Controller {
       //   console.log("REGULAR GAME FINISH");
       //   this.showBonusModal();
       // };
-    }
+    };
 
     updateActiveExercise(e) { // To send requests to the controller
       e.preventDefault()
@@ -168,7 +168,7 @@ export default class extends Controller {
 
 
       e.currentTarget.value = e.currentTarget.value * -1
-    }
+    };
 
     updateUserGameDatumWithFinish(reg_finish_hash) {
       // Update the data to the ruby controller
@@ -255,11 +255,17 @@ export default class extends Controller {
         }})
         .then(response => {
           if (response.ok) {
-            console.log("button clicked")
+            // Show the wait message
+            const exerciseDisplay = document.querySelector(".current-user");
+            exerciseDisplay.style = "display:none";
+            const waitDisplay = document.querySelector(".wait-message");
+            waitDisplay.style = "display:flex";
+
             const modal = document.getElementById(`bonusPromptModal`);
             console.log(modal);
             modal.classList.remove("game-modal");
             modal.classList.add("hidden-modal");
+
 
           } else {
             console.error("Failed to update the room with bonus.");
