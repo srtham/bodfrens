@@ -23,7 +23,7 @@ class UserGameDataController < ApplicationController
     @game_room_id = Room.find(params[:id])
     @user = current_user
     @user_game_data = @game_room_id.user_game_data.find { |instance| instance.user == current_user }
-    @user_game_time = game_time(@user_game_data.time_taken)
+    @user_game_time = format_time(@user_game_data.time_taken)
     @user_xp_earned_total = @user.user_game_data.sum(:game_xp)
     @user_xp_earned_game = @user_game_data.game_xp
     @user_start_level = show_user_start_level
@@ -46,9 +46,15 @@ class UserGameDataController < ApplicationController
 
   private
 
-  def game_time(user_time)
-    my_time = Time.at(user_time)
-    return my_time.strftime("%M:%S")
+  # def game_time(user_game_time)
+  #   my_time = Time.at(user_game_time)
+  #   return my_time.strftime("%M:%S")
+  # end
+
+  def format_time(user_game_time)
+    minutes = user_game_time / 60
+    seconds = user_game_time % 60
+    "#{minutes.to_i.to_s.rjust(2, '0')}:#{seconds.to_i.to_s.rjust(2, '0')}"
   end
 
   def xp_to_next_level(user_xp_earned, user_level)
