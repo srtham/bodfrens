@@ -4,6 +4,7 @@ class LobbyChannel < ApplicationCable::Channel
     # total_users = ActionCable.server.connections.length
     add_user_to_room(room)
     stream_for room
+    sleep(1.0)
     # LobbyChannel.broadcast_to(room, current_user.id)
     broadcast_user_count(room)
   end

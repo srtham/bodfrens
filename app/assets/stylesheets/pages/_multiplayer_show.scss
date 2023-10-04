@@ -219,6 +219,15 @@
   padding: 10px;
 }
 
+.opponent-right.left-game {
+  padding-top: 20%;
+  h3 {
+    font-weight: 700;
+    text-align: center;
+    color: $gray;
+  }
+}
+
 .opp-aside {
   display: flex;
   flex-direction: column;

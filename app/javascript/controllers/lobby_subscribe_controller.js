@@ -11,7 +11,7 @@ export default class extends Controller {
       { channel: "LobbyChannel", id: this.roomIdValue },
       { received: data => {
         console.log(data)
-        if (data === 2) {
+        if (data >= 2) {
           //remove the link page when there are 2 players in the room
           this.linkPageTarget.classList.add("lobby-page-container-hidden")
           this.linkPageTarget.classList.remove("lobby-page-container")

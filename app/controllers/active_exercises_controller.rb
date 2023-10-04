@@ -16,13 +16,13 @@ class ActiveExercisesController < ApplicationController
     end
     # Count the number of active_exercises where complete is true and bonus is true
     finished_bonus_exercises_count = @user_game_datum.active_exercises.joins(:exercise)
-                                                    .where(complete: true,
-                                                           exercises: { is_bonus: true }).count
+                                                     .where(complete: true,
+                                                            exercises: { is_bonus: true }).count
 
     # Count the number of active_exercises where complete is true and bonus is false
     finished_regular_exercises_count = @user_game_datum.active_exercises.joins(:exercise)
-                                                      .where(complete: true,
-                                                             exercises: { is_bonus: false }).count
+                                                       .where(complete: true,
+                                                              exercises: { is_bonus: false }).count
 
     regular_complete_data = { user_id: @user_game_datum.user_id,
                               user_game_data_id: @user_game_datum.id,
