@@ -235,7 +235,7 @@ export default class extends Controller {
             "Content-Type": "application/json",
             "X-CSRF-Token": this.csrfToken
           },
-          body: JSON.stringify({game_xp: 0, finish: true, time_taken: this.timeElapsed, user_game_datum_id: user_game_data_id})
+          body: JSON.stringify({game_xp: this.currentUserXpValue, finish: true, time_taken: this.timeElapsed, user_game_datum_id: user_game_data_id})
         })
         .then(response => {
           if (response.ok) {
@@ -262,7 +262,7 @@ export default class extends Controller {
             "Content-Type": "application/json",
             "X-CSRF-Token": this.csrfToken
           },
-          body: JSON.stringify({game_xp: 0, finish: true, bonus_finish: true, time_taken: this.playerOnePreviousTimingValue + this.timeElapsed, user_game_datum_id: user_game_data_id})
+          body: JSON.stringify({game_xp: this.currentUserXpValue, finish: true, bonus_finish: true, time_taken: this.playerOnePreviousTimingValue + this.timeElapsed, user_game_datum_id: user_game_data_id})
         })
         .then(response => {
           if (response.ok) {
