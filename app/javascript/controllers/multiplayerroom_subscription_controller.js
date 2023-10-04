@@ -99,19 +99,16 @@ export default class extends Controller {
     this.countdown = setInterval(this.countdown.bind(this), 1000);
 
     //set values for the bar calculations
-    this.currentUserBarEndNumber = this.currentUserEndXpValue - this.currentUserXpValue
-    this.opponentUserBarEndNumber = this.opponentUserEndXpValue - this.opponentUserXpValue
+    this.currentUserBarEndNumber = this.currentUserEndXpValue
+    this.opponentUserBarEndNumber = this.opponentUserEndXpValue
     this.currentUserBarWidth = 0
     this.opponentUserBarWidth = 0
 
-    // found this stray code at the bottom -- might be in the wrong position.
-    this.opponentUserBarWidth += parseInt(activeExerciseElement.value,10);
-    this.barOpponentUserTarget.style.width = `${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`
-    console.log(this.opponentUserBarWidth)
+
 
     //set the final EXP printed at the bottom via innerHTML
     this.barFinalExpCurrentUserTarget.innerHTML = `/ ${this.currentUserBarEndNumber} XP EARNED`
-    this.opponentUserBarFinalExpTarget.innerHTML = `/${this.opponentUserBarEndNumber} XP EARNED` // to be changed
+    // this.opponentUserBarFinalExpTarget.innerHTML = `/${this.opponentUserBarEndNumber} XP EARNED` // to be changed
     }
 
     showOpponentBonusTag(userWhoChoseBonusId) {
@@ -135,8 +132,9 @@ export default class extends Controller {
 
       //change the icon
       const activeExerciseElement = this.player1exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
-      const activeExerciseOpponentElement = this.player2exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
 
+      const activeExerciseOpponentElement = this.player2exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
+      // console.log(`${activeExerciseOpponentElement} is the selected element.`)
       // Changing the colors of the buttons depending on their value (negative or positive)
       if (active_exercise.complete) {
         if (activeExerciseOpponentElement !== null ) {
@@ -161,7 +159,6 @@ export default class extends Controller {
         console.log(`the XP value of current_user is = ${this.currentUserXpValue}`)
         console.log(`the XP value of opponent user is = ${this.opponentUserXpValue}`)
 
-
       } else { // to mark as unfinished
         if (activeExerciseOpponentElement !== null ) {
         // console.log(activeExerciseOpponentElement);
@@ -177,14 +174,20 @@ export default class extends Controller {
         };
       };
 
-      // Increasing the width of the bar of the current user
-      this.currentUserBarWidth += parseInt(activeExerciseElement.value,10);
-      this.barCurrentUserTarget.style.width = `${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`
-      console.log(this.currentUserBarWidth)
+      if (activeExerciseOpponentElement !== null ) {
+        // this one is to update the bar width ****** - might have to debug
+        this.opponentUserBarWidth += parseInt(activeExerciseOpponentElement.value,10);
+        this.barOpponentUserTarget.style.width = `${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`
+        console.log(this.opponentUserBarWidth)
+      } else {
+        // Increasing the width of the bar of the current user
+        this.currentUserBarWidth += parseInt(activeExerciseElement.value,10);
+        this.barCurrentUserTarget.style.width = `${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`
+        console.log(this.currentUserBarWidth)
 
-      // Update the exp value printed at the bottom of thsse current user
-      this.barExpCurrentUserTarget.innerHTML = `${this.currentUserXpValue}`
-
+        // Update the exp value printed at the bottom of thsse current user
+        this.barExpCurrentUserTarget.innerHTML = `${this.currentUserXpValue}`
+      };
 
     };
 

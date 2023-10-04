@@ -10,8 +10,8 @@
   data-multiplayerroom-subscription-opponent-user-data-id-value="<%= @player2_user_game_data.id %>"
   data-multiplayerroom-subscription-current-user-xp-value="<%= @room.bonus ? @player1_user_game_data.game_xp : 0%>"
   data-multiplayerroom-subscription-opponent-user-xp-value="<%= @room.bonus ? @player2_user_game_data.game_xp : 0%>"
-  data-multiplayerroom-subscription-current-user-end-xp-value="<%= @room.bonus ? @player1_bonus_xp + @player1_regular_xp : @player1_regular_xp %>"
-  data-multiplayerroom-subscription-opponent-user-end-xp-value="<%= @room.bonus ? @player2_bonus_xp + @player2_regular_xp : @player2_regular_xp %>"
+  data-multiplayerroom-subscription-current-user-end-xp-value="<%= @player1_xp %>"
+  data-multiplayerroom-subscription-opponent-user-end-xp-value="<%= @player2_xp %>"
   data-multiplayerroom-subscription-seconds-left-value="<%= @room.bonus ? '600' : '900' %>"
   data-multiplayerroom-subscription-player-one-previous-timing-value="<%= @room.bonus ? @player1_previous_timing : '0' %>" >
 
@@ -51,7 +51,7 @@
     <% end %>
       <div class= "xp-container user" style="width:65%; ">
         <div class="progress-bar" style="background: grey;">
-          <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-game-target="barCurrentUser"></div>
+          <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-multiplayerroom-subscription-target="barCurrentUser"></div>
         </div>
         <div class="d-flex xp-points earn-points">
             <p data-multiplayerroom-subscription-target="barExpCurrentUser">0</p><p data-multiplayerroom-subscription-target="barFinalExpCurrentUser"></p>
@@ -71,17 +71,17 @@
     <section class="opponent-left">
       <% @player2_exercises.each do |active_exercise| %>
         <div class="opponent-btn-container">
-          <button type="button" class="opponent-button" id="<%= active_exercise.id %>">
+          <button type="button" class="opponent-button" id="<%= active_exercise.id %>" value="<%=active_exercise.exercise.exercise_xp%>">
             <h3 class="opp-button-text"><%= active_exercise.exercise.title %></h3>
           </button>
         </div>
       <% end %>
       <div class= "xp-container <%= @room.bonus ? 'bonus' : '' %>">
         <div class="progress-bar" style="background: grey;"></div>
-          <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-game-target="barOpponentUser"></div>
+          <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-multiplayerroom-subscription-target="barOpponentUser"></div>
       </div>
     </section>
-    <section class="opponent-right" style="display:none"<%= @room.bonus ? 'bonus' : '' %>">
+    <section class="opponent-right" style="display:none"<%= @room.bonus ? 'bonus' : '' %>>
       <aside class= "opp-aside">
         <p class="opp-title">Your Bodfren</p>
         <%= image_tag("svgs/bodfrens_graphics-01.svg", class: "opp-img") %>
