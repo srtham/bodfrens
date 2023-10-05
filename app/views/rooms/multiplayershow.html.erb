@@ -76,8 +76,9 @@
         </div>
       <% end %>
       <div class= "xp-container <%= @room.bonus ? 'bonus' : '' %>">
-        <div class="progress-bar" style="background: grey;"></div>
+        <div class="progress-bar" style="background: grey;">
           <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-multiplayerroom-subscription-target="barOpponentUser"></div>
+        </div>
       </div>
     </section>
     <section class="opponent-right" style="display:none"<%= @room.bonus ? 'bonus' : '' %>>
