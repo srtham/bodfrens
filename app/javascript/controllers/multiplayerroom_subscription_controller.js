@@ -18,7 +18,7 @@ export default class extends Controller {
       opponentUserEndXp: Number,
       timeTaken: Number,
       bonus: Boolean,
-      playerOnePreviousTiming: Number
+      currentUserPreviousTiming: Number
      }
 
     static targets = ["exercise", "button", "barCurrentUser", "timer", "xp", "barExpCurrentUser", "barFinalExpCurrentUser", "barOpponentUser", "bonusButton", "player1exercise", "player2exercise"]
@@ -26,9 +26,6 @@ export default class extends Controller {
 
     connect() {
     this.csrfToken = document.querySelector("meta[name='csrf-token']").content;
-    this.currentUserXpValue = 0
-    this.opponentUserXpValue = 0
-
 
     //create multiplayerroom_subscription_channel
     this.channel = createConsumer().subscriptions.create(
@@ -42,7 +39,7 @@ export default class extends Controller {
             this.update_active_exercise(active_exercise);
           } else if (received_data.hasOwnProperty("regular_finish")) {
             const reg_finish_hash = received_data;
-            if (reg_finish_hash.user_id === this.playerOneValue) {
+            if (reg_finish_hash.user_id === this.currentUserValue) {
             clearInterval(this.countdown);
             this.timerTarget.innerHTML = `Finished`
             };
@@ -56,7 +53,7 @@ export default class extends Controller {
           } else if (received_data.hasOwnProperty("bonus_finish")) {
             const bonus_finish_hash = received_data;
 
-            if (bonus_finish_hash.user_id === this.playerOneValue) {
+            if (bonus_finish_hash.user_id === this.currentUserValue) {
             clearInterval(this.countdown);
             this.timerTarget.innerHTML = `Finished`
             };
@@ -91,6 +88,7 @@ export default class extends Controller {
     ///////////////////// TIMER SET UP
     //start counting the time
     this.timeElapsed = 0; // Use this variable to update how much time has passed.
+
     setInterval(() => {
       this.countTimeElapsed();
     }, 1000);
@@ -113,7 +111,7 @@ export default class extends Controller {
 
     showOpponentBonusTag(userWhoChoseBonusId) {
      // Shows the opponent's orange bonus tag if he/she chooses to play bonus.
-      if (userWhoChoseBonusId !== this.playerOneValue) {
+      if (userWhoChoseBonusId !== this.currentUserValue) {
         const bonusTag = document.querySelector(".bonus-round");
         bonusTag.style = "display:block";
       };
@@ -121,7 +119,7 @@ export default class extends Controller {
 
     showOpponentFinishedTag(finishedUserId) {
       // Shows the opponent's orange bonus tag if he/she chooses to play bonus.
-       if (finishedUserId !== this.playerOneValue) {
+       if (finishedUserId !== this.currentUserValue) {
          const completeTag = document.querySelector(".workout-complete");
          completeTag.style = "display:block";
        };
@@ -153,45 +151,58 @@ export default class extends Controller {
         //Mark the XP as earned
         if (this.currentUserDataIdValue === active_exercise.ugd_id) {
           this.currentUserXpValue += active_exercise.xp;
+          // console.log(`the current user xp value was added = ${this.currentUserXpValue}`)
         } else {
           this.opponentUserXpValue += active_exercise.xp;
-        }
-        console.log(`the XP value of current_user is = ${this.currentUserXpValue}`)
-        console.log(`the XP value of opponent user is = ${this.opponentUserXpValue}`)
+        };
+
 
       } else { // to mark as unfinished
         if (activeExerciseOpponentElement !== null ) {
-        // console.log(activeExerciseOpponentElement);
-        activeExerciseOpponentElement.classList.add("opponent-button");
-        activeExerciseOpponentElement.classList.remove("opponent-button-gray");
+          // console.log(activeExerciseOpponentElement);
+          activeExerciseOpponentElement.classList.add("opponent-button");
+          activeExerciseOpponentElement.classList.remove("opponent-button-gray");
         };
+
         if (activeExerciseElement !== null ) {
-        // console.log(activeExerciseElement);
-        const h5Element = activeExerciseElement.querySelector("h5")
-        activeExerciseElement.classList.add("button-user");
-        activeExerciseElement.classList.remove("button-user-selected");
-        h5Element.innerHTML = "XP\ngained";
+          // console.log(activeExerciseElement);
+          const h5Element = activeExerciseElement.querySelector("h5")
+          activeExerciseElement.classList.add("button-user");
+          activeExerciseElement.classList.remove("button-user-selected");
+          h5Element.innerHTML = "XP\ngained";
         };
+
+        //Mark the XP as removed
+        if (this.currentUserDataIdValue === active_exercise.ugd_id) {
+          this.currentUserXpValue -= active_exercise.xp;
+          // console.log(`the current user xp value was deducted = ${this.currentUserXpValue}`)
+        } else {
+          this.opponentUserXpValue -= active_exercise.xp;
+        };
+
       };
 
-      if (activeExerciseOpponentElement !== null ) {
-        // this one is to update the bar width ****** - might have to debug
-        this.opponentUserBarWidth += parseInt(activeExerciseOpponentElement.value,10);
-        this.barOpponentUserTarget.style.width = `${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`
-        console.log(this.opponentUserBarWidth)
-      } else {
-        // Increasing the width of the bar of the current user
-        this.currentUserBarWidth += parseInt(activeExerciseElement.value,10);
-        this.barCurrentUserTarget.style.width = `${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`
-        console.log(this.currentUserBarWidth)
+      if (activeExerciseElement !== null) {
+        this.currentUserBarWidth += ( parseInt(activeExerciseElement.value,10) * -1 );
+        // have to -1 here because we already changed the value of the button earlier
+        this.barExpCurrentUserTarget.innerHTML = `${this.currentUserBarWidth}`;
+        this.barCurrentUserTarget.style.width = `${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`;
+        console.log(`the current bar width ${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`);
 
-        // Update the exp value printed at the bottom of thsse current user
-        this.barExpCurrentUserTarget.innerHTML = `${this.currentUserXpValue}`
       };
 
+      if (activeExerciseOpponentElement !== null) {
+        /* we didn't change the value of the button after clicking, unlike the current_user
+         which is why there is an if else statement here. */
+        if (active_exercise.complete === true) {
+          this.opponentUserBarWidth += ( parseInt(activeExerciseOpponentElement.value,10) );
+        } else {
+          this.opponentUserBarWidth -= ( parseInt(activeExerciseOpponentElement.value,10) );
+        };
+        this.barOpponentUserTarget.style.width = `${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`;
+        console.log(`the opponent bar width ${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`);
+      };
     };
-
-      // Increasing the width of the bar of the opponent user
 
 
 
@@ -262,7 +273,7 @@ export default class extends Controller {
             "Content-Type": "application/json",
             "X-CSRF-Token": this.csrfToken
           },
-          body: JSON.stringify({game_xp: this.currentUserXpValue, finish: true, bonus_finish: true, time_taken: this.playerOnePreviousTimingValue + this.timeElapsed, user_game_datum_id: user_game_data_id})
+          body: JSON.stringify({game_xp: this.currentUserXpValue, finish: true, bonus_finish: true, time_taken: this.currentUserPreviousTimingValue + this.timeElapsed, user_game_datum_id: user_game_data_id})
         })
         .then(response => {
           if (response.ok) {
@@ -277,8 +288,8 @@ export default class extends Controller {
 
     showBonusModal(user_id) {
       const modal = document.getElementById(`bonusPromptModal`);
-      // console.log(modal)
-      if (this.playerOneValue == user_id ) {
+      console.log(modal)
+      if (this.currentUserValue == user_id ) {
         modal.classList.remove("hidden-modal");
         modal.classList.add("game-modal");
       };
@@ -334,7 +345,7 @@ export default class extends Controller {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({finished_user: this.playerOneValue})
+        body: JSON.stringify({finished_user: this.currentUserValue})
         })
         .then(response => {
           if (response.ok) {
@@ -359,13 +370,13 @@ export default class extends Controller {
     // Update the data to the ruby controller
       console.log("Attempting to update UserGameDatum with bonus end...")
       e.preventDefault()
-      fetch(`/room/${this.roomIdValue}/user_game_data/${this.playerOneDataIdValue}`, {
+      fetch(`/room/${this.roomIdValue}/user_game_data/${this.currentUserDataIdValue}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": this.csrfToken
         },
-        body: JSON.stringify({game_xp: 0, finish: true, bonus_finish: false, time_taken: this.timeElapsed + this.playerOnePreviousTimingValue, user_game_datum_id: this.playerOneDataIdValue})
+        body: JSON.stringify({game_xp: this.currentUserXpValue, finish: true, bonus_finish: false, time_taken: this.timeElapsed + this.currentUserPreviousTimingValue, user_game_datum_id: this.currentUserDataIdValue})
       })
       .then(response => {
         if (response.ok) {
@@ -379,7 +390,22 @@ export default class extends Controller {
 
     updateUserGameDatumWithQuit(e) {
       e.preventDefault()
-      console.log("This function is being read")
+      fetch(`/room/${this.roomIdValue}/user_game_data/${this.currentUserDataIdValue}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": this.csrfToken
+        },
+        body: JSON.stringify({game_xp: this.currentUserXpValue - 100, finish: false, bonus_finish: false, time_taken: this.timeElapsed + this.currentUserPreviousTimingValue, user_game_datum_id: this.currentUserDataIdValue})
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = `/room/${this.roomIdValue}/game_complete`;
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
+      })
     };
 
   };
