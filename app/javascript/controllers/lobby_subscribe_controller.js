@@ -19,6 +19,14 @@ export default class extends Controller {
           this.startPageTarget.classList.add("lobby-page-container")
           this.startPageTarget.classList.remove("lobby-page-container-hidden")
         }
+        if (data < 2) {
+          //remove the link page when there are 2 players in the room
+          this.linkPageTarget.classList.remove("lobby-page-container-hidden")
+          this.linkPageTarget.classList.add("lobby-page-container")
+          // show the start page
+          this.startPageTarget.classList.remove("lobby-page-container")
+          this.startPageTarget.classList.add("lobby-page-container-hidden")
+        }
         if (data === "ready") {
           console.log(data)
           window.location.href = `/room/${this.roomIdValue}`;

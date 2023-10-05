@@ -11,8 +11,8 @@ class LobbyChannel < ApplicationCable::Channel
 
   def unsubscribed
     room = Room.find(params[:id])
-
     remove_user_from_room(room)
+    broadcast_user_count(room)
   end
 
   def broadcast_user_count(room)

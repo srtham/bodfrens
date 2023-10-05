@@ -125,82 +125,67 @@ export default class extends Controller {
        };
      };
 
-    update_active_exercise(active_exercise) { // To update the buttons
-      // // this.buttonSound.play()
-
-      //change the icon
+    update_active_exercise(active_exercise) { // To update the buttons and XP bars and values after the data is received back from the controller.
+      // this.buttonSound.play()
       const activeExerciseElement = this.player1exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
-
       const activeExerciseOpponentElement = this.player2exerciseTarget.querySelector(`[id="${active_exercise.id}"]`);
-      // console.log(`${activeExerciseOpponentElement} is the selected element.`)
-      // Changing the colors of the buttons depending on their value (negative or positive)
-      if (active_exercise.complete) {
-        if (activeExerciseOpponentElement !== null ) {
-        // console.log(activeExerciseOpponentElement);
-        activeExerciseOpponentElement.classList.remove("opponent-button");
-        activeExerciseOpponentElement.classList.add("opponent-button-gray");
-        };
-        if (activeExerciseElement !== null ) {
-        // console.log(activeExerciseElement);
+
+      // Scenario 1 --  When data is updating the current user's buttons and the exercises was checked 'completed'.
+      if (activeExerciseElement !== null && active_exercise.complete === true) {
+        // 1. add the XP (overall game)
+        this.currentUserXpValue += active_exercise.xp
+        // 2. change the buttons
         const h5Element = activeExerciseElement.querySelector("h5")
+        h5Element.innerHTML = "XP\ngained";
         activeExerciseElement.classList.remove("button-user");
         activeExerciseElement.classList.add("button-user-selected");
-        h5Element.innerHTML = "XP\ngained";
-        };
-
-        //Mark the XP as earned
-        if (this.currentUserDataIdValue === active_exercise.ugd_id) {
-          this.currentUserXpValue += active_exercise.xp;
-          // console.log(`the current user xp value was added = ${this.currentUserXpValue}`)
-        } else {
-          this.opponentUserXpValue += active_exercise.xp;
-        };
-
-
-      } else { // to mark as unfinished
-        if (activeExerciseOpponentElement !== null ) {
-          // console.log(activeExerciseOpponentElement);
-          activeExerciseOpponentElement.classList.add("opponent-button");
-          activeExerciseOpponentElement.classList.remove("opponent-button-gray");
-        };
-
-        if (activeExerciseElement !== null ) {
-          // console.log(activeExerciseElement);
-          const h5Element = activeExerciseElement.querySelector("h5")
-          activeExerciseElement.classList.add("button-user");
-          activeExerciseElement.classList.remove("button-user-selected");
-          h5Element.innerHTML = "XP\ngained";
-        };
-
-        //Mark the XP as removed
-        if (this.currentUserDataIdValue === active_exercise.ugd_id) {
-          this.currentUserXpValue -= active_exercise.xp;
-          // console.log(`the current user xp value was deducted = ${this.currentUserXpValue}`)
-        } else {
-          this.opponentUserXpValue -= active_exercise.xp;
-        };
-
-      };
-
-      if (activeExerciseElement !== null) {
+        // 3. change the bar and the game room XP total
+        //// have to -1 here because we already changed the value of the button earlier
         this.currentUserBarWidth += ( parseInt(activeExerciseElement.value,10) * -1 );
-        // have to -1 here because we already changed the value of the button earlier
         this.barExpCurrentUserTarget.innerHTML = `${this.currentUserBarWidth}`;
         this.barCurrentUserTarget.style.width = `${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`;
-        console.log(`the current bar width ${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`);
+      };
+
+
+      // Scenario 2 --  When data is updating the current user's buttons and the exercises was checked 'NOT completed'.
+      if (activeExerciseElement !== null && active_exercise.complete === false) {
+        // 1. add the XP (overall game)
+        this.currentUserXpValue -= active_exercise.xp;
+        // 2. change the buttons
+        const h5Element = activeExerciseElement.querySelector("h5");
+        activeExerciseElement.classList.add("button-user");
+        activeExerciseElement.classList.remove("button-user-selected");
+        h5Element.innerHTML = `${active_exercise.xp}XP`;
+        // 3. change the bar and the game room XP total
+        //// have to -1 here because we already changed the value of the button earlier
+        this.currentUserBarWidth += ( parseInt(activeExerciseElement.value,10) * -1 );
+        this.barExpCurrentUserTarget.innerHTML = `${this.currentUserBarWidth}`;
+        this.barCurrentUserTarget.style.width = `${(this.currentUserBarWidth / this.currentUserBarEndNumber) * 100}%`;
+      };
+
+      // Scenario 3 --  When data is updating the opponent* user's buttons and the exercises was checked 'completed'.
+      if (activeExerciseOpponentElement !== null && active_exercise.complete === true) {
+        // 1. add the XP (overall game)
+        this.opponentUserXpValue += active_exercise.xp
+        // 2. change the buttons
+        activeExerciseOpponentElement.classList.remove("opponent-button");
+        activeExerciseOpponentElement.classList.add("opponent-button-gray");
+        // 3. change the bar and the game room XP total
+        this.opponentUserBarWidth += ( parseInt(activeExerciseOpponentElement.value,10) );
+        this.barOpponentUserTarget.style.width = `${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`;
 
       };
 
-      if (activeExerciseOpponentElement !== null) {
-        /* we didn't change the value of the button after clicking, unlike the current_user
-         which is why there is an if else statement here. */
-        if (active_exercise.complete === true) {
-          this.opponentUserBarWidth += ( parseInt(activeExerciseOpponentElement.value,10) );
-        } else {
-          this.opponentUserBarWidth -= ( parseInt(activeExerciseOpponentElement.value,10) );
-        };
+      // Scenario 4 --  When data is updating the opponent* user's buttons and the exercises was checked 'NOT completed'.
+      if (activeExerciseOpponentElement !== null && active_exercise.complete === false) {
+        // 1. add the XP (overall game)
+        this.opponentUserXpValue -= active_exercise.xp;
+        // 2. change the buttons
+        activeExerciseOpponentElement.classList.add("opponent-button");
+        activeExerciseOpponentElement.classList.remove("opponent-button-gray");
+        // 3. change the bar and the game room XP total
+        this.opponentUserBarWidth -= ( parseInt(activeExerciseOpponentElement.value,10) );
         this.barOpponentUserTarget.style.width = `${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`;
-        console.log(`the opponent bar width ${(this.opponentUserBarWidth / this.opponentUserBarEndNumber) * 100}%`);
       };
     };
 
@@ -239,7 +224,7 @@ export default class extends Controller {
 
       // Update the data to the ruby controller
         const user_game_data_id = reg_finish_hash.user_game_data_id
-        console.log(user_game_data_id)
+        console.log("Game updated with finished!")
         fetch(`/room/${this.roomIdValue}/user_game_data/${user_game_data_id}`, {
           method: "PATCH",
           headers: {

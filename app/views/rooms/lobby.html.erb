@@ -2,15 +2,25 @@
 <div data-controller="lobby-subscribe" data-lobby-subscribe-room-id-value="<%=@room.id%>">
 
   <div class="lobby-page-container" data-lobby-subscribe-target="linkPage" data-controller="copy-text">
+    <div class="spacer" style="padding-top: 10%"></div>
     <h3>Waiting for bodfren...</h3>
     <h3>Share the link below with a friend to start a game!</h3>
     <%= button_to "Copy Link", "#", value: "localhost:3000/room/#{params[:id]}/lobby", class: "gray-modal-btn", style: "width: auto; height:50px;", data: {action: "click->copy-text#copyText", copy_text_target: "linkBtn"} %>
+    <div class="cancel-btn" style="padding-top: 40px;">
+      <strong><%= link_to "Back to Home", root_path , style: "text-decoration: none;"%></strong>
+    </div>
   </div>
 
   <div class="lobby-page-container-hidden" data-lobby-subscribe-target="startPage">
+    <div class="spacer" style="padding-top: 10%"></div>
     <h3>Are you ready?</h3>
     <%= button_to "Start Match", rooms_create_from_lobby_room_path(@room), class: "main-orange-btn", style: "width: auto; height: 50px;", data: { action: "click->lobby-subscribe#wait" } %>
+    <div class="cancel-btn" style="padding-top: 60%;">
+      <strong><%= link_to "Back to Home", root_path , style: "text-decoration: none;"%></strong>
+    </div>
   </div>
+
+
 
 </div>
 <!-- The divs above are just for the scrolling animation and bg
