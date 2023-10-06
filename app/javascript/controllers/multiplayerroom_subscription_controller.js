@@ -27,12 +27,15 @@ export default class extends Controller {
     connect() {
     this.csrfToken = document.querySelector("meta[name='csrf-token']").content;
 
+
+    this.leftGameAlert = document.querySelector(".left-game")
+    this.opponentRightDisplay = document.getElementById("opponent-right-display")
+
     //create multiplayerroom_subscription_channel
     this.channel = createConsumer().subscriptions.create(
       { channel: "MultiplayerChannel", id: this.roomIdValue },
       { received: data => {
           const received_data =JSON.parse(data)
-
           if (received_data.hasOwnProperty("xp")) {
             // to update an exercise as done/not done
             const active_exercise = received_data;
@@ -58,17 +61,26 @@ export default class extends Controller {
             this.timerTarget.innerHTML = `Finished`
             };
 
-
             const finishedUserId = bonus_finish_hash.user_id;
             this.showOpponentFinishedTag(finishedUserId);
             this.updateUserGameDatumWithBonusFinish(bonus_finish_hash);
+
           } else if (received_data.hasOwnProperty("start_bonus")) {
             if (received_data.start_bonus == true) {
               location.reload();
             };
+
           } else if (received_data.hasOwnProperty("user_who_chose_bonus_id")) {
             const userWhoChoseBonusId = received_data.user_who_chose_bonus_id;
             this.showOpponentBonusTag(userWhoChoseBonusId);
+
+          } else if (received_data.hasOwnProperty("disconnect")) {
+            this.opponentRightDisplay.style = "display: none";
+            this.leftGameAlert.style = "display: block";
+
+          } else if (received_data.hasOwnProperty("connect")) {
+            this.opponentRightDisplay.style = "display: block";
+            this.leftGameAlert.style = "display: none";
           }
         }
 
@@ -101,7 +113,6 @@ export default class extends Controller {
     this.opponentUserBarEndNumber = this.opponentUserEndXpValue
     this.currentUserBarWidth = 0
     this.opponentUserBarWidth = 0
-
 
 
     //set the final EXP printed at the bottom via innerHTML
@@ -251,7 +262,6 @@ export default class extends Controller {
       // That should be done in the controller and then sent to the javascript so that the User Game Datum can be updated.
       // After which the bonus modal should pop up asking if you want to wait for your friend or not.
       const user_game_data_id = bonus_finish_hash.user_game_data_id
-      console.log(user_game_data_id)
       fetch(`/room/${this.roomIdValue}/user_game_data/${user_game_data_id}`, {
           method: "PATCH",
           headers: {
@@ -273,7 +283,6 @@ export default class extends Controller {
 
     showBonusModal(user_id) {
       const modal = document.getElementById(`bonusPromptModal`);
-      console.log(modal)
       if (this.currentUserValue == user_id ) {
         modal.classList.remove("hidden-modal");
         modal.classList.add("game-modal");
@@ -335,6 +344,7 @@ export default class extends Controller {
         .then(response => {
           if (response.ok) {
             console.log("The room was updated with a patch.")
+
             // Show the wait message
             const exerciseDisplay = document.querySelector(".current-user");
             exerciseDisplay.style = "display:none";
@@ -392,6 +402,10 @@ export default class extends Controller {
         }
       })
     };
+
+    disconnect() {
+      this.channel.unsubscribe()
+    }
 
   };
 

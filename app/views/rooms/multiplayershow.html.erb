@@ -34,16 +34,16 @@
   <main class="current-user" data-multiplayerroom-subscription-target="player1exercise">
     <% @player1_exercises.each do |active_exercise| %>
       <div class="user-btn">
-        <button class="icon" id="user-btn-img">
+        <button id="user-btn-img">
           <%= image_tag("svgs/search_logo_gray.svg") %>
         </button>
-        <button type="button" class="button-user button"
+        <button type="button" class="button button-user"
           data-action="click->multiplayerroom-subscription#updateActiveExercise"
           value="<%=active_exercise.exercise.exercise_xp%>"
           id="<%= active_exercise.id %>"
         >
           <span class="spacer" style="width:10%"></span>
-          <h3 class="text fs-5"><%= active_exercise.exercise.title %></h3>
+          <h3 class="text"><%= active_exercise.exercise.title %></h3>
           <h5 class="xp"><%= active_exercise.exercise.exercise_xp %>XP</h5>
         </button>
       </div>
@@ -62,7 +62,7 @@
     <% if @room.bonus %>
       <h3><%="You can leave the room any time without penalty."%></h3>
     <% else %>
-      <h3><%="Waiting for your bodfren to select bonus."%></h3>
+      <h3><%="Waiting for your bodfren to select bonus"%></h3>
     <% end %>
   </main>
 
@@ -75,13 +75,13 @@
           </button>
         </div>
       <% end %>
-      <div class= "xp-container <%= @room.bonus ? 'bonus' : '' %>">
+      <div class= "xp-container  <%= @room.bonus ? 'bonus' : '' %>" style="width:80%; ">
         <div class="progress-bar" style="background: grey;">
           <div class=<%= @room.bonus ? 'bonus-game-progressed-bar' : 'game-progressed-bar'%> data-multiplayerroom-subscription-target="barOpponentUser"></div>
         </div>
       </div>
     </section>
-    <section class="opponent-right" style="display:none"<%= @room.bonus ? 'bonus' : '' %>>
+    <section class="opponent-right <%= @room.bonus ? 'bonus' : '' %>" id="opponent-right-display">
       <aside class= "opp-aside">
         <p class="opp-title">Your Bodfren</p>
         <%= image_tag("svgs/bodfrens_graphics-01.svg", class: "opp-img") %>
@@ -91,7 +91,7 @@
         <p class="bonus-round" style="display:none">Your bodfren has opted for a bonus round!</p>
       </aside>
     </section>
-    <section class="opponent-right left-game">
+    <section class="opponent-right left-game" style="display:none">
       <h3>Your bodfren has left the game!</h3>
     </section>
   </main>
