@@ -77,7 +77,6 @@ export default class extends Controller {
           } else if (received_data.hasOwnProperty("disconnect")) {
             this.opponentRightDisplay.style = "display: none";
             this.leftGameAlert.style = "display: block";
-
           } else if (received_data.hasOwnProperty("connect")) {
             this.opponentRightDisplay.style = "display: block";
             this.leftGameAlert.style = "display: none";
@@ -131,8 +130,13 @@ export default class extends Controller {
     showOpponentFinishedTag(finishedUserId) {
       // Shows the opponent's orange bonus tag if he/she chooses to play bonus.
        if (finishedUserId !== this.currentUserValue) {
-         const completeTag = document.querySelector(".workout-complete");
+         if (this.bonusValue) {
+         const completeTag = document.querySelector(".workout-complete-bonus");
          completeTag.style = "display:block";
+         } else {
+          const completeTag = document.querySelector(".workout-complete");
+          completeTag.style = "display:block";
+         }
        };
      };
 
@@ -150,6 +154,9 @@ export default class extends Controller {
         h5Element.innerHTML = "XP\ngained";
         activeExerciseElement.classList.remove("button-user");
         activeExerciseElement.classList.add("button-user-selected");
+        if (this.bonusValue) {
+          activeExerciseElement.classList.add("bonus-color");
+        }
         // 3. change the bar and the game room XP total
         //// have to -1 here because we already changed the value of the button earlier
         this.currentUserBarWidth += ( parseInt(activeExerciseElement.value,10) * -1 );
@@ -166,6 +173,9 @@ export default class extends Controller {
         const h5Element = activeExerciseElement.querySelector("h5");
         activeExerciseElement.classList.add("button-user");
         activeExerciseElement.classList.remove("button-user-selected");
+        if (this.bonusValue) {
+          activeExerciseElement.classList.remove("bonus-color");
+        }
         h5Element.innerHTML = `${active_exercise.xp}XP`;
         // 3. change the bar and the game room XP total
         //// have to -1 here because we already changed the value of the button earlier

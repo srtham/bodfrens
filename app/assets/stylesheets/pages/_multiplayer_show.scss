@@ -6,6 +6,7 @@
   height: 100vh;
   width: 100vw;
   gap: 5px;
+  justify-content: space-between;
 
   h1 {
     color: #515151;
@@ -19,8 +20,8 @@
 }
 
 .multiplayer-top {
-  margin-top: 5%;
-  padding: 10px;
+  padding: 20px;
+  height: auto;
 }
 
 .timer {
@@ -60,7 +61,7 @@
   justify-content: center;
   gap: 1.2em;
   width: 100%;
-  height: 55%;
+  height: 45%;
   align-items: center;
 }
 
@@ -162,6 +163,10 @@
   }
 }
 
+.bonus-color {
+  background: linear-gradient(270deg, #43b191 1.83%, #55d1ad 95.87%);
+}
+
 .user-btn.text {
 
 }
@@ -208,7 +213,7 @@
 .opponent {
   display: flex;
   width: 100vw;
-  height: 45%;
+  height: 35%;
   padding: 10px 20px 20px 20px;
   border-radius: 30px 30px 0px 0px;
   background: linear-gradient(180deg, #B5B5B5 0%, rgba(181, 181, 181, 0) 100%);
@@ -278,21 +283,13 @@
 }
 
 .opponent-right {
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // gap: 10px;
-  // width: 114px;
-  // height: 337px;
-  // padding: 10px;
+  width: 40%;
 }
 
 .opponent-right.left-game {
-  padding-top: 20%;
   h3 {
     font-weight: 700;
     text-align: center;
-    color: $gray;
   }
 }
 
@@ -320,7 +317,7 @@
   border-radius: 73px;
   background: lightgray 50% / cover no-repeat;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  margin: 10px 0 10px 0;
+  margin: 5px 0px;
 }
 
 .opp-username {
@@ -331,7 +328,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  margin-bottom: 5px;
+  margin: 0;
 }
 
 .opp-lvl {
@@ -342,6 +339,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin-bottom: 4px;
 }
 
   .opponent-right.bonus .opp-title,
@@ -358,11 +356,27 @@
   padding: 5px 6px;
   text-align: center;
   font-family: Montserrat;
-  font-size: 7px;
+  font-size: 11px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  margin-bottom: 10px;
+  margin-bottom:5px;
+  width: 100%;
+}
+
+.workout-complete-bonus {
+  border-radius: 30px;
+  background: #dbdbdb;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
+  color: #434343;
+  padding: 5px 6px;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 5px;
 }
 
 .bonus-round {
@@ -370,14 +384,16 @@
   background: linear-gradient(270deg, #EA7F09 -17.65%, #F8B614 108.82%);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
   color: #FFF;
-  padding: 10px 11px;
+  padding: 6px 2px;
   text-align: center;
   font-family: Montserrat;
-  font-size: 7px;
+  font-size: 11px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  width: 100%;
 }
+
 
 #container-gray {
   position: fixed;

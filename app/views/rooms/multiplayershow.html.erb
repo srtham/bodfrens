@@ -4,6 +4,7 @@
 
   data-controller="multiplayerroom-subscription"
   data-multiplayerroom-subscription-room-id-value="<%= @room.id %>"
+  data-multiplayerroom-subscription-bonus-value="<%=@room.bonus%>"
   data-multiplayerroom-subscription-current-user-value="<%= @player1.id %>"
   data-multiplayerroom-subscription-opponent-user-value="<%= @player2.id %>"
   data-multiplayerroom-subscription-current-user-data-id-value="<%= @player1_user_game_data.id %>"
@@ -32,9 +33,9 @@
   </header>
 
   <main class="current-user" data-multiplayerroom-subscription-target="player1exercise">
-    <% @player1_exercises.each do |active_exercise| %>
+    <% @player1_exercises.each_with_index do |active_exercise, index| %>
       <div class="user-btn">
-        <button id="user-btn-img">
+        <button id="user-btn-img" data-bs-toggle="modal" data-bs-target="#exerciseModal<%=index +1%>">
           <%= image_tag("svgs/search_logo_gray.svg") %>
         </button>
         <button type="button" class="button button-user"
@@ -60,7 +61,7 @@
 
   <main class="wait-message" style= "display:none">
     <% if @room.bonus %>
-      <h3><%="You can leave the room any time without penalty."%></h3>
+      <h3><%="You can leave the room any time without penalty"%></h3>
     <% else %>
       <h3><%="Waiting for your bodfren to select bonus"%></h3>
     <% end %>
@@ -87,18 +88,18 @@
         <%= image_tag("svgs/bodfrens_graphics-01.svg", class: "opp-img") %>
         <p class="opp-username">Username</p>
         <p class="opp-lvl">lvl 39</p>
-        <p class="workout-complete" style="display:none">Workout Complete!</p>
-        <p class="bonus-round" style="display:none">Your bodfren has opted for a bonus round!</p>
+        <p class="<%= @room.bonus ? 'workout-complete-bonus' : 'workout-complete'%>" style="display:none">Finished!</p>
+        <p class="bonus-round" style="display:none">Selected Bonus</p>
       </aside>
     </section>
     <section class="opponent-right left-game" style="display:none">
-      <h3>Your bodfren has left the game!</h3>
+      <h3 style="<%= @room.bonus ? "color: #f7f7f7" : 'color: #2f2f2f' %>">Your bodfren has left the game!</h3>
     </section>
   </main>
 
   <!---Modals---->
     <!--------Game Completion Modal-------->
-    <section class="hidden-modal animate__animated animate__fadeIn" id="bonusPromptModal" tabindex="-1" style="background-color: transparent;">
+    <section class="hidden-modal animate__animated animate__fadeIn" id="bonusPromptModal" tabindex="-1">
         <div class="modal-dialog" style="width:90%;">
 
           <div class="modal-content" style="height: 83%; margin-top: 20%;">
@@ -151,10 +152,28 @@
             </div>
           </div>
         </div>
-      </div>
     </section>
 
+    <!--------Exercise Modals-------->
+    <% @player1_exercises.each_with_index do |active_exercise, index| %>
+      <section class="modal fade" aria-labelledby="exerciseModal<%=index + 1%>Label" aria-hidden="true" id="exerciseModal<%=index + 1%>" tabindex="-1">
+          <div class="modal-dialog">
 
+            <div class="exercise-modal">
+              <div class="modal-header"></div>
+              <div class="modal-body">
+                <h1><%= active_exercise.exercise.title %><br><h1>
+                <%= image_tag(asset_path(active_exercise.exercise.image_url), style: "width: 120px") %><br>
+                <p><%= active_exercise.exercise.description %></p>
+              </div>
+              <div class="modal-footer">
+                <p style="font-size:1rem; font-weight: 600;">Tap to close</p>
+              </div>
+            </div>
+          </div>
+      </section>
+      <% end %>
+  </div>
 
 </div>
 
