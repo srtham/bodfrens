@@ -46,9 +46,15 @@ class UserGameDataController < ApplicationController
 
   private
 
-  def game_time(user_time)
-    my_time = Time.at(user_time)
-    return my_time.strftime("%M:%S")
+  def game_time(user_time_in_seconds)
+    minutes = user_time_in_seconds / 60
+    seconds = user_time_in_seconds % 60
+
+    # Format minutes and seconds as strings with leading zeros if needed
+    formatted_minutes = format('%02d', minutes)
+    formatted_seconds = format('%02d', seconds)
+
+    return "#{formatted_minutes}:#{formatted_seconds}"
   end
 
   def xp_to_next_level(user_xp_earned, user_level)

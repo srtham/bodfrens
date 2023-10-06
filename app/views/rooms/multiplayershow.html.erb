@@ -32,7 +32,7 @@
 
   </header>
 
-  <main class="current-user" data-multiplayerroom-subscription-target="player1exercise">
+  <main class="current-user animate__animated animate__fadeInDown" data-multiplayerroom-subscription-target="player1exercise">
     <% @player1_exercises.each_with_index do |active_exercise, index| %>
       <div class="user-btn">
         <button id="user-btn-img" data-bs-toggle="modal" data-bs-target="#exerciseModal<%=index +1%>">
@@ -68,7 +68,7 @@
   </main>
 
   <main class="opponent <%= @room.bonus ? 'bonus' : '' %>" data-multiplayerroom-subscription-target="player2exercise">
-    <section class="opponent-left">
+    <section class="opponent-left ">
       <% @player2_exercises.each do |active_exercise| %>
         <div class="opponent-btn-container">
           <button type="button" class="opponent-button" id="<%= active_exercise.id %>" value="<%=active_exercise.exercise.exercise_xp%>">

@@ -2,10 +2,19 @@
 
   <h1 class="text-dark"> <strong>You gave up</strong></h1>
 
-  <p>You’ve lost XP, but you can try again next time!</p>
+  <p style="font-weight: 700">You’ve lost XP, but you can try again next time!</p>
 
   <div class="main-orange-btn">
     <strong><%= link_to "Continue", show_game_stats_room_path , style: "color: white; text-decoration: none;"%></strong>
   </div>
 
 </div>
+
+<!-- The divs above are just for the scrolling animation and bg
+find them under the _backgrounds.scss in components -->
+
+<div class="bg-container animate__animated animate__fadeIn">
+  <div class= "bg-color-gray" ></div>
+</div>
+
+<!-- ##---->

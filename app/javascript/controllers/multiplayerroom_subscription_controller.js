@@ -25,8 +25,14 @@ export default class extends Controller {
 
 
     connect() {
+
+    this.startSound = new Audio("/audios/start.mp3")
+    this.buttonSound = new Audio("/audios/clicksound.mp3")
+    this.finishSound = new Audio("/audios/Finish.wav")
+
     this.csrfToken = document.querySelector("meta[name='csrf-token']").content;
 
+    this.startSound.play()
 
     this.leftGameAlert = document.querySelector(".left-game")
     this.opponentRightDisplay = document.getElementById("opponent-right-display")
@@ -45,12 +51,9 @@ export default class extends Controller {
             if (reg_finish_hash.user_id === this.currentUserValue) {
             clearInterval(this.countdown);
             this.timerTarget.innerHTML = `Finished`
-            };
-
-            // To mark a user_game_data with a finished properly
-
             this.updateUserGameDatumWithFinish(reg_finish_hash);
-
+            };
+            // To mark a user_game_data with a finished properly
             const finishedUserId = reg_finish_hash.user_id;
             this.showOpponentFinishedTag(finishedUserId);
           } else if (received_data.hasOwnProperty("bonus_finish")) {
@@ -213,6 +216,7 @@ export default class extends Controller {
 
 
     updateActiveExercise(e) { // To send requests to the controller
+      this.buttonSound.play()
       e.preventDefault()
       // console.log(e.currentTarget)
       // console.log(e.currentTarget.value)
@@ -241,8 +245,7 @@ export default class extends Controller {
     };
 
     updateUserGameDatumWithFinish(reg_finish_hash) {
-      // Needs to stop the countdown so that it says "Round End"
-
+      this.finishSound.play()
       // Update the data to the ruby controller
         const user_game_data_id = reg_finish_hash.user_game_data_id
         console.log("Game updated with finished!")
@@ -266,7 +269,7 @@ export default class extends Controller {
 
     updateUserGameDatumWithBonusFinish(bonus_finish_hash) {
       // Needs to stop the countdown so that it says "Round End"
-
+      this.finishSound.play()
       // then update the user with the bonus_finish and the new time
       // So you need to get the time from the last room
       // That should be done in the controller and then sent to the javascript so that the User Game Datum can be updated.
