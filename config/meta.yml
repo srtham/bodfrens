@@ -1,0 +1,10 @@
+meta_product_name: "Bodfrens"
+meta_title: "Bodfrens - Sync simple online workouts with your friends!"
+meta_description: >
+  Elevate your fitness routine with Bodfrens! Unlock a world of fun and motivation through
+  our innovative experience points system. Whether you prefer sweating it out in real-time
+  with friends or embarking on a solo fitness adventure, we've curated a selection of
+  effortless yet effective exercises to kickstart your active lifestyle. Accessible on a
+  wide range of web browsers.
+meta_image: "logo.png" # should exist in `app/assets/images/`
+twitter_account: "@product_twitter_account" # required for Twitter Cards
