@@ -1,7 +1,8 @@
     <div class="modal fade" id="howToplayModal" tabindex="-1" aria-labelledby="howToplayModalLabel" aria-hidden="true">
       <div class="modal-dialog h2p">
         <div class="modal-content h2p">
-          <img id="customCloseButton" src="/assets/pngs/bodfrens_graphics-16.png" alt="Close" class="btn-close h2p" data-bs-dismiss="modal" aria-label="Close">
+          <%# <img id="customCloseButton" src="/assets/pngs/bodfrens_graphics-16.png" alt="Close" class="btn-close h2p" data-bs-dismiss="modal" aria-label="Close"> %>
+          <%= image_tag('pngs/bodfrens_graphics-16.png', id: 'customCloseButton', alt: 'Close', class: 'btn-close h2p', 'data-bs-dismiss' => 'modal', 'aria-label' => 'Close') %>
           <div class="modal-header h2p">
             <h5 class="modal-title" id="howToplayModalLabel">How to Play</h5>
           </div>
