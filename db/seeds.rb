@@ -24,8 +24,8 @@ exercise_data = [
   { title: "6 Alt Lunges", description: "Great for leg muscle and strength.", exercise_xp: 40, is_bonus: false, image_url: "animationsFA/Alt_Leg_Lunge.gif" },
   { title: "6 Raise Basket", description: "Full body strength and aerobic exercise.", exercise_xp: 35, is_bonus: false, image_url: "animationsFA/HalfBurpees.gif" },
   { title: "5 Go Toilet", description: "Excellent for building lower body strength.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Squats.gif" },
-  { title: "5 Jumping Jacks", description: "Good for cardiovascular fitness.", exercise_xp: 15, is_bonus: true, image_url: "animationsFA/Jumping_Jacks.gif" },
-  { title: "6 Marches", description: "Works on your back and arm muscles.", exercise_xp: 20, is_bonus: true, image_url: "animationsFA/High_knee.gif" },
+  { title: "5 Hand Raises", description: "Good for cardiovascular fitness.", exercise_xp: 15, is_bonus: true, image_url: "animationsFA/Jumping_Jacks.gif" },
+  { title: "6 Stand Ups", description: "Works on your back and arm muscles.", exercise_xp: 20, is_bonus: true, image_url: "animationsFA/High_knee.gif" },
   { title: "5 Kallang Wave", description: "Effective abdominal exercise.", exercise_xp: 20, is_bonus: true, image_url: "animationsFA/Crunches.gif" }
 ]
 exercise_data.each do |data|

@@ -36,7 +36,6 @@ class UserGameDataController < ApplicationController
     # @new_badge_count = @user_badge - @user_start_badge
 
     # badges logic
-    @user = current_user
     @friend_supporter_gained = check_friend_supporter
     @lone_wolf_gained = check_lone_wolf
     @bonus_bunny_gained = check_bonus_bunny
@@ -117,7 +116,7 @@ class UserGameDataController < ApplicationController
   end
 
   def check_first_game
-    first_game = @user.user_game_data.where(finish: [true, false]).count
+    first_game = @user.user_game_data.where(finish: true).count
     badge_title = "First Game"
 
     if first_game == 1

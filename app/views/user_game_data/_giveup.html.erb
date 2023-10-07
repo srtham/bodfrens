@@ -5,7 +5,7 @@
   <p style="font-weight: 700; width: 80%;">You’ve lost XP, but you can try again next time!</p>
 
   <div class="main-orange-btn">
-    <strong><%= link_to "Continue", show_game_stats_room_path , style: "color: white; text-decoration: none;"%></strong>
+    <strong><%= link_to "Continue", show_game_stats_room_path(@user_game_data.room) , style: "color: white; text-decoration: none;"%></strong>
   </div>
 
 </div>
