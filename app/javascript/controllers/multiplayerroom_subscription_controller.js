@@ -6,8 +6,8 @@ export default class extends Controller {
     static values = {
       roomId: Number,
       secondsUntilEnd: Number,
-      currentUser: Number, // change this to current user
-      opponentUser: Number, // change this to opponent
+      currentUser: Number,
+      opponentUser: Number,
       currentUserDataId: Number,
       opponentUserDataId: Number,
       activeexerciseId: Number,
@@ -21,7 +21,7 @@ export default class extends Controller {
       currentUserPreviousTiming: Number
      }
 
-    static targets = ["exercise", "button", "barCurrentUser", "timer", "xp", "barExpCurrentUser", "barFinalExpCurrentUser", "barOpponentUser", "bonusButton", "player1exercise", "player2exercise"]
+    static targets = ["exercise", "button", "barCurrentUser", "timer", "xp", "barExpCurrentUser", "barFinalExpCurrentUser", "barOpponentUser", "bonusButton", "player1exercise", "player2exercise", ]
 
 
     connect() {
@@ -52,6 +52,7 @@ export default class extends Controller {
             clearInterval(this.countdown);
             this.timerTarget.innerHTML = `Finished`
             this.updateUserGameDatumWithFinish(reg_finish_hash);
+            this.changeGiveUpButtonBonusRound(reg_finish_hash.user_id);
             };
             // To mark a user_game_data with a finished properly
             const finishedUserId = reg_finish_hash.user_id;
@@ -61,12 +62,12 @@ export default class extends Controller {
 
             if (bonus_finish_hash.user_id === this.currentUserValue) {
             clearInterval(this.countdown);
-            this.timerTarget.innerHTML = `Finished`
+            this.timerTarget.innerHTML = `Finished`;
+            this.updateUserGameDatumWithBonusFinish(bonus_finish_hash);
             };
 
             const finishedUserId = bonus_finish_hash.user_id;
             this.showOpponentFinishedTag(finishedUserId);
-            this.updateUserGameDatumWithBonusFinish(bonus_finish_hash);
 
           } else if (received_data.hasOwnProperty("start_bonus")) {
             if (received_data.start_bonus == true) {
@@ -416,9 +417,29 @@ export default class extends Controller {
       })
     };
 
+    changeGiveUpButtonBonusRound(finishedUserId){
+      const showButton = document.getElementById("showButton");
+      const hideButton = document.getElementById("hideButton");
+      const showModalClass = document.querySelector('.show-from-modal');
+      const hideModalClass = document.querySelector('.hide-from-modal');
+      const yesShowModalClassButton = document.getElementById("yes-show-modal-button");
+      const yesHideModalClassButton = document.getElementById("yes-hide-modal-button");
+
+      if (finishedUserId === this.currentUserValue){
+        showButton.style.display = "block";
+        hideButton.style.display = "none";
+        showModalClass.style.display = "block";
+        hideModalClass.style.display = "none";
+        yesShowModalClassButton.style = "width: 150px; height: 50px; display: flex;"
+        yesHideModalClassButton.style = "width: 150px; height: 50px; display: none;"
+      }
+    }
+
     disconnect() {
       this.channel.unsubscribe()
     }
+
+
 
   };
 
