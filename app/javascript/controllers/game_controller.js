@@ -301,7 +301,7 @@ export default class extends Controller {
           console.error("Failed to update user game data.");
         }
       })
-    }
+    };
 
 
   startBonus() {

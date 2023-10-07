@@ -47,14 +47,15 @@ class RoomsController < ApplicationController
     end
 
     LobbyChannel.broadcast_to(@room, "ready")
-    head :ok
   end
 
   def update
     if params[:bonus].nil?
+      # This code is to trigger multi-player.
       @room = Room.find(params[:id])
       @room.bonus_count_multiplayer += 1
       @room.save
+      MultiplayerChannel.broadcast_to(@room, { user_who_chose_bonus_id: params[:finished_user] }.to_json)
       return unless @room.bonus_count_multiplayer == 2
 
       @room.bonus = true
@@ -62,6 +63,7 @@ class RoomsController < ApplicationController
       MultiplayerChannel.broadcast_to(@room, { start_bonus: true }.to_json)
       head :ok
     else
+      # The following code is to trigger single player.
       bonus = params[:bonus]
       room = Room.find(params[:id])
       room.bonus = bonus
@@ -91,24 +93,28 @@ class RoomsController < ApplicationController
     else
       user_game_data_ids = @room.user_game_data.pluck(:user_id)
       remaining_user_id = user_game_data_ids.reject { |id| id == current_user.id }
-      @player2_user_id = remaining_user_id.first
+      @player2_user_id = remaining_user_id
       @player1_user_game_data = UserGameDatum.find_by(user: current_user, room: @room)
       @player1 = @player1_user_game_data.user
-      @player2 = User.find(@player2_user_id)
-
       @player2_user_game_data = UserGameDatum.find_by(user: @player2_user_id, room: @room)
+      @player2 = @player2_user_game_data.user
 
       if @room.bonus == true
+        @player1_previous_timing = @player1_user_game_data.time_taken
         @player1_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                            .where(exercises: { is_bonus: true })
+                                                    .where(exercises: { is_bonus: true })
         @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
-                                                            .where(exercises: { is_bonus: true })
+                                                    .where(exercises: { is_bonus: true })
       else
         @player1_exercises = @player1_user_game_data.active_exercises.joins(:exercise)
-                                                            .where(exercises: { is_bonus: false })
+                                                    .where(exercises: { is_bonus: false })
         @player2_exercises = @player2_user_game_data.active_exercises.joins(:exercise)
-                                                            .where(exercises: { is_bonus: false })
+                                                    .where(exercises: { is_bonus: false })
       end
+
+      @player1_xp = calculate_multiplayer_exp(@player1_exercises)
+      @player2_xp = calculate_multiplayer_exp(@player2_exercises)
+
       render "rooms/multiplayershow"
     end
   end
@@ -121,6 +127,16 @@ class RoomsController < ApplicationController
     end
     return final_xp
   end
+
+  def calculate_multiplayer_exp(exercises)
+    final_xp = 0
+    exercises.each do |exercise|
+      exact_exercise = Exercise.find(exercise.exercise_id)
+      final_xp += exact_exercise.exercise_xp
+    end
+    return final_xp
+  end
+
 
   # POST
   def single_player
