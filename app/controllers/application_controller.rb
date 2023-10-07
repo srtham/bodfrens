@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: %i[name username email password profile_photo])
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name username email password profile_photo])
   end
+
+  def default_url_options
+    { host: ENV["DOMAIN"] || "localhost:3000" }
+  end
+
     # [...]
     # before_action :authenticate_user!, :configure_permitted_parameters, if: :devise_controller?
 
