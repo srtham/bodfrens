@@ -37,7 +37,7 @@ class UserGameDataController < ApplicationController
 
     # badges logic
     @user = current_user
-    @friend_beater_gained = check_friend_beater
+    @friend_supporter_gained = check_friend_supporter
     @lone_wolf_gained = check_lone_wolf
     @bonus_bunny_gained = check_bonus_bunny
     @first_game_gained = check_first_game
@@ -81,11 +81,11 @@ class UserGameDataController < ApplicationController
   end
 
   # checking for earned badges logic
-  def check_friend_beater
-    beat_friend = @user.user_game_data.joins(:room).where(room: { mode: 'multi', winner_user_id: @user_id }).count
-    badge_title = "Friend Beater"
+  def check_friend_supporter
+    support_friend = @user.user_game_data.joins(:room).where(room: { mode: 'multi' }).count
+    badge_title = "Friend Supporter"
 
-    if beat_friend == 1
+    if support_friend == 1
       badge = Badge.find_by(title: badge_title)
       unless EarnedBadge.exists?(user: current_user, badge: badge)
         EarnedBadge.create!(user: current_user, badge: badge)

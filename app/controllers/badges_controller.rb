@@ -1,7 +1,7 @@
 class BadgesController < ApplicationController
   def index
     @badges = Badge.all
-    @earned_friend_beater = friend_beater
+    @earned_friend_supporter = friend_supporter
     @earned_lone_wolf = lone_wolf
     @earned_first_game = first_game
     @earned_bonus_bunny = bonus_bunny
@@ -10,9 +10,9 @@ class BadgesController < ApplicationController
 
   private
 
-  def friend_beater
+  def friend_supporter
     @user = current_user
-    multi_games_won = @user.user_game_data.joins(:room).where(room: { mode: 'multi', winner_user_id: @user_id }).count
+    multi_games_won = @user.user_game_data.joins(:room).where(room: { mode: 'multi' }).count
     multi_games_won >= 1
   end
 
