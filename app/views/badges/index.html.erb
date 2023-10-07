@@ -11,17 +11,17 @@
 
   <div class="tab-content">
     <div class="tab-pane fade show active" id="all-badges" role="tabpanel">
-      <% if @earned_friend_beater %>
+      <% if @earned_friend_supporter %>
         <div class="badge-container">
-          <p class="badge-title">Friend Beater</p>
-          <%= image_tag "pngs/bodfrens_graphics-05.png", alt: 'Friend Beater', class: 'badge-image' %>
-          <p class="badge-description">Win a friend in one game</p>
+          <p class="badge-title">Friend Supporter</p>
+          <%= image_tag "pngs/bodfrens_graphics-05.png", alt: 'Friend Supporter', class: 'badge-image' %>
+          <p class="badge-description">Play one game with a friend</p>
         </div>
       <% else %>
         <div class="badge-container">
-          <p class="badge-title">Friend Beater</p>
-          <%= image_tag "pngs/bodfrens_graphics-15.png", alt: 'Friend Beater', class: 'badge-image' %>
-          <p class="badge-description">Win a friend in one game</p>
+          <p class="badge-title">Friend Supporter</p>
+          <%= image_tag "pngs/bodfrens_graphics-15.png", alt: 'Friend Supporter', class: 'badge-image' %>
+          <p class="badge-description">Play one game with a friend</p>
         </div>
       <% end %>
       <% if @earned_lone_wolf %>
@@ -78,11 +78,11 @@
       <% end %>
     </div>
     <div class="tab-pane fade" id="your-badges" role="tabpanel">
-      <% if @earned_friend_beater %>
+      <% if @earned_friend_supporter %>
         <div class="badge-container">
-          <p class="badge-title">Friend Beater</p>
-          <%= image_tag "pngs/bodfrens_graphics-05.png", alt: 'Friend Beater', class: 'badge-image' %>
-          <p class="badge-description">Win a friend in one game</p>
+          <p class="badge-title">Friend Supporter</p>
+          <%= image_tag "pngs/bodfrens_graphics-05.png", alt: 'Friend Supporter', class: 'badge-image' %>
+          <p class="badge-description">Play one game with a friend</p>
         </div>
       <% end %>
       <% if @earned_lone_wolf %>

@@ -14,9 +14,9 @@ class UsersController < ApplicationController
     @single_games_played = @user.user_game_data.joins(:room).where(room: { mode: 'single' }).count
     @single_games_finished = @user.user_game_data.joins(:room).where(room: { mode: 'single' }, finish: true).count
     @single_games_quit = @user.user_game_data.joins(:room).where(room: { mode: 'single' }, finish: false).count
-    @multi_games_won = @user.user_game_data.joins(:room).where(room: { mode: 'multi', winner_user_id: @user_id }).count
-    @multi_games_lost = @user.user_game_data.joins(:room).where(room: { mode: 'multi' }).where.not(room: { winner_user_id: @user_id }).count
-    @multi_games_quit = @user.user_game_data.joins(:room).where(room: { mode: 'multi', winner_user_id: @user_id }, finish: false).count
+    @multi_games_played = @user.user_game_data.joins(:room).where(room: { mode: 'multi' }).count
+    @multi_games_finished = @user.user_game_data.joins(:room).where(room: { mode: 'multi' }, finish: true).count
+    @multi_games_quit = @user.user_game_data.joins(:room).where(room: { mode: 'multi' }, finish: false).count
   end
 
   private
