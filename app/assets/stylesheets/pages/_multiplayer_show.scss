@@ -247,12 +247,14 @@
   align-items: center;
   width: 90%;
   height: 10px;
+  color:$gray;
   padding: 15px 15px 15px 19px;
   border-radius: 25px;
   background: #DBDBDB;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.13);
   border: none;
 }
+
 .opponent-button-gray {
   display: flex;
   justify-content: center;
