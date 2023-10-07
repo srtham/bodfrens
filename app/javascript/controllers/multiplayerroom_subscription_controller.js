@@ -62,11 +62,11 @@ export default class extends Controller {
             if (bonus_finish_hash.user_id === this.currentUserValue) {
             clearInterval(this.countdown);
             this.timerTarget.innerHTML = `Finished`
+            this.updateUserGameDatumWithBonusFinish(bonus_finish_hash);
             };
 
             const finishedUserId = bonus_finish_hash.user_id;
             this.showOpponentFinishedTag(finishedUserId);
-            this.updateUserGameDatumWithBonusFinish(bonus_finish_hash);
 
           } else if (received_data.hasOwnProperty("start_bonus")) {
             if (received_data.start_bonus == true) {
