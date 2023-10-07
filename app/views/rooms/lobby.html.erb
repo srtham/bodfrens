@@ -5,7 +5,7 @@
     <div class="spacer" style="padding-top: 10%"></div>
     <h3>Waiting for bodfren...</h3>
     <h3>Share the link below with a friend to start a game!</h3>
-    <%= button_to "Copy Link", "#", value: "localhost:3000/room/#{params[:id]}/lobby", class: "gray-modal-btn", style: "width: auto; height:50px;", data: {action: "click->copy-text#copyText", copy_text_target: "linkBtn"} %>
+    <%= button_to "Copy Link", "#", value: "https://www.bodfrens.com/room/#{params[:id]}/lobby", class: "gray-modal-btn", style: "width: auto; height:50px;", data: {action: "click->copy-text#copyText", copy_text_target: "linkBtn"} %>
     <div class="cancel-btn" style="padding-top: 40px;">
       <strong><%= link_to "Back to Home", root_path , style: "text-decoration: none;"%></strong>
     </div>
