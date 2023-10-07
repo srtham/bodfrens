@@ -3,15 +3,18 @@ class User < ApplicationRecord
   :recoverable, :rememberable, :validatable
   has_many :earned_badges
   has_many :user_game_data
+  has_one_attached :profile_photo
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
   def average_time
     user_data = user_game_data
     if user_data.present?
-      average_time = user_data.sum(:time_taken).to_f / 60 / user_data.count
-      my_time = Time.at(average_time)
-      formatted_time = my_time.strftime("%M:%S")
+      average_time = user_data.sum(:time_taken).to_f / user_data.count
+      minutes = average_time / 60
+      seconds = average_time % 60
+      formatted_time = "#{minutes.to_i.to_s.rjust(2, '0')}:#{seconds.to_i.to_s.rjust(2, '0')}"
       return formatted_time
     else
       return 0

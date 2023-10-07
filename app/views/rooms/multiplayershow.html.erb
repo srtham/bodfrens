@@ -85,8 +85,16 @@
     <section class="opponent-right <%= @room.bonus ? 'bonus' : '' %>" id="opponent-right-display">
       <aside class= "opp-aside">
         <p class="opp-title">Your Bodfren</p>
-        <%= image_tag("svgs/bodfrens_graphics-01.svg", class: "opp-img") %>
-        <p class="opp-username">Username</p>
+          <% if @player2.profile_photo.attached? %>
+            <%= cl_image_tag(@player2.profile_photo.key, class: "opp-img") %>
+          <% else %>
+          <%= image_tag("svgs/bodfrens_graphics-01.svg", class: "opp-img" ) %>
+          <% end %>
+          <p class="opp-username"><% if @player2.username.blank? %>
+            <%= "Player2" %>
+          <% else %>
+            <%= @player2.username %>
+          <% end %></p>
         <p class="opp-lvl">lvl 39</p>
         <p class="<%= @room.bonus ? 'workout-complete-bonus' : 'workout-complete'%>" style="display:none">Finished!</p>
         <p class="bonus-round" style="display:none">Selected Bonus</p>
