@@ -27,7 +27,9 @@
     <% if @room.bonus %>
       <button type="button" class="multiplayer giveup-btn" data-bs-toggle="modal" data-bs-target="#giveUpModal" style="width: 108px">End Game</button>
     <% else %>
-      <button type="button" class="multiplayer giveup-btn" data-bs-toggle="modal" data-bs-target="#giveUpModal">Give Up</button>
+      <button type="button" class="multiplayer giveup-btn" id="hideButton" data-bs-toggle="modal" data-bs-target="#giveUpModal">Give Up</button>
+      <button type="button" class="multiplayer giveup-btn" id="showButton"
+      data-bs-toggle="modal" data-bs-target="#giveUpModal" style="width: 108px; display: none">End Game</button>
     <% end %>
 
   </header>
@@ -147,14 +149,16 @@
               <% if @room.bonus? %>
                 End the bonus round? There won't be a penalty.
               <% else %>
-                Giving up will forfeit 100XP.<br>Are you sure?
+                <p class="hide-from-modal" >Giving up will forfeit 100XP.<br>Are you sure?</p>
+                <p class="show-from-modal" style="display: none;">End the round? There won't be a penalty.</p>
               <% end %>
             </div>
             <div class="modal-footer">
               <% if @room.bonus? %>
                 <button type="button" data-action="click->multiplayerroom-subscription#updateUserGameDatumWithBonusEnd" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
               <% else %>
-                <button type="button" data-action="click->multiplayerroom-subscription#updateUserGameDatumWithQuit" class="main-orange-btn" style="width: 150px; height: 50px;">Yes</button>
+                <button type="button" data-action="click->multiplayerroom-subscription#updateUserGameDatumWithQuit" class="main-orange-btn" id="yes-hide-modal-button" style="width: 150px; height: 50px;">Yes</button>
+                <%= link_to "Yes", show_game_complete_room_path, class: "main-orange-btn", id: "yes-show-modal-button", style: "width: 150px; height: 50px; display: none;" %>
               <% end %>
               <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
             </div>
