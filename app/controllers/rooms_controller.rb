@@ -98,6 +98,8 @@ class RoomsController < ApplicationController
       @player1 = @player1_user_game_data.user
       @player2_user_game_data = UserGameDatum.find_by(user: @player2_user_id, room: @room)
       @player2 = @player2_user_game_data.user
+      @player2_total_xp = @player2.user_game_data.sum(:game_xp)
+      @player2_lvl = (@player2_total_xp.to_i / 200) + 1
 
       if @room.bonus == true
         @player1_previous_timing = @player1_user_game_data.time_taken
@@ -161,6 +163,7 @@ class RoomsController < ApplicationController
   end
 
   private
+
 
   def set_room
     @room = Room.find(params[:id])
