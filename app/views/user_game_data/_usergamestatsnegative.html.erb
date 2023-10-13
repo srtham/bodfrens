@@ -9,12 +9,12 @@
 </div>
 
   <div class="d-flex flex-column">
-      <div class="col-md-8" style=" padding: 30px; padding-block-start: 20px;">
+      <div class="col-md-8" style="padding: 30px; padding-block-start: 20px;">
         <h6 class = "text-white"><strong><%= 100 + @user_game_data.game_xp %> XP Earned</strong></h6>
         <h6><strong>- 100 XP Lost</strong></h6>
       </div>
 
-    <div class= "xp-container" style=" padding-block-start: 20px;">
+    <div class= "xp-container" style="padding: 0px 50px 10px 50px; width:100%;">
       <% if @user_game_data.game_xp >= 0 %>
         <h3 class = "text-white"><strong><%= @user_game_data.game_xp %> XP Earned</strong></h5>
       <% else %>
@@ -24,11 +24,11 @@
         <div class="stats-progressed-bar" data-game-button-target="bar" style="width: <%= @xp_progress_percentage %>%;"></div>
       </div>
       <p class="text-white" style = "padding-block-start:10px;"> <%= @xp_left_to_next_level %> XP left to the next level </p>
-      <h5 class = "text-white" style = "padding-block-start:20px; padding-block-end: 30px;"><strong> You are at level <%= @user_level %> now.</strong></h5>
+      <h5 class = "text-white" style = "padding: 10px 10px 0px 10px;"><strong> You are at level <%= @user_level %> now.</strong></h5>
     </div>
 
     <!-- Badges (to be inserted; based on what was earned from the game) -->
-    <div class="col-md-8" style="padding-block-start: 30px; padding-block-end:30px;">
+    <div class="col-md-8" style="padding: 20px 30px;">
     <% badges_earned = [] %>
     <% badges_earned << "Friend Supporter" if @friend_supporter_gained %>
     <% badges_earned << "Lone Wolf" if @lone_wolf_gained %>

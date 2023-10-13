@@ -16,7 +16,7 @@
 
 <div class="d-flex flex-column">
 
-  <div class= "xp-container" style=" padding-block-start: 30px; width:100%;">
+  <div class= "xp-container" style="padding: 20px 50px 10px 50px; width:100%;">
     <h3 class = "text-white"><strong><%= @user_game_data.game_xp %> XP Earned</strong></h5>
     <h6 class = "text-white"> <%= @xp_left_to_next_level %> XP left to the next level </h6>
     <div class="progress-bar" > <!-- to be animated -->
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div class="col-md-8" style="padding-block-start: 30px; padding-block-end:30px;">
+  <div class="col-md-8" style="padding-block-start: 30px; padding-block-end:20px;">
   <% if @user_level.to_i > @user_start_level.to_i %>
     <h5 class = "text-white"><strong><%= "You leveled up!"%></strong></h5>
     <h6 class = "text-white">You are at level <%= @user_level %> now.</h6>
@@ -34,7 +34,7 @@
   </div>
 
   <!-- Badges (to be inserted; based on what was earned from the game) -->
-  <div class="col-md-8" style="padding-block-start: 30px; padding-block-end:30px;">
+  <div class="col-md-8" style="padding: 20px 30px;">
   <% badges_earned = [] %>
   <% badges_earned << "Friend Supporter" if @friend_supporter_gained %>
   <% badges_earned << "Lone Wolf" if @lone_wolf_gained %>

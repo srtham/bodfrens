@@ -8,6 +8,15 @@
   padding-top: 123px;
 }
 
+.exercise-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+
 #exerciseCarouselIndicators {
   height: 100%;
   width: 100%;
