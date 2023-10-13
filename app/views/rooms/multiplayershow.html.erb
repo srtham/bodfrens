@@ -97,7 +97,7 @@
           <% else %>
             <%= @player2.username %>
           <% end %></p>
-        <p class="opp-lvl">lvl 1</p>
+        <p class="opp-lvl">lvl <%=@player2_lvl%></p>
         <p class="<%= @room.bonus ? 'workout-complete-bonus' : 'workout-complete'%>" style="display:none">Finished!</p>
         <p class="bonus-round" style="display:none">Selected Bonus</p>
       </aside>
