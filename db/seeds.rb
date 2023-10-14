@@ -13,29 +13,25 @@ Exercise.destroy_all
 puts "Clearing done"
 
 puts "Clearing all User Data"
-UserGameDatum.destroy_all
 puts "Clearing done"
 
 puts "create 10 exercise"
 # Create 10 example exercises
 exercise_data = [
-  { title: "5 Air Push-Ups", description: "Basic push-ups for upper body strength.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/Push_ups.gif" },
-  { title: "3 Kicks", description: "Core exercise focusing on the abdominal muscles.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Sit_ups.gif" },
-  { title: "4 Alt Lunges", description: "Great for leg muscle and strength.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Alt_Leg_Lunge.gif" },
-  { title: "4 Raise Basket", description: "Full body strength and aerobic exercise.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/HalfBurpees.gif" },
-  { title: "3 Go Toilet", description: "Excellent for building lower body strength.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/Squats.gif" },
-  { title: "5 Hand Raises", description: "Good for cardiovascular fitness.", exercise_xp: 40, is_bonus: true, image_url: "animationsFA/Jumping_Jacks.gif" },
-  { title: "3 Waves", description: "Works on your back and arm muscles.", exercise_xp: 35, is_bonus: true, image_url: "animationsFA/High_knee.gif" },
-  { title: "5 Claps", description: "Effective abdominal exercise.", exercise_xp: 40, is_bonus: true, image_url: "animationsFA/Crunches.gif" }
+  { title: "30 Push-Ups", description: "Basic push-ups for upper body strength.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/Push_ups.gif" },
+  { title: "30 Sit-Ups", description: "Core exercise focusing on the abdominal muscles.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Sit_ups.gif" },
+  { title: "20 Alt Lunges", description: "Great for leg muscle and strength.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Alt_Leg_Lunge.gif" },
+  { title: "10 Half-Burpees", description: "Full body strength and aerobic exercise.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/HalfBurpees.gif" },
+  { title: "50 Squats", description: "Excellent for building lower body strength.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/Squats.gif" },
+  { title: "20 Jumping Jacks", description: "Good for cardiovascular fitness.", exercise_xp: 40, is_bonus: true, image_url: "animationsFA/Jumping_Jacks.gif" },
+  { title: "30 High Knees", description: "Works on your back and arm muscles.", exercise_xp: 35, is_bonus: true, image_url: "animationsFA/High_knee.gif" },
+  { title: "10 Crunches", description: "Effective abdominal exercise.", exercise_xp: 40, is_bonus: true, image_url: "animationsFA/Crunches.gif" }
 ]
 exercise_data.each do |data|
   Exercise.create(data)
 end
 
-puts "Clearing all Badges"
-Badge.destroy_all
-puts "Clearing done"
-puts "create 10 exercise"
+puts "created 10 exercise"
 badge = [
   { title: "Friend Supporter", description: "Play one game with a friend", image_url: "pngs/bodfrens_graphics-05.png" },
   { title: "Lone Wolf", description: "Complete 3 single player games", image_url: "pngs/bodfrens_graphics-08.png" },

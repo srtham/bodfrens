@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_113802) do
 
   create_table "active_exercises", force: :cascade do |t|
     t.bigint "exercise_id", null: false
-    t.boolean "complete"
+    t.boolean "complete", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_game_datum_id"
@@ -78,12 +78,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_113802) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_url"
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string "photo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "rooms", force: :cascade do |t|
