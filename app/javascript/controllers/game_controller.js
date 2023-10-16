@@ -217,7 +217,15 @@ export default class extends Controller {
           "X-CSRF-Token": this.csrfToken
         },
         body: JSON.stringify({bonus: true})
-      });
+      })
+      .then(response => {
+        if (response.ok) {
+          location.reload()
+        } else {
+          // Handle errors if needed
+          console.error("Failed to update user game data.");
+        }
+      })
     }
 
 
@@ -307,7 +315,6 @@ export default class extends Controller {
   startBonus(e) {
     e.preventDefault()
     this.changeRoomToBonus();
-    location.reload();
   }
 
 }
