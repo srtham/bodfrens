@@ -304,7 +304,8 @@ export default class extends Controller {
     };
 
 
-  startBonus() {
+  startBonus(e) {
+    e.preventDefault()
     this.changeRoomToBonus();
     location.reload();
   }
