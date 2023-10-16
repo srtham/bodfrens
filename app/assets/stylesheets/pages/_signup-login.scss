@@ -1,7 +1,11 @@
 .signup-container {
+  display: flex;
   max-width: 100%;
   height: 100vh;
   overflow-x: hidden;
+  align-items: center;
+  position: relative;
+  justify-content: center;
 }
 
 .signup-top-bar {
@@ -23,20 +27,18 @@
 }
 
 #signup-logo {
-  margin-bottom: 44px;
+  margin-bottom: 0px;
 }
 
 #new_user {
   display: flex;
   width: 302px;
-  padding: 32px 0px;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 9px;
 }
 
 .signup {
-  height: 35px;
   align-self: stretch;
 }
 
@@ -68,6 +70,12 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.form-inputs {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .form-check-label {
@@ -142,3 +150,49 @@
  .signin-bottom {
   margin-top: 30px;
  }
+
+ .user_email {
+  width: 100%;
+ }
+
+ .user_password {
+  width: 100%;
+ }
+
+.how-it-works {
+  display: flex;
+  width: 199px;
+  height: 40px;
+  padding: 7px 15px 7px 13px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  h3 {
+    margin: 0;
+    color: #26BEA4;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+}
+
+a.how-it-works {
+  text-decoration: none;
+}
+
+.sign-up-subtitle {
+  color: #FFF;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

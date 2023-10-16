@@ -1,40 +1,85 @@
-<div class="signup-container">
+<div class="signup-container" data-controller="how-it-works">
   <h5 class="disclaimer">Bodfrens is only available on mobile, find us there!</h5>
 
-  <section class="signup-top-bar">
-    <a href="#" data-bs-toggle="modal" data-bs-target="#howToplayModal">
-      <%= image_tag("pngs/bodfrens_graphics-17.png", width: "25px") %>
-    </a>
-      <%= render 'shared/how_to_play_modal' %>
-  </section>
 
   <div class="signup-content">
+
     <%= image_tag "pngs/logo.png", width: "245px", height: "50px", id: "signup-logo" %>
+
+    <p class = "sign-up-subtitle">Gamify your workouts. Play with friends.</p>
+
+    <a href="#" data-action="click->how-it-works#openHowItWorksModal" class="how-it-works">
+    <h3>How it works ⓘ</h3>
+    </a>
+
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="form-inputs signup mt-4">
-        <%= f.input :email,
-                    label_html: { class: "signup-label" },
-                    required: true,
-                    autofocus: true,
-                    input_html: { autocomplete: "email", class: "signup-input"  } %>
-        <%= f.input :password,
-                    required: true,
-                    label_html: { class: "signup-label" },
-                    input_html: { autocomplete: "current-password", class: "signup-input"  } %>
+      <div class="form-inputs signup" style = "padding-top: 50%">
+        <%= f.input :email, label: false, required: true, autofocus: true, input_html: { autocomplete: "email", class: "signup-input", placeholder: "Enter your email" } %>
+
+        <%= f.input :password, label: false, required: true, input_html: { autocomplete: "current-password", class: "signup-input", placeholder: "Enter your password" } %>
+
         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
 
         <div class="form-actions">
-          <%= f.button :submit, "Log in", class: "main-orange-btn login-button" %>
-        </div>
-        <div class="signin-bottom">
-          <p class="signup-bottom-left">Don’t have an account? <%= link_to "Sign up", new_user_registration_path, class: "signup-bottom-right" %></p>
-          <p class="signup-bottom-left"><%= link_to "Forgot password?", new_user_password_path, class: "signup-bottom-left" %></p>
+          <%= f.button :submit, "Sign in to play", class: "main-orange-btn", style: "width: 250px;" %>
         </div>
       </div>
     <% end %>
+
+    <div id="g_id_onload"
+        data-client_id="299667195765-v7s7frle6fsd216172vf32gblc4uf8hb.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="redirect"
+        data-login_uri="SignIn"
+        data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left"
+        data-width="250px">
+    </div>
+
+
+    <div class="signin-bottom">
+      <p class="signup-bottom-left">Don’t have an account? <%= link_to "Sign up", new_user_registration_path, class: "signup-bottom-right" %></p>
+      <p class="signup-bottom-left">Forgot your password? <%= link_to "Reset password", new_user_password_path, class: "signup-bottom-right" %></p>
+    </div>
   </div>
 </div>
 
+<div class="how-it-works-screen animate__animated animate__fadeIn" style="display:none">
+  <a class="how-it-works-close-button" href="#" data-action="click->how-it-works#closeHowItWorksModal">
+    <i class="fa-solid fa-x"  style="color: #2a2d32;"></i>
+  </a>
+ <!---
+  <div id="information" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#information" data-slide-to="0" class="active"></li>
+      <li data-target="#information" data-slide-to="1"></li>
+      <li data-target="#information" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <h2>Use gamification to build an exercise habit!</h2>
+        <h4>Once you start a game, you will be given 5 exercises to finish, and a timer to start.</h4>
+      </div>
+      <div class="carousel-item">
+        <h2>Slide 2</h2>
+        <h4>Once you start a game, you will be given 5 exercises to finish, and a timer to start.</h4>
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="..." alt="Third slide">
+      </div>
+    </div>
+  </div>
+-->
+
+</div>
 
 
 

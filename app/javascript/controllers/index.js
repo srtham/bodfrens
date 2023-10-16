@@ -13,6 +13,9 @@ application.register("game", GameController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import HowItWorksController from "./how_it_works_controller"
+application.register("how-it-works", HowItWorksController)
+
 import LobbySubscribeController from "./lobby_subscribe_controller"
 application.register("lobby-subscribe", LobbySubscribeController)
 
