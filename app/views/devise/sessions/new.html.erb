@@ -26,24 +26,9 @@
       </div>
     <% end %>
 
-    <div id="g_id_onload"
-        data-client_id="299667195765-v7s7frle6fsd216172vf32gblc4uf8hb.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="redirect"
-        data-login_uri="SignIn"
-        data-auto_prompt="false">
-    </div>
-
-    <div class="g_id_signin"
-        data-type="standard"
-        data-shape="rectangular"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="large"
-        data-logo_alignment="left"
-        data-width="250px">
-    </div>
-
+    <%- if devise_mapping.omniauthable? %>
+      <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
+    <%- end %>
 
     <div class="signin-bottom">
       <p class="signup-bottom-left">Don’t have an account? <%= link_to "Sign up", new_user_registration_path, class: "signup-bottom-right" %></p>

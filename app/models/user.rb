@@ -9,6 +9,17 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
+  def self.from_omniauth(auth)
+    where(uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.avatar_url = auth.info.image
+      # if you use confirmable and the providers(s) you use validate emails,
+      # uncomment the line below to skip the confrimation emails.
+      # user.skip_confirmation!
+    end
+  end
+
   def average_time
     user_data = user_game_data
     if user_data.present?

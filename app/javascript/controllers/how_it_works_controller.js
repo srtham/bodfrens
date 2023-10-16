@@ -13,6 +13,7 @@ export default class extends Controller {
   }
 
   closeHowItWorksModal(e) {
+    this.modal = document.querySelector(".how-it-works-screen")
     e.preventDefault();
     this.modal.style = "display:none"
   }
