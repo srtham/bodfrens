@@ -143,7 +143,11 @@ class RoomsController < ApplicationController
   # POST
   def single_player
     # 1. create room
-    room = Room.create(mode: "single")
+    if params[:circuit] == "true"
+      room = Room.create(mode: "single", circuit: "true")
+    else
+      room = Room.create(mode: "single", circuit: "false")
+    end
     # 2. create user game data
     game_data = UserGameDatum.create(user: current_user, room:)
     # 3. Get 5 non-bonus exercises from the database

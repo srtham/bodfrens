@@ -18,6 +18,25 @@
   line-height: normal;
 }
 
+.main-green-btn {
+  // rounded orange button with gradient
+  display: flex;
+  padding: 7px 22px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 13px;
+  margin: 4px;
+  background: linear-gradient(270deg, #43b191 1.83%, #55d1ad 95.87%);
+  box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.13);
+  font-weight: 700;
+  color: white;
+  border: none;
+  text-decoration: none;
+  font-size: 20px;
+  line-height: normal;
+}
+
+
 .gray-modal-btn {
   // gray button for modal prompt
   display: flex;
