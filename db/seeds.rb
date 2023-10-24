@@ -18,13 +18,13 @@ puts "Clearing done"
 puts "create 10 exercise"
 # Create 10 example exercises
 exercise_data = [
-  { title: "30 Push-Ups", description: "Basic push-ups for upper body strength.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/Push_ups.gif" },
-  { title: "30 Sit-Ups", description: "Core exercise focusing on the abdominal muscles.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Sit_ups.gif" },
-  { title: "20 Alt Lunges", description: "Great for leg muscle and strength.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Alt_Leg_Lunge.gif" },
+  { title: "10 Push-Ups", description: "Basic push-ups for upper body strength.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/Push_ups.gif" },
+  { title: "15 Sit-Ups", description: "Core exercise focusing on the abdominal muscles.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Sit_ups.gif" },
+  { title: "16 Alt Lunges", description: "Great for leg muscle and strength.", exercise_xp: 25, is_bonus: false, image_url: "animationsFA/Alt_Leg_Lunge.gif" },
   { title: "10 Half-Burpees", description: "Full body strength and aerobic exercise.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/HalfBurpees.gif" },
-  { title: "50 Squats", description: "Excellent for building lower body strength.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/Squats.gif" },
+  { title: "10 Squats", description: "Excellent for building lower body strength.", exercise_xp: 20, is_bonus: false, image_url: "animationsFA/Squats.gif" },
   { title: "20 Jumping Jacks", description: "Good for cardiovascular fitness.", exercise_xp: 40, is_bonus: true, image_url: "animationsFA/Jumping_Jacks.gif" },
-  { title: "30 High Knees", description: "Works on your back and arm muscles.", exercise_xp: 35, is_bonus: true, image_url: "animationsFA/High_knee.gif" },
+  { title: "20 High Knees", description: "Works on your back and arm muscles.", exercise_xp: 35, is_bonus: true, image_url: "animationsFA/High_knee.gif" },
   { title: "10 Crunches", description: "Effective abdominal exercise.", exercise_xp: 40, is_bonus: true, image_url: "animationsFA/Crunches.gif" }
 ]
 exercise_data.each do |data|

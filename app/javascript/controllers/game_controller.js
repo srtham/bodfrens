@@ -18,7 +18,7 @@ export default class extends Controller {
   }
 
   connect() {
-
+    console.log(`this is the seconds left value=${this.secondsLeftValue}`)
     // set audio files
     this.startSound = new Audio("/audios/start.mp3")
     this.buttonSound = new Audio("/audios/clicksound.mp3")
