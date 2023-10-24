@@ -20,8 +20,9 @@
           Start a single player match?
         </div>
         <div class="modal-footer">
-           <%= button_to "Yes", single_player_path, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
-          <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">No</button>
+           <%= button_to "Simple", single_player_path, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+           <%= button_to "Circuit", single_player_path, method: :post, params: { circuit: true }, class: "main-green-btn", style: "width: 150px; height: 50px;" %>
+          <button data-bs-dismiss="modal" type="button" aria-label="Close" class="gray-modal-btn" style="width: 150px; height:50px;">Cancel</button>
         </div>
       </div>
     </div>

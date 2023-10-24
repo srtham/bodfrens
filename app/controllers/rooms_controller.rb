@@ -89,6 +89,19 @@ class RoomsController < ApplicationController
       @regular_xp = calculate_exp(@regular_exercises)
       @bonus_exercises = @user_game_data.exercises.where(is_bonus: true)
       @bonus_xp = calculate_exp(@bonus_exercises)
+
+
+      ## if room is bonus and a circuit round
+      @seconds_left = 600 if @room.bonus == true && @room.circuit == true
+
+      ## if room is bonus and not a circuit round
+      @seconds_left = 480 if @room.bonus == true && @room.circuit == false
+
+      ## if room is regular and is a circuit round
+      @seconds_left = 1500 if @room.bonus == false && @room.circuit == true
+
+      ## if room is regular and not a circtuit round
+      @seconds_left = 900 if @room.bonus == false && @room.circuit == false
       render "rooms/singleplayershow"
     else
       user_game_data_ids = @room.user_game_data.pluck(:user_id)
@@ -143,7 +156,11 @@ class RoomsController < ApplicationController
   # POST
   def single_player
     # 1. create room
-    room = Room.create(mode: "single")
+    if params[:circuit] == "true"
+      room = Room.create(mode: "single", circuit: "true")
+    else
+      room = Room.create(mode: "single", circuit: "false")
+    end
     # 2. create user game data
     game_data = UserGameDatum.create(user: current_user, room:)
     # 3. Get 5 non-bonus exercises from the database

@@ -1,17 +1,11 @@
 
 
 
-<!-- ruby code to determine game length -->
-<% seconds_left = 0 %>
-
 <% if @room.bonus %>
-  <% seconds_left = 90 %>
   <% exercises = @bonus_exercises %>
 <% else %>
-  <% seconds_left = 180 %>
   <% exercises = @regular_exercises %>
 <% end %>
-<!-- -->
 
 <!-- ruby code to determine previous time taken -->
 <% time_taken = 0 %>
@@ -29,15 +23,15 @@
   data-game-time-taken-value="<%=time_taken%>"
   data-game-xp-value="<%=@room.bonus ? @user_game_data.game_xp : 0%>"
   data-game-room-value="<%=@room.id%>"
+  data-game-circuit-value="<%=@room.circuit%>"
   data-game-user-value="<%=@user%>"
   data-game-end-value="<%= @room.bonus ? @bonus_xp + @regular_xp : @regular_xp %>"
   data-game-data-id-value=<%=@user_game_data.id%>
-  data-game-seconds-left-value="<%= seconds_left %>"
+  data-game-seconds-left-value="<%= @seconds_left %>"
   data-game-bonus-value="<%=@room.bonus%>">
 
   <div class="room-page-container">
     <div class="spacer" style="height:5%; width 2px;"></div>
-
     <section class="timer">
       <%= content_tag(:h1, "Go!", data: {
         game_target: "timer",
@@ -46,23 +40,56 @@
       }) %>
     </section>
 
-    <section class="game-buttons-container animate__animated animate__fadeInDown">
-      <% exercises.each_with_index do |exercise, index| %>
-        <div>
-          <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal<%=index + 1%>">
-            <%= image_tag("svgs/search_logo_gray.svg") %>
-          </button>
-          <button
-            data-game-target="<%= @room.bonus ? 'bonusButton' : 'button' %>"
-            data-action="<%= @room.bonus ? 'click->game#markBonusComplete' : 'click->game#markComplete' %>"
-            value="<%= exercise.exercise_xp %>"
-            class="button"
-          >
-            <span class="spacer" style="width:10%"></span><h3 class="text" style="width: fit-content; text-align: center;"><%="#{exercise.title}"%></h3> <h5 class="xp"><%="#{exercise.exercise_xp}XP"%></h5>
-          </button>
-        </div>
+    <% if @room.circuit == true %>
+      <section>
+        <h5 class="set-counter">Set 1/3</h5>
+      </section>
+    <% end %>
+
+    <% if @room.circuit == false %>
+      <section class="game-buttons-container animate__animated animate__fadeInDown">
+        <% exercises.each_with_index do |exercise, index| %>
+          <div>
+            <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal<%=index + 1%>">
+              <%= image_tag("svgs/search_logo_gray.svg") %>
+            </button>
+            <button
+              data-game-target="<%= @room.bonus ? 'bonusButton' : 'button' %>"
+              data-action="<%= @room.bonus ? 'click->game#markBonusComplete' : 'click->game#markComplete' %>"
+              value="<%= exercise.exercise_xp %>"
+              class="button"
+            >
+              <span class="spacer" style="width:10%"></span><h3 class="text" style="width: fit-content; text-align: center;"><%="#{exercise.title}"%></h3> <h5 class="xp"><%="#{exercise.exercise_xp}XP"%></h5>
+            </button>
+          </div>
+        <% end %>
+      </section>
+    <% end %>
+
+    <% if @room.circuit == true ## For if it is a circuit room %>
+      <% section_number = 1 %>
+      <% 3.times do %>
+       <section class="game-buttons-container animate__animated animate__fadeInDown" id="exercise-section-<%=section_number%>" style="display:none">
+          <% exercises.each_with_index do |exercise, index| %>
+            <div>
+              <button class="icon" data-bs-toggle="modal" data-bs-target="#exerciseModal<%=index + 1%>">
+                <%= image_tag("svgs/search_logo_gray.svg") %>
+              </button>
+              <button
+                data-game-target="<%= @room.bonus ? 'bonusButton' : 'button' %>"
+                data-action="<%= @room.bonus ? 'click->game#markBonusComplete' : 'click->game#markComplete' %>"
+                value="<%= exercise.exercise_xp %>"
+                class="button"
+              >
+                <span class="spacer" style="width:10%"></span><h3 class="text" style="width: fit-content; text-align: center;"><%="#{exercise.title}"%></h3> <h5 class="xp"><%="#{exercise.exercise_xp}XP"%></h5>
+              </button>
+            </div>
+          <% end %>
+          <% section_number += 1 %>
+        </section>
       <% end %>
-    </section>
+    <% end %>
+
 
 
     <div class= "xp-container" style="width:65%; ">
@@ -93,7 +120,7 @@
               Opt for a bonus round?
             </div>
             <div class="modal-footer">
-              <%= button_to "Yes", "#", data: {action: "click->game#startBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
+              <%= button_to "Yes", "#", form: {"data-turbo" => "false"}, data: {action: "click->game#startBonus"}, class: "main-orange-btn", style: "width: 150px; height: 50px;" %>
               <%= link_to "No", show_game_complete_room_path, class: "gray-modal-btn", style: "width: 150px; height: 50px;" %>
             </div>
           </div>
